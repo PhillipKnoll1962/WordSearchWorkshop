@@ -12,7 +12,6 @@
             --card-bg: #ffffff;
             --text: #333333;
             --grid-border: #ccc;
-            --answer-bg: #ffeb3b;
         }
 
         /* Lock the viewport to exactly one screen height on desktop */
@@ -262,6 +261,16 @@
             color: white;
         }
 
+        /* Grid Wrapper */
+        .grid-wrapper {
+            position: relative;
+            margin-bottom: 15px;
+            max-height: 310px; 
+            max-width: 310px;
+            width: 100%;
+            aspect-ratio: 1;
+        }
+
         #grid {
             display: grid;
             gap: 2px;
@@ -269,11 +278,9 @@
             padding: 2px;
             border-radius: 4px;
             user-select: none;
-            margin-bottom: 15px;
-            max-height: 310px; 
-            max-width: 310px;
             width: 100%;
-            aspect-ratio: 1;
+            height: 100%;
+            box-sizing: border-box;
         }
 
         .cell {
@@ -283,10 +290,13 @@
             justify-content: center;
             font-weight: bold;
             text-transform: uppercase;
+            box-sizing: border-box;
+            border: 2px solid transparent; /* Smooth border placeholder */
         }
 
-        .cell.is-answer {
-            background-color: var(--answer-bg);
+        /* Bold answer border styling */
+        .cell.answer-highlight {
+            border: 2.5px solid #000000 !important;
         }
 
         .word-list-container {
@@ -382,7 +392,7 @@
             .ad-column {
                 display: none; 
             }
-            #grid {
+            .grid-wrapper {
                 max-height: 85vw; 
                 max-width: 85vw;
             }
@@ -466,7 +476,9 @@
         <div class="panel" id="word-search-container">
             <h3>Live Book Preview Panel</h3>
             <div id="preview-tabs"></div>
-            <div id="grid"></div>
+            <div class="grid-wrapper">
+                <div id="grid"></div>
+            </div>
             <div class="word-list-container">
                 <h4>Words to Find:</h4>
                 <div class="word-list-scroll">
@@ -529,7 +541,7 @@
             "6x9":    { widthIn: 6.0,  heightIn: 9.0,  widthPx: 576, heightPx: 864 },
             "8.5x11": { widthIn: 8.5,  heightIn: 11.0, widthPx: 816, heightPx: 1056 },
             "5.5x8.5":{ widthIn: 5.5,  heightIn: 8.5,  widthPx: 528, heightPx: 816 },
-            "8.25x6": { widthIn: 8.25, heightIn: 6.0,  widthPx: 792, heightPx: 576 }
+            "8.25x6": { widthIn: 792, heightIn: 576 }
         };
 
         function processBulkInput() {
@@ -552,7 +564,7 @@
                 if (words.length === 0) return;
 
                 let matrix = Array(gridSize).fill(null).map(() => Array(gridSize).fill(''));
-                let answerCoordinates = {};
+                let placementRecords = [];
 
                 const directions = [
                     {r: 0, c: 1}, {r: 1, c: 0}, {r: 1, c: 1},
@@ -567,7 +579,15 @@
                         const row = Math.floor(Math.random() * gridSize);
                         const col = Math.floor(Math.random() * gridSize);
                         if (canPlaceWord(matrix, word, row, col, dir)) {
-                            placeWord(matrix, word, row, col, dir, answerCoordinates);
+                            placeWord(matrix, word, row, col, dir);
+                            placementRecords.push({
+                                word: word,
+                                startRow: row,
+                                startCol: col,
+                                endRow: row + dir.r * (word.length - 1),
+                                endCol: col + dir.c * (word.length - 1),
+                                dir: dir
+                            });
                             placed = true;
                         }
                         attempts++;
@@ -588,7 +608,7 @@
                     title: specificTitle || `${baseTitleInput.value.trim()} ${index + 1}`,
                     words: words,
                     matrix: matrix,
-                    answers: answerCoordinates
+                    placements: placementRecords
                 });
             });
 
@@ -614,12 +634,11 @@
             return true;
         }
 
-        function placeWord(matrix, word, row, col, dir, answersObj) {
+        function placeWord(matrix, word, row, col, dir) {
             let r = row;
             let c = col;
             for (let i = 0; i < word.length; i++) {
                 matrix[r][c] = word[i];
-                answersObj[`${r},${c}`] = true;
                 r += dir.r;
                 c += dir.c;
             }
@@ -660,8 +679,22 @@
             gridElement.innerHTML = '';
             gridElement.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
             
-            const containerWidth = Math.min(310, gridElement.parentElement.offsetWidth - 40);
-            const cellSize = containerWidth / gridSize;
+            const containerWidth = Math.min(310, gridElement.parentElement.offsetWidth);
+            const cellSize = (containerWidth - (gridSize * 2)) / gridSize;
+
+            // Track highlighted cell coordinates
+            const highlightSet = new Set();
+            if (globalShowAnswers) {
+                puzzle.placements.forEach(p => {
+                    let r = p.startRow;
+                    let c = p.startCol;
+                    for (let i = 0; i < p.word.length; i++) {
+                        highlightSet.add(`${r}-${c}`);
+                        r += p.dir.r;
+                        c += p.dir.c;
+                    }
+                });
+            }
             
             for (let r = 0; r < gridSize; r++) {
                 for (let c = 0; c < gridSize; c++) {
@@ -671,9 +704,11 @@
                     cell.style.height = `${cellSize}px`;
                     cell.style.fontSize = `${cellSize * 0.55}px`;
                     cell.textContent = puzzle.matrix[r][c];
-                    if (globalShowAnswers && puzzle.answers[`${r},${c}`]) {
-                        cell.classList.add('is-answer');
+                    
+                    if (highlightSet.has(`${r}-${c}`)) {
+                        cell.classList.add('answer-highlight');
                     }
+                    
                     gridElement.appendChild(cell);
                 }
             }
@@ -771,7 +806,6 @@
 
             pdfDoc.save(finalName);
 
-            // REMINDER POPUP POPPING ONLY AFTER CLEAN BOOK IS FULLY DOWNLOADED
             if (mode === 'clean') {
                 setTimeout(() => {
                     alert("📘 Clean Puzzle Book Downloaded!\n\nDon't forget to click the orange button ('Export Teacher Answer Key Only') next so you have the solutions file ready for printing!");
@@ -898,38 +932,59 @@
             titleEl.style.letterSpacing = '1px';
             pageContainer.appendChild(titleEl);
 
+            const relativeWrapper = document.createElement('div');
+            relativeWrapper.style.position = 'relative';
+            const isLandscape = cfg.widthIn > cfg.heightIn;
+            const boxDimension = isLandscape ? 310 : 360;
+            relativeWrapper.style.width = `${boxDimension}px`;
+            relativeWrapper.style.height = `${boxDimension}px`;
+
             const gridEl = document.createElement('div');
             gridEl.style.display = 'grid';
             gridEl.style.gap = '1px';
             gridEl.style.backgroundColor = '#000000';
             gridEl.style.padding = '1px';
-            gridEl.style.margin = '0 auto';
-            
-            const isLandscape = cfg.widthIn > cfg.heightIn;
-            const boxDimension = isLandscape ? '310px' : '360px';
-            gridEl.style.width = boxDimension;  
-            gridEl.style.height = boxDimension;
+            gridEl.style.width = '100%';  
+            gridEl.style.height = '100%';
             gridEl.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+            gridEl.style.boxSizing = 'border-box';
+
+            const pdfHighlightSet = new Set();
+            if (showAnswersInPDF) {
+                puzzle.placements.forEach(p => {
+                    let r = p.startRow;
+                    let c = p.startCol;
+                    for (let i = 0; i < p.word.length; i++) {
+                        pdfHighlightSet.add(`${r}-${c}`);
+                        r += p.dir.r;
+                        c += p.dir.c;
+                    }
+                });
+            }
             
             for (let r = 0; r < gridSize; r++) {
                 for (let c = 0; c < gridSize; c++) {
                     const cell = document.createElement('div');
-                    if (showAnswersInPDF && puzzle.answers[`${r},${c}`]) {
-                        cell.style.backgroundColor = '#ffeb3b'; 
-                    } else {
-                        cell.style.backgroundColor = '#ffffff';
-                    }
+                    cell.style.backgroundColor = '#ffffff';
                     cell.style.display = 'flex';
                     cell.style.alignItems = 'center';
                     cell.style.justifyContent = 'center';
                     cell.style.fontWeight = 'bold';
                     cell.style.fontSize = isLandscape ? '14px' : '16px';
                     cell.style.textTransform = 'uppercase';
+                    cell.style.boxSizing = 'border-box';
+                    cell.style.border = '2px solid transparent';
                     cell.textContent = puzzle.matrix[r][c];
+                    
+                    if (pdfHighlightSet.has(`${r}-${c}`)) {
+                        cell.style.border = '2.5px solid #000000';
+                    }
+                    
                     gridEl.appendChild(cell);
                 }
             }
-            pageContainer.appendChild(gridEl);
+            relativeWrapper.appendChild(gridEl);
+            pageContainer.appendChild(relativeWrapper);
 
             const listEl = document.createElement('ul');
             listEl.style.display = 'grid';
