@@ -30,12 +30,12 @@
             display: flex;
             flex-direction: column;
             box-sizing: border-box;
-            padding: 12px 15px; 
+            padding: 12px 15px 5px 15px; 
         }
 
         header {
             text-align: center;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             flex-shrink: 0;
         }
 
@@ -92,7 +92,7 @@
         /* Visual placeholder representing the AdSense bounds */
         .ad-box-placeholder {
             width: 160px;
-            height: 600px;
+            height: 580px;
             background-color: #e9ecef;
             border: 2px dashed #adb5bd;
             border-radius: 6px;
@@ -334,18 +334,24 @@
             font-weight: bold;
         }
 
+        .screen-footer {
+            text-align: center;
+            font-size: 11px;
+            color: #777;
+            margin-top: 10px;
+            flex-shrink: 0;
+            letter-spacing: 0.3px;
+        }
+
         #hidden-rendering-deck {
             position: absolute;
             left: -9999px;
             top: -9999px;
         }
 
-        /* ------------------------------------ */
-        /* NEW RESPONSIVE MOBILE MEDIA QUERY    */
-        /* ------------------------------------ */
         @media (max-width: 850px) {
             html, body {
-                overflow-y: auto; /* Allow master page scrolling on mobile devices */
+                overflow-y: auto; 
                 height: auto;
             }
             body {
@@ -358,7 +364,7 @@
                 font-size: 12px;
             }
             .container {
-                flex-direction: column; /* Stack panels cleanly into a single vertical column */
+                flex-direction: column; 
                 gap: 15px;
             }
             .panel {
@@ -367,19 +373,22 @@
                 min-height: auto;
                 flex: none;
             }
-            /* Visual prioritization: Force preview board panel to load up top, above options */
             #word-search-container {
                 order: -1; 
             }
             .scrollable-controls {
-                overflow-y: visible; /* Prevent nested inner scroll conflicts on touches */
+                overflow-y: visible; 
             }
             .ad-column {
-                display: none; /* Hide the fixed skyscraper ad block completely on mobile viewports */
+                display: none; 
             }
             #grid {
-                max-height: 85vw; /* Maintain perfect square scaling cleanly within small touch boundaries */
+                max-height: 85vw; 
                 max-width: 85vw;
+            }
+            .screen-footer {
+                margin-top: 15px;
+                margin-bottom: 10px;
             }
         }
     </style>
@@ -473,6 +482,10 @@
             </div>
         </div>
     </div>
+
+    <footer class="screen-footer">
+        The Word Search Workshop &copy; 2026 &bull; Streamlined KDP Production Platform
+    </footer>
 
     <div id="hidden-rendering-deck"></div>
 
@@ -674,7 +687,17 @@
             });
         }
 
+        function isInAppBrowser() {
+            const ua = navigator.userAgent || navigator.vendor || window.opera;
+            return (ua.indexOf("FBAN") > -1) || (ua.indexOf("FBAV") > -1) || (ua.indexOf("Instagram") > -1) || (ua.indexOf("Messenger") > -1);
+        }
+
         async function exportPipeline(mode) {
+            if (isInAppBrowser()) {
+                alert("⚠️ PDF Generation Blocked by Messenger!\n\nFacebook Messenger's built-in browser does not support downloading PDF files.\n\nPlease tap the three dots (...) in the top right corner and select 'Open in Chrome' or 'Open in Browser' to download your book successfully!");
+                return;
+            }
+
             if (loadedPuzzles.length === 0) {
                 errorMsg.textContent = "Please process and preview the puzzles first.";
                 return;
@@ -747,6 +770,13 @@
             if (mode === 'keys') finalName = `answer_keys_${selectedSizeKey}.pdf`;
 
             pdfDoc.save(finalName);
+
+            // REMINDER POPUP POPPING ONLY AFTER CLEAN BOOK IS FULLY DOWNLOADED
+            if (mode === 'clean') {
+                setTimeout(() => {
+                    alert("📘 Clean Puzzle Book Downloaded!\n\nDon't forget to click the orange button ('Export Teacher Answer Key Only') next so you have the solutions file ready for printing!");
+                }, 500);
+            }
         }
 
         function createBookCoverPageElement(cfg) {
