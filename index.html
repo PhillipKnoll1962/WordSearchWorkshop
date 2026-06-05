@@ -277,28 +277,35 @@
             color: white;
         }
 
-        /* Grid Wrapper */
+        /* FIXED: Added clean layout boundaries and flex safety */
         .grid-wrapper {
             position: relative;
             margin-bottom: 15px;
-            max-height: 310px; 
-            max-width: 310px;
+            max-width: 440px; 
             width: 100%;
-            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            container-type: inline-size; 
         }
 
+        /* FIXED: Locked the grid dimensions directly to the wrapper box sizes */
         #grid {
             display: grid;
-            gap: 2px;
+            gap: 1px;
             background-color: var(--grid-border);
-            padding: 2px;
+            padding: 1px;
             border-radius: 4px;
             user-select: none;
             width: 100%;
-            height: 100%;
+            max-width: 100%;
+            height: auto;
+            aspect-ratio: 1 / 1; 
             box-sizing: border-box;
         }
 
+        /* Enforce tight box matching without overflow gaps */
         .cell {
             background-color: white;
             display: flex;
@@ -307,12 +314,15 @@
             font-weight: bold;
             text-transform: uppercase;
             box-sizing: border-box;
-            border: 2px solid transparent; 
+            border: 1px solid transparent; 
+            aspect-ratio: 1 / 1;
+            width: 100%;
+            height: 100%;
         }
 
         /* Bold answer border styling */
         .cell.answer-highlight {
-            border: 2.5px solid #000000 !important;
+            border: 2px solid #000000 !important;
         }
 
         .word-list-container {
@@ -409,8 +419,8 @@
                 display: none; 
             }
             .grid-wrapper {
-                max-height: 85vw; 
                 max-width: 85vw;
+                width: 85vw;
             }
             .screen-footer {
                 margin-top: 15px;
@@ -559,7 +569,6 @@
         exportCleanBtn.addEventListener('click', () => exportPipeline('clean'));
         exportKeysBtn.addEventListener('click', () => exportPipeline('keys'));
 
-        // Handle text file uploads
         fileUpload.addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (!file) return;
@@ -567,7 +576,7 @@
             const reader = new FileReader();
             reader.onload = function(evt) {
                 bulkInput.value = evt.target.result;
-                processBulkInput(); // Automatically compile on load
+                processBulkInput(); 
             };
             reader.readAsText(file);
         });
@@ -587,7 +596,6 @@
             const rawBlocks = bulkInput.value.split(/\n\s*---\s*\n/);
             
             rawBlocks.forEach((block, index) => {
-                // Split the lines out cleanly first
                 let rawLines = block.split('\n').map(l => l.trim()).filter(l => l.length > 0);
                 if (rawLines.length === 0) return;
 
@@ -596,7 +604,6 @@
                     specificTitle = rawLines.shift().toUpperCase();
                 }
 
-                // Smart list parser: seamlessly process lines whether they have commas or newlines
                 let words = [];
                 rawLines.forEach(line => {
                     if (line.includes(',')) {
@@ -607,7 +614,6 @@
                     }
                 });
 
-                // Filter words that fit within our max grid layout sizes
                 words = words.filter(w => w.length <= gridSize);
                 if (words.length === 0) return;
 
@@ -720,17 +726,14 @@
             });
         }
 
+        /* FIXED: Font-size calculations adjusted smoothly to match tighter layout containers */
         function renderActivePreview() {
             const puzzle = loadedPuzzles[activeTabIndex];
             if (!puzzle) return;
 
             gridElement.innerHTML = '';
             gridElement.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
-            
-            const containerWidth = Math.min(310, gridElement.parentElement.offsetWidth);
-            const cellSize = (containerWidth - (gridSize * 2)) / gridSize;
 
-            // Track highlighted cell coordinates
             const highlightSet = new Set();
             if (globalShowAnswers) {
                 puzzle.placements.forEach(p => {
@@ -748,9 +751,9 @@
                 for (let c = 0; c < gridSize; c++) {
                     const cell = document.createElement('div');
                     cell.classList.add('cell');
-                    cell.style.width = `${cellSize}px`;
-                    cell.style.height = `${cellSize}px`;
-                    cell.style.fontSize = `${cellSize * 0.55}px`;
+                    
+                    // Scaled exactly with cqw container rules to fit perfectly packed grids
+                    cell.style.fontSize = `calc((100cqw / ${gridSize}) * 0.46)`;
                     cell.textContent = puzzle.matrix[r][c];
                     
                     if (highlightSet.has(`${r}-${c}`)) {
