@@ -15,7 +15,7 @@
             --answer-bg: #ffeb3b;
         }
 
-        /* Lock the viewport to exactly one screen height */
+        /* Lock the viewport to exactly one screen height on desktop */
         html, body {
             height: 100%;
             margin: 0;
@@ -208,19 +208,6 @@
             background-color: #d84315;
         }
 
-        /* 2-Column Button Grid Custom Layouts */
-        .action-button-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 8px;
-            flex-shrink: 0;
-        }
-
-        .action-button-grid button {
-            margin-bottom: 0;
-        }
-
         .export-group {
             margin-top: 8px;
             border-top: 2px dashed #ddd;
@@ -234,20 +221,6 @@
             color: #777;
             margin-bottom: 6px;
             letter-spacing: 0.5px;
-        }
-
-        .export-button-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-        }
-
-        .export-button-grid button {
-            margin-bottom: 0;
-        }
-
-        .export-button-grid #export-combined-btn {
-            grid-column: span 2;
         }
 
         #word-search-container {
@@ -310,15 +283,10 @@
             justify-content: center;
             font-weight: bold;
             text-transform: uppercase;
-            color: #333333;
-            box-sizing: border-box;
         }
 
-        /* Distinct inline box background borders for paths on the dashboard live preview */
         .cell.is-answer {
             background-color: var(--answer-bg);
-            border: 2px solid #d32f2f;
-            color: #d32f2f;
         }
 
         .word-list-container {
@@ -372,24 +340,47 @@
             top: -9999px;
         }
 
-        /* Production Utility Footer Styling */
-        footer {
-            text-align: center;
-            font-size: 11px;
-            color: #666;
-            margin-top: 10px;
-            flex-shrink: 0;
-            line-height: 1.4;
-        }
-
-        footer a {
-            color: var(--primary);
-            text-decoration: none;
-            margin: 0 8px;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
+        /* ------------------------------------ */
+        /* NEW RESPONSIVE MOBILE MEDIA QUERY    */
+        /* ------------------------------------ */
+        @media (max-width: 850px) {
+            html, body {
+                overflow-y: auto; /* Allow master page scrolling on mobile devices */
+                height: auto;
+            }
+            body {
+                padding: 10px;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .subtitle {
+                font-size: 12px;
+            }
+            .container {
+                flex-direction: column; /* Stack panels cleanly into a single vertical column */
+                gap: 15px;
+            }
+            .panel {
+                min-width: 100%;
+                height: auto;
+                min-height: auto;
+                flex: none;
+            }
+            /* Visual prioritization: Force preview board panel to load up top, above options */
+            #word-search-container {
+                order: -1; 
+            }
+            .scrollable-controls {
+                overflow-y: visible; /* Prevent nested inner scroll conflicts on touches */
+            }
+            .ad-column {
+                display: none; /* Hide the fixed skyscraper ad block completely on mobile viewports */
+            }
+            #grid {
+                max-height: 85vw; /* Maintain perfect square scaling cleanly within small touch boundaries */
+                max-width: 85vw;
+            }
         }
     </style>
     
@@ -452,18 +443,14 @@
                 </div>
             </div>
             
-            <div class="action-button-grid">
-                <button id="generate-btn">Process & Preview All Puzzles</button>
-                <button id="toggle-answers-btn" class="warning">Toggle Answers On Dashboard</button>
-            </div>
+            <button id="generate-btn">Process & Preview All Puzzles</button>
+            <button id="toggle-answers-btn" class="warning">Toggle Answers On Dashboard</button>
             
             <div class="export-group">
                 <div class="export-label">Print & PDF Delivery Options</div>
-                <div class="export-button-grid">
-                    <button id="export-combined-btn" class="success">Export Book + Answers at End</button>
-                    <button id="export-clean-btn">Export Clean Puzzle Book Only</button>
-                    <button id="export-keys-btn" class="warning">Export Teacher Answer Key Only</button>
-                </div>
+                <button id="export-combined-btn" class="success">Export Book + Answers at End</button>
+                <button id="export-clean-btn">Export Clean Puzzle Book Only</button>
+                <button id="export-keys-btn" class="warning">Export Teacher Answer Key Only</button>
             </div>
         </div>
 
@@ -488,16 +475,6 @@
     </div>
 
     <div id="hidden-rendering-deck"></div>
-
-    <footer>
-        <p>
-            &copy; 2026 The Word Search Workshop. All Rights Reserved. 
-            <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
-        </p>
-        <p style="color: #999; margin-top: 2px;">
-            Disclaimer: This puzzle generator is provided as-is for self-publishing utility. Users are responsible for verifying final PDF layouts against KDP submission guidelines prior to publication.
-        </p>
-    </footer>
 
     <script>
         let gridSize = 12;
@@ -547,8 +524,7 @@
             gridSize = parseInt(gridSizeInput.value) || 12;
             loadedPuzzles = [];
             
-            const cleanRawInput = bulkInput.value.replace(/\r\n/g, "\n");
-            const rawBlocks = cleanRawInput.split(/\n\s*---\s*\n/);
+            const rawBlocks = bulkInput.value.split(/\n\s*---\s*\n/);
             
             rawBlocks.forEach((block, index) => {
                 let lines = block.split('\n').map(l => l.trim().toUpperCase()).filter(l => l.length > 0);
@@ -702,11 +678,6 @@
             if (loadedPuzzles.length === 0) {
                 errorMsg.textContent = "Please process and preview the puzzles first.";
                 return;
-            }
-
-            // Trigger proactive browser intercept reminder popup
-            if (mode === 'clean') {
-                alert("Reminder: You are exporting the CLEAN puzzle book. Don't forget to also export your 'Teacher Answer Key' before closing or clearing your data blocks!");
             }
 
             hiddenRenderingDeck.innerHTML = '';
@@ -913,7 +884,11 @@
             for (let r = 0; r < gridSize; r++) {
                 for (let c = 0; c < gridSize; c++) {
                     const cell = document.createElement('div');
-                    cell.style.boxSizing = 'border-box';
+                    if (showAnswersInPDF && puzzle.answers[`${r},${c}`]) {
+                        cell.style.backgroundColor = '#ffeb3b'; 
+                    } else {
+                        cell.style.backgroundColor = '#ffffff';
+                    }
                     cell.style.display = 'flex';
                     cell.style.alignItems = 'center';
                     cell.style.justifyContent = 'center';
@@ -921,18 +896,6 @@
                     cell.style.fontSize = isLandscape ? '14px' : '16px';
                     cell.style.textTransform = 'uppercase';
                     cell.textContent = puzzle.matrix[r][c];
-
-                    // Safely draw sharp inner borders on puzzle solutions without altering document layers
-                    if (showAnswersInPDF && puzzle.answers[`${r},${c}`]) {
-                        cell.style.backgroundColor = '#ffeb3b'; 
-                        cell.style.border = '2px solid #d32f2f';
-                        cell.style.color = '#d32f2f';
-                    } else {
-                        cell.style.backgroundColor = '#ffffff';
-                        cell.style.color = '#000000';
-                        cell.style.border = 'none';
-                    }
-                    
                     gridEl.appendChild(cell);
                 }
             }
