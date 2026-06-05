@@ -170,6 +170,22 @@
             line-height: 1.4;
         }
 
+        .upload-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .file-input-wrapper {
+            font-size: 12px;
+            color: #555;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            font-size: 12px;
+        }
+
         button {
             background-color: var(--primary);
             color: white;
@@ -291,7 +307,7 @@
             font-weight: bold;
             text-transform: uppercase;
             box-sizing: border-box;
-            border: 2px solid transparent; /* Smooth border placeholder */
+            border: 2px solid transparent; 
         }
 
         /* Bold answer border styling */
@@ -453,9 +469,14 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="bulk-input">Puzzles Data Blocks:</label>
+                    <div class="upload-row">
+                        <label for="bulk-input">Puzzles Data Blocks:</label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="file-upload" accept=".txt">
+                        </div>
+                    </div>
                     <div class="instructions-box">
-                        <strong>Formatting:</strong> Separate puzzles with <code>---</code> on its own line.
+                        <strong>Formatting:</strong> Separate puzzles with <code>---</code>. Words can be listed on new lines <strong>OR</strong> separated by commas (e.g. <code>LION, TIGER, BEAR</code>).
                     </div>
                     <textarea id="bulk-input" placeholder="Enter data blocks..."></textarea>
                     <div id="error-msg" class="error"></div>
@@ -511,6 +532,7 @@
         const gridSizeInput = document.getElementById('grid-size');
         const bookDimensionsInput = document.getElementById('book-dimensions');
         const bulkInput = document.getElementById('bulk-input');
+        const fileUpload = document.getElementById('file-upload');
         const generateBtn = document.getElementById('generate-btn');
         const toggleAnswersBtn = document.getElementById('toggle-answers-btn');
         
@@ -528,7 +550,7 @@
         const previewTabsContainer = document.getElementById('preview-tabs');
         const hiddenRenderingDeck = document.getElementById('hidden-rendering-deck');
 
-        bulkInput.value = "ANIMALS\nLION\nTIGER\nBEAR\nELEPHANT\nGIRAFFE\nZEBRA\n---\nSPACE\nPLANET\nORBIT\nGALAXY\nROCKET\nMETEOR\nCOMET\nSTARS\n---\nCOMPUTERS\nKEYBOARD\nMONITOR\nPROCESSOR\nSOFTWARE\nNETWORK";
+        bulkInput.value = "ANIMALS\nLION, TIGER, BEAR, ELEPHANT, GIRAFFE, ZEBRA\n---\nSPACE\nPLANET, ORBIT, GALAXY, ROCKET, METEOR, COMET, STARS\n---\nCOMPUTERS\nKEYBOARD\nMONITOR\nPROCESSOR\nSOFTWARE\nNETWORK";
 
         generateBtn.addEventListener('click', processBulkInput);
         toggleAnswersBtn.addEventListener('click', toggleAnswersView);
@@ -536,6 +558,19 @@
         exportCombinedBtn.addEventListener('click', () => exportPipeline('combined'));
         exportCleanBtn.addEventListener('click', () => exportPipeline('clean'));
         exportKeysBtn.addEventListener('click', () => exportPipeline('keys'));
+
+        // Handle text file uploads
+        fileUpload.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                bulkInput.value = evt.target.result;
+                processBulkInput(); // Automatically compile on load
+            };
+            reader.readAsText(file);
+        });
 
         const sizeConfig = {
             "6x9":    { widthIn: 6.0,  heightIn: 9.0,  widthPx: 576, heightPx: 864 },
@@ -552,15 +587,28 @@
             const rawBlocks = bulkInput.value.split(/\n\s*---\s*\n/);
             
             rawBlocks.forEach((block, index) => {
-                let lines = block.split('\n').map(l => l.trim().toUpperCase()).filter(l => l.length > 0);
-                if (lines.length === 0) return;
+                // Split the lines out cleanly first
+                let rawLines = block.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+                if (rawLines.length === 0) return;
 
                 let specificTitle = "";
-                if (lines[0].length > 0 && lines.length > 1) {
-                    specificTitle = lines.shift();
+                if (rawLines[0].length > 0 && rawLines.length > 1) {
+                    specificTitle = rawLines.shift().toUpperCase();
                 }
 
-                let words = lines.filter(w => w.length <= gridSize);
+                // Smart list parser: seamlessly process lines whether they have commas or newlines
+                let words = [];
+                rawLines.forEach(line => {
+                    if (line.includes(',')) {
+                        let splitCommas = line.split(',').map(w => w.trim().toUpperCase()).filter(w => w.length > 0);
+                        words.push(...splitCommas);
+                    } else {
+                        words.push(line.toUpperCase());
+                    }
+                });
+
+                // Filter words that fit within our max grid layout sizes
+                words = words.filter(w => w.length <= gridSize);
                 if (words.length === 0) return;
 
                 let matrix = Array(gridSize).fill(null).map(() => Array(gridSize).fill(''));
