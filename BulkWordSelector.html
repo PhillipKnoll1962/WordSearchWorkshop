@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word List Creator</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            box-sizing: border-box;
+            gap: 30px;
+        }
+
+        .container {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 650px;
+            border: 1px solid var(--border);
+        }
+
+        .adsense-skyscraper {
+            width: 160px;
+            height: 600px;
+            background: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-sizing: border-box;
+            padding: 10px;
+            flex-shrink: 0;
+        }
+
+        .ad-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #94a3b8;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .ad-info {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        h1 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.75rem;
+            color: #1e1b4b;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .status-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            padding: 0.6rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #cbd5e1;
+            border-radius: 50%;
+        }
+
+        .status-dot.ready {
+            background-color: var(--success);
+            box-shadow: 0 0 8px var(--success);
+        }
+
+        .control-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 1.5rem;
+            background: #f8fafc;
+            padding: 1.25rem;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .control-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        input[type="number"], select {
+            padding: 0.5rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #0f172a;
+            outline: none;
+            background: #ffffff;
+        }
+
+        input[type="number"] {
+            width: 70px;
+            text-align: center;
+        }
+
+        select {
+            width: 250px;
+            cursor: pointer;
+        }
+
+        input[type="number"]:focus, select:focus {
+            border-color: var(--primary);
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        button {
+            flex: 1;
+            padding: 0.85rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-success {
+            background-color: #059669;
+            color: white;
+        }
+
+        .btn-success:hover:not(:disabled) {
+            background-color: #047857;
+        }
+
+        button:disabled {
+            background-color: #cbd5e1;
+            cursor: not-allowed;
+            color: #94a3b8;
+        }
+
+        textarea {
+            width: 100%;
+            height: 300px;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            outline: none;
+            background: #fafafa;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Word List Creator</h1>
+    <p class="subtitle">Download customizable puzzle blocks directly from master topic data pools</p>
+
+    <div class="status-box">
+        <div id="statusDot" class="status-dot"></div>
+        <span id="statusText">Connecting to online dictionary...</span>
+    </div>
+
+    <div class="control-panel">
+        <div class="control-row">
+            <div class="control-group">
+                <label for="listCount">Number of Puzzles:</label>
+                <input type="number" id="listCount" value="10" min="1" max="100">
+            </div>
+            <div class="control-group">
+                <label for="wordCount">Words per Block:</label>
+                <input type="number" id="wordCount" value="12" min="1" max="30">
+            </div>
+        </div>
+        
+        <div class="control-row" style="border-top: 1px solid var(--border); padding-top: 12px;">
+            <div class="control-group" style="width: 100%; justify-content: space-between;">
+                <label for="themeSelect">Select Puzzle Topic:</label>
+                <select id="themeSelect">
+                    <option value="RANDOM">General Dictionary (Random)</option>
+                    <option value="ANIMALS">Animals & Wildlife</option>
+                    <option value="BIBLE">Bible Names & Terms</option>
+                    <option value="CAMPING">Camping & Outdoors</option>
+                    <option value="SPACE">Astronomy & Space</option>
+                    <option value="OCEAN">Ocean Life & Sea</option>
+                    <option value="WEATHER">Weather & Meteorology</option>
+                    <option value="GEOGRAPHY">Geography & Landforms</option>
+                    <option value="KITCHEN">Kitchen & Cooking</option>
+                    <option value="VEHICLES">Cars & Trucks</option>
+                    <option value="GARDENING">Gardening & Plants</option>
+                    <option value="HISTORY">Ancient History</option>
+                    <option value="SPORTS">Sports & Athletics</option>
+                    <option value="MACHINES">Tools & Machinery</option>
+                    <option value="CASINO">Casino & Games</option>
+                    <option value="PIRATES">Pirates & High Seas</option>
+                    <option value="CASTLES">Castles & Knights</option>
+                    <option value="MYSTERY">Mysteries & Detective</option>
+                    <option value="AVIATION">Aviation & Flight</option>
+                    <option value="RAILROAD">Trains & Railroads</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="actions">
+        <button id="generateBtn" class="btn-primary" onclick="generateFormattedLists()" disabled>Generate Format</button>
+        <button id="downloadBtn" class="btn-success" onclick="downloadTxtFile()" disabled>Download .TXT File</button>
+    </div>
+
+    <textarea id="outputDisplay" readonly placeholder="Your formatted words will appear here..."></textarea>
+</div>
+
+<div class="adsense-skyscraper">
+    <div class="ad-label">Advertisement</div>
+    <div class="ad-info">Google AdSense<br>Wide Skyscraper<br>(160 x 600)</div>
+</div>
+
+<script>
+    let masterWords = [];
+
+    // Expanded 20-Topic Master Lists
+    const themeLists = {
+        ANIMALS: [
+            "ELEPHANT", "GIRAFFE", "LEOPARD", "CHEETAH", "KANGAROO", "DOLPHIN", "ALBATROSS", "FLAMINGO", 
+            "ALLIGATOR", "CHIMPANZEE", "GORILLA", "PLATYPUS", "PENGUIN", "MEERKAT", "REINDEER", "WOLVERINE", 
+            "SQUIRREL", "HEDGEHOG", "CHINCHILLA", "BADGER", "HAMSTER", "PANTHER", "BUFFALO", "ANTELOPE", 
+            "GRIZZLY", "PELICAN", "OSTRICH", "FALCON", "STALLION", "WALRUS", "OCTOPUS", "CARIBOU"
+        ],
+        BIBLE: [
+            "MATTHEW", "ABRAHAM", "BENJAMIN", "EMMANUEL", "ZECHARIAH", "JEREMIAH", "GABRIEL", "SOLOMON", 
+            "GENESIS", "EXODUS", "LEVITICUS", "PROVERBS", "REVELATION", "CORINTHIANS", "NAZARETH", "JERUSALEM", 
+            "BABYLON", "GOLGOTHA", "COVENANT", "SALVATION", "PROPHECY", "DISCIPLE", "SCRIPTURE", "TABERNACLE",
+            "DEUTERONOMY", "EZEKIEL", "MALACHI", "TESTAMENT", "PHARISEE", "BEELZEBUB", "METHUSELAH", "ISAIAH"
+        ],
+        CAMPING: [
+            "CAMPFIRE", "WILDERNESS", "BACKPACK", "LANTERN", "COMPASS", "TRAILHEAD", "CANTEEN", "FIREWOOD", 
+            "HAMMOCK", "SLEEPINGBAG", "HEADLAMP", "TENTSTAKE", "HIKINGBOOTS", "KNAPSACK", "OUTDOORS", "SUNSCREEN", 
+            "MATCHSTICK", "AXEHEAD", "CAMPSTOVE", "TARPAULIN", "BUGSPRAY", "FIRSTAID", "COFFEEMUG", "BINOCULARS",
+            "SKILLET", "GRIDDLE", "FLASHLIGHT", "OFFTRAIL", "OVERLAND", "TAILGATE", "MAPREADING", "WOODLAND"
+        ],
+        SPACE: [
+            "ASTRONOMY", "GALAXIES", "UNIVERSE", "ASTEROID", "METEORITE", "TELESCOPE", "SATELLITE", "ASTRONAUT",
+            "NEBULA", "SUPERNOVA", "SPACESHIP", "ORBITAL", "GRAVITY", "ECLIPSE", "SOLARSYSTEM", "QUASAR",
+            "MERCURY", "JUPITER", "NEPTUNE", "PLUTONIC", "STARDUST", "COSMOLOGY", "COMETS", "ROCKETRY"
+        ],
+        OCEAN: [
+            "BARNACLE", "JELLYFISH", "SEAHORSE", "STARFISH", "STINGRAY", "CORALREEF", "HUMPBACK", "ANEMONE",
+            "DEEPSEA", "SUBMERSIBLE", "TIDEPOOL", "SEALION", "DOLPHINS", "LOBSTER", "PLANKTON", "SEAWEED",
+            "OCTOPUS", "PELICANS", "NARWHAL", "MANATEE", "CURRENTS", "SHARKFIN", "TSUNAMI", "AQUATIC"
+        ],
+        WEATHER: [
+            "BLIZZARD", "TORNADO", "HURRICANE", "LIGHTNING", "THUNDER", "FORECAST", "BAROMETER", "HUMIDITY",
+            "DOWNPOUR", "MONSOON", "CYCLONE", "RAINBOW", "OVERCAST", "DRIZZLE", "FROSTBITE", "HAILSTONE",
+            "TYPHOON", "WEATHERMAN", "SQUALL", "AIRMASS", "THERMAL", "STRATUS", "CUMULUS", "MISTINESS"
+        ],
+        GEOGRAPHY: [
+            "MOUNTAIN", "VALLEYS", "PLATEAU", "PENINSULA", "CONTINENT", "ISLANDER", "VOLCANO", "CANYONS",
+            "ELEVATION", "LATITUDE", "LONGITUDE", "EQUATOR", "MERIDIAN", "TOPOGRAPHY", "GLACIERS", "RAINFOREST",
+            "ESTUARY", "SAVANNAH", "WATERFALL", "TERRAIN", "ISLANDS", "RIVERBED", "FRONTIER", "HORIZON"
+        ],
+        KITCHEN: [
+            "BLENDER", "SPATULA", "COLANDER", "UTENSILS", "TOASTER", "SKILLETS", "COOKWARE", "BAKEWARE",
+            "REFRIGERATOR", "MICROWAVE", "CABINETS", "CROCKERY", "FLATWARE", "GRATERS", "WHISKER", "SAUCEPAN",
+            "CLEAVER", "ROLLINGPIN", "APRON", "OVENWARE", "MIXERS", "BROILER", "FREEZERS", "STEAMER"
+        ],
+        VEHICLES: [
+            "MAVERICK", "PICKUPTRUCK", "ENGINE", "GEARBOX", "TRANSMISSION", "TAILGATE", "CARBURETOR", "EXHAUST",
+            "CYLINDER", "RADIATOR", "SUSPENSION", "FLATBED", "HYBRID", "ECOBOOST", "MANIFOLD", "ALTERNATOR",
+            "FLUIDS", "SPARKPLUG", "DASHBOARD", "DRIVETRAIN", "CROSSOVER", "OFFROAD", "BOOSTER", "BATTERIES"
+        ],
+        GARDENING: [
+            "BOTANICAL", "PERENNIAL", "EVERGREEN", "JUNIPER", "SEEDLING", "BLOSSOM", "SHRUBBERY", "VEGETABLE",
+            "FERTILIZER", "GREENHOUSE", "CREEPING", "CHARLIE", "COMPOST", "PRUNERS", "TROWEL", "FLOWERBED",
+            "MULCHING", "HARVESTING", "ROOTSYSTEM", "WILDFLOWER", "CLOVER", "LICHEN", "SPROUTS", "SUCCULENT"
+        ],
+        HISTORY: [
+            "ARCHAEOLOGY", "ARTIFACT", "EGYPTIAN", "PHARAOH", "PYRAMIDS", "ROMANS", "GLADIATOR", "COLOSSEUM",
+            "EMPEROR", "CENTURION", "CIVILIZATION", "DYNASTY", "HIEROGLYPH", "MONUMENT", "HERITAGE", "CHRONICLE",
+            "ANCIENT", "EMPIRES", "SCRIBE", "PAPYRUS", "AQUEDUCT", "KINGDOMS", "LEGENDS", "FORTRESS"
+        ],
+        SPORTS: [
+            "ATHLETICS", "MARATHON", "CHAMPION", "STADIUM", "QUARTERBACK", "TOUCHDOWN", "BASEBALL", "BASKETBALL",
+            "VOLLEYBALL", "REBOUND", "UMPIRES", "REFEREE", "TOURNAMENT", "PLAYOFFS", "DEFENSIVE", "OFFENSIVE",
+            "ATHLETE", "SCOREBOARD", "RECORDS", "TROPHIES", "GYMNAST", "SWIMMERS", "BRACKETS", "TRAINING"
+        ],
+        MACHINES: [
+            "BLUEPRINT", "CALIPERS", "MILLING", "BACKLASH", "HARDWARE", "SOFTWARE", "TOOLBOX", "BEARINGS",
+            "FIXTURES", "SPINDLE", "STEPPER", "COORDINATE", "COUPLING", "MACHINIST", "ENGRAVER", "WORKBENCH",
+            "DRILLPRESS", "GRINDER", "GCODE", "LINEAR", "SEGMENTS", "INVERTER", "BOARDS", "ARDUINO"
+        ],
+        CASINO: [
+            "BLACKJACK", "ROULETTE", "STRATEGY", "JACKPOT", "BONANZA", "CROUPIER", "SHUFFLING", "BANKROLL",
+            "GAMBLING", "PAYOUTS", "ROLLERS", "SLOTMACHINE", "DEALERS", "BETTING", "CARDSHARK", "TOKENS",
+            "CHIPS", "CASINOS", "WAGERING", "WINNINGS", "SHOWDOWN", "DOMINOES", "CROUPIER", "PITBOSS"
+        ],
+        PIRATES: [
+            "GALLEONS", "BUCCANEER", "TREASURE", "CUTLASS", "PRIVATEER", "SCHOONER", "ANCHORAGE", "COMPASS",
+            "MAPMAKER", "DOUBLOONS", "HARBOR", "FLAGSHIP", "CAPTAINS", "MUTINY", "MAINMAST", "CORSAIR",
+            "BOARDING", "SEAFARER", "ISLANDS", "PLUNDER", "LOOTING", "GALEFORCE", "NAVIGATION", "BARNACLES"
+        ],
+        CASTLES: [
+            "FORTRESS", "DRAWBRIDGE", "TREBUCHET", "CATAPULT", "DUNGEONS", "RAMPARTS", "WATCHTOWER", "KNIGHTHOOD",
+            "ARMORER", "GAUNTLET", "BROADSWORD", "MONARCH", "KINGDOM", "ROYALTY", "PALACES", "COURTYARD",
+            "SIEGEWORK", "BATTLEMENT", "HERALDRY", "BANNER", "CHIVALRY", "GUARDS", "FEUDALISM", "STRONGHOLD"
+        ],
+        MYSTERY: [
+            "FORENSIC", "DETECTIVE", "SLEUTHING", "FOOTPRINTS", "EVIDENCE", "WITNESSES", "SUSPECTS", "ALIBIS",
+            "ANOMALY", "ENIGMAS", "PARADOX", "CRYPTIDS", "PHANTOMS", "SOLUTION", "MYSTERIOUS", "SCAVENGER",
+            "CRIMINAL", "SPYGLASS", "DECODING", "CIPHERS", "MEMENTO", "SHADOWY", "INVESTIGATE", "INTRIGUE"
+        ],
+        AVIATION: [
+            "AIRCRAFT", "AIRPLANES", "RUNWAYS", "TERMINALS", "PILOTING", "ALTITUDE", "AVIATORS", "HANGARS",
+            "PROPELLER", "FUSELAGE", "COCKPIT", "AIRSPEED", "NAVIGATION", "AIRLINES", "JETLINER", "FLIGHTDECK",
+            "TURBULENCE", "TAKEOFF", "LANDING", "CONCOURSE", "CONTROL", "AVIONICS", "AIRSPACE", "ZEPPELIN"
+        ],
+        RAILROAD: [
+            "LOCOMOTIVE", "RAILWAYS", "BOXCARS", "CABOOSES", "ENGINES", "CONDUCTOR", "TRACKWAYS", "STATIONS",
+            "FREIGHTERS", "STEAMERS", "COALCARS", "RAILROAD", "CROSSING", "SWITCHES", "TERMINAL", "PASSENGER",
+            "IRONHORSE", "BOXCAR", "TRAINYARD", "COUPLER", "CABOOSE", "TRACKS", "HEADLIGHT", "WHISTLE"
+        ]
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const dictionaryUrl = 'https://cdn.jsdelivr.net/gh/dwyl/english-words@master/words_alpha.txt';
+        const statusDot = document.getElementById('statusDot');
+        const statusText = document.getElementById('statusText');
+        const generateBtn = document.getElementById('generateBtn');
+
+        fetch(dictionaryUrl)
+            .then(response => response.text())
+            .then(text => {
+                masterWords = text.split(/\r?\n/)
+                    .map(w => w.trim().toUpperCase())
+                    .filter(w => w.length >= 4 && w.length <= 11 && /^[A-Z]+$/.test(w));
+
+                statusDot.classList.add('ready');
+                statusText.innerText = `Dictionary Connected (${masterWords.length.toLocaleString()} clean words verified)`;
+                generateBtn.disabled = false;
+            })
+            .catch(err => {
+                console.error(err);
+                statusText.style.color = '#ef4444';
+                statusText.innerText = "Failed to load dictionary. Please refresh or check connection.";
+            });
+    });
+
+    function generateFormattedLists() {
+        const count = parseInt(document.getElementById('listCount').value) || 10;
+        const wordsPerBlock = parseInt(document.getElementById('wordCount').value) || 12;
+        const selectedTheme = document.getElementById('themeSelect').value;
+        const outputDisplay = document.getElementById('outputDisplay');
+        const downloadBtn = document.getElementById('downloadBtn');
+        
+        let currentPool = [];
+        
+        if (selectedTheme === "RANDOM") {
+            currentPool = masterWords;
+        } else {
+            currentPool = themeLists[selectedTheme];
+        }
+
+        if (wordsPerBlock > currentPool.length) {
+            alert(`The selected theme only has ${currentPool.length} unique words. Please lower your "Words per Block" to generate or add more words to the code list.`);
+            return;
+        }
+
+        let outputText = "";
+        
+        for (let i = 0; i < count; i++) {
+            outputText += `PUZZLE ${i + 1}\n`;
+            
+            const pickedWords = [];
+            let safeCounter = 0;
+
+            while (pickedWords.length < wordsPerBlock && safeCounter < 5000) {
+                const randomWord = currentPool[Math.floor(Math.random() * currentPool.length)];
+                if (!pickedWords.includes(randomWord)) {
+                    pickedWords.push(randomWord);
+                }
+                safeCounter++;
+            }
+
+            pickedWords.sort().forEach(word => {
+                outputText += `${word}\n`;
+            });
+
+            if (i < count - 1) {
+                outputText += `---\n`;
+            }
+        }
+
+        outputDisplay.value = outputText;
+        downloadBtn.disabled = false;
+    }
+
+    function downloadTxtFile() {
+        const textData = document.getElementById('outputDisplay').value;
+        if (!textData) return;
+
+        const blob = new Blob([textData], { type: "text/plain;charset=utf-8" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "formatted_word_lists.txt";
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+</script>
+
+</body>
+</html>
