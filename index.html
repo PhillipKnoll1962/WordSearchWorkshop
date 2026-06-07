@@ -14,7 +14,6 @@
             --grid-border: #ccc;
         }
 
-        /* Lock the viewport to exactly one screen height on desktop */
         html, body {
             height: 100%;
             margin: 0;
@@ -51,7 +50,6 @@
             font-size: 13px;
         }
 
-        /* Layout Container accommodating the 3 main visual zones */
         .container {
             display: flex;
             gap: 15px;
@@ -63,7 +61,6 @@
             min-height: 0; 
         }
 
-        /* Left and Middle Dashboard Panels */
         .panel {
             background: var(--card-bg);
             padding: 15px;
@@ -77,7 +74,6 @@
             min-height: 0; 
         }
 
-        /* MONETIZATION: Fixed-Width Skyscraper Sidebar Column */
         .ad-column {
             width: 160px; 
             display: flex;
@@ -88,7 +84,6 @@
             box-sizing: border-box;
         }
 
-        /* Visual placeholder representing the AdSense bounds */
         .ad-box-placeholder {
             width: 160px;
             height: 580px;
@@ -114,7 +109,6 @@
             color: #6c757d;
         }
 
-        /* Isolated inner scroll wrapper for the control inputs */
         .scrollable-controls {
             flex: 1;
             overflow-y: auto;
@@ -182,10 +176,6 @@
             color: #555;
         }
 
-        .file-input-wrapper input[type="file"] {
-            font-size: 12px;
-        }
-
         button {
             background-color: var(--primary);
             color: white;
@@ -221,6 +211,13 @@
         
         button.warning.active {
             background-color: #d84315;
+        }
+
+        button.info-nav {
+            background-color: #17a2b8;
+        }
+        button.info-nav:hover {
+            background-color: #138496;
         }
 
         .export-group {
@@ -279,8 +276,8 @@
 
         .grid-wrapper {
             position: relative;
-            margin-bottom: 15px;
-            max-width: 440px; 
+            margin-bottom: 10px;
+            max-width: 375px; 
             width: 100%;
             display: flex;
             align-items: center;
@@ -326,6 +323,7 @@
             min-height: 0;
             display: flex;
             flex-direction: column;
+            margin-top: 5px;
         }
 
         .word-list-container h4 {
@@ -338,6 +336,7 @@
             overflow-y: auto;
             width: 100%;
             padding-right: 3px;
+            max-height: 115px; 
         }
 
         .word-list {
@@ -388,20 +387,12 @@
             body {
                 padding: 10px;
             }
-            h1 {
-                font-size: 22px;
-            }
-            .subtitle {
-                font-size: 12px;
-            }
             .container {
                 flex-direction: column; 
                 gap: 15px;
             }
             .panel {
                 min-width: 100%;
-                height: auto;
-                min-height: auto;
                 flex: none;
             }
             #word-search-container {
@@ -412,14 +403,6 @@
             }
             .ad-column {
                 display: none; 
-            }
-            .grid-wrapper {
-                max-width: 85vw;
-                width: 85vw;
-            }
-            .screen-footer {
-                margin-top: 15px;
-                margin-bottom: 10px;
             }
         }
     </style>
@@ -480,8 +463,13 @@
                             <input type="file" id="file-upload" accept=".txt">
                         </div>
                     </div>
+                    
+                    <button id="open-creator-btn" class="info-nav" style="margin: 5px 0 10px 0; padding: 8px 10px; font-size: 12px;">
+                        🛠️ Open Word List Creator
+                    </button>
+
                     <div class="instructions-box">
-                        <strong>Formatting:</strong> Separate puzzles with <code>---</code>. Words can be listed on new lines <strong>OR</strong> separated by commas (e.g. <code>LION, TIGER, BEAR</code>).
+                        <strong>Formatting:</strong> Separate puzzles with <code>---</code>. Words can be listed on new lines <strong>OR</strong> separated by commas.
                     </div>
                     <textarea id="bulk-input" placeholder="Enter data blocks..."></textarea>
                     <div id="error-msg" class="error"></div>
@@ -529,24 +517,24 @@
     <div id="hidden-rendering-deck"></div>
 
     <div id="privacyModal" style="display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); overflow: auto;">
-        <div style="background-color: #ffffff; margin: 10% auto; padding: 30px; border-radius: 8px; max-width: 650px; line-height: 1.6; font-family: sans-serif; color: #333; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.2); text-align: left;">
+        <div style="background-color: #ffffff; margin: 5% auto; padding: 30px; border-radius: 8px; max-width: 650px; line-height: 1.6; font-family: 'Segoe UI', Arial, sans-serif; color: #333; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.2); text-align: left;">
             <span id="closePrivacy" style="position: absolute; right: 20px; top: 15px; font-size: 28px; font-weight: bold; cursor: pointer; color: #aaa;">&times;</span>
             
-            <h2 style="color: #4a90e2; margin-top: 0;">About & Privacy Policy</h2>
-            <p>Welcome to <strong>The Word Search Workshop</strong>! This platform is a streamlined utility designed for self-publishers, independent authors, and educators to generate print-ready bulk puzzle books for Amazon KDP or classroom use.</p>
+            <h2 style="color: #4a90e2; margin-top: 0; margin-bottom: 15px;">About & Privacy Policy</h2>
+            <p style="margin-bottom: 15px;">Welcome to <strong>The Word Search Workshop</strong>! This platform is a streamlined utility designed for self-publishers, independent authors, and educators to generate print-ready bulk puzzle books for Amazon KDP or classroom use.</p>
             
-            <div style="background-color: #f8f9fa; border-left: 4px solid #4a90e2; padding: 12px; margin: 15px 0; font-weight: bold;">
+            <div style="background-color: #e8f4fd; border-left: 4px solid #4a90e2; padding: 12px; margin: 15px 0; font-weight: bold; border-radius: 0 4px 4px 0;">
                 Strict Privacy Standard: No personal information, puzzle text, or uploaded data blocks are ever sent to a server, tracked, or saved.
             </div>
-            
-            <h3>1. Local Browser Processing</h3>
-            <p>All word lists, titles, grid configurations, and data blocks you process here are handled strictly inside your own web browser window. No data is uploaded to our hosting environment, and nothing is retained once you close or refresh the page.</p>
-            
-            <h3>2. Cookies and Third-Party Advertising</h3>
-            <p>We use Google AdSense to serve advertisements on this website to help support its continued development. Google AdSense uses cookies to serve ads based on a user's prior visits to this website or other websites on the internet. You can opt out of personalized advertising at any time by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" style="color: #4a90e2;">Google Ad Settings</a>.</p>
-            
-            <h3>3. External Infrastructure</h3>
-            <p>This application is hosted via GitHub Pages. Standard, non-identifying server logs (like page view counters) may be maintained by the hosting provider to ensure technical stability, but no personal information is collected.</p>
+
+            <h3 style="font-size: 16px; margin: 15px 0 5px 0; color: #333;">1. Local Browser Processing</h3>
+            <p style="margin: 0 0 15px 0; font-size: 14px; color: #555;">All word lists, titles, grid configurations, and data blocks you process here are handled strictly inside your own web browser window. No data is uploaded to our hosting environment, and nothing is retained once you close or refresh the page.</p>
+
+            <h3 style="font-size: 16px; margin: 15px 0 5px 0; color: #333;">2. Cookies and Third-Party Advertising</h3>
+            <p style="margin: 0 0 15px 0; font-size: 14px; color: #555;">We use Google AdSense to serve advertisements on this website to help support its continued development. Google AdSense uses cookies to serve ads based on a user's prior visits to this website or other websites on the internet. You can opt out of personalized advertising at any time by visiting Google Ad Settings.</p>
+
+            <h3 style="font-size: 16px; margin: 15px 0 5px 0; color: #333;">3. External Infrastructure</h3>
+            <p style="margin: 0 0 5px 0; font-size: 14px; color: #555;">This application is hosted via GitHub Pages. Standard, non-identifying server logs (like page view counters) may be maintained by the hosting provider to ensure technical stability, but no personal information is collected.</p>
         </div>
     </div>
 
@@ -584,13 +572,20 @@
         toggleAnswersBtn.addEventListener('click', toggleAnswersView);
         
         exportCombinedBtn.addEventListener('click', () => exportPipeline('combined'));
-        exportCleanBtn.addEventListener('click', () => exportPipeline('clean'));
-        exportKeysBtn.addEventListener('click', () => exportPipeline('keys'));
+        
+        exportCleanBtn.addEventListener('click', () => {
+            alert("📢 Don't forget! This option prints a clean puzzle book only. Make sure to also export your Teacher Answer Keys separately before closing out!");
+            exportPipeline('clean');
+        });
+        
+        exportKeysBtn.addEventListener('click', () => {
+            alert("⚠️ Warning: Do not upload standalone Teacher Answer Keys directly as an independent puzzle book layout package on Amazon KDP! For proper KDP publication, use the green 'Export Book + Answers at End' platform profile distribution instead.");
+            exportPipeline('keys');
+        });
 
         fileUpload.addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (!file) return;
-            
             const reader = new FileReader();
             reader.onload = function(evt) {
                 bulkInput.value = evt.target.result;
@@ -599,7 +594,10 @@
             reader.readAsText(file);
         });
 
-        // FIXED: Added missing widthPx and heightPx to the 8.25x6 dimensions config to resolve crash
+        document.getElementById('open-creator-btn').addEventListener('click', () => {
+            window.open('BulkWordSelector.html', 'wordCreatorMain');
+        });
+
         const sizeConfig = {
             "6x9":    { widthIn: 6.0,  heightIn: 9.0,  widthPx: 576, heightPx: 864 },
             "8.5x11": { widthIn: 8.5,  heightIn: 11.0, widthPx: 816, heightPx: 1056 },
@@ -689,8 +687,6 @@
                 errorMsg.textContent = "Could not parse any valid puzzle blocks.";
                 return;
             }
-
-            activeTabIndex = 0;
             renderTabs();
             renderActivePreview();
         }
@@ -769,21 +765,11 @@
                 for (let c = 0; c < gridSize; c++) {
                     const cell = document.createElement('div');
                     cell.classList.add('cell');
-                    
-                    cell.style.fontSize = `calc(40vw / ${gridSize})`;
-                    cell.style.minFontSize = "12px";
-                    cell.style.maxFontSize = "24px";
-                    
-                    if (window.innerWidth > 850) {
-                        cell.style.fontSize = `${Math.min(24, Math.max(12, 340 / gridSize))}px`;
-                    }
-                    
+                    cell.style.fontSize = `${Math.min(24, Math.max(12, 340 / gridSize))}px`;
                     cell.textContent = puzzle.matrix[r][c];
-                    
                     if (highlightSet.has(`${r}-${c}`)) {
                         cell.classList.add('answer-highlight');
                     }
-                    
                     gridElement.appendChild(cell);
                 }
             }
@@ -804,15 +790,11 @@
 
         async function exportPipeline(mode) {
             if (isInAppBrowser()) {
-                alert("⚠️ PDF Generation Blocked by Messenger!\n\nFacebook Messenger's built-in browser does not support downloading PDF files.\n\nPlease tap the three dots (...) in the top right corner and select 'Open in Chrome' or 'Open in Browser' to download your book successfully!");
+                alert("⚠️ PDF Generation Blocked by Messenger!\n\nPlease open this page in Chrome or Safari to download your files smoothly!");
                 return;
             }
 
-            if (loadedPuzzles.length === 0) {
-                errorMsg.textContent = "Please process and preview the puzzles first.";
-                return;
-            }
-
+            if (loadedPuzzles.length === 0) return;
             hiddenRenderingDeck.innerHTML = '';
             
             const selectedSizeKey = bookDimensionsInput.value;
@@ -826,18 +808,13 @@
             });
 
             let pagesToBuild = [];
-
-            if (mode === 'clean' || mode === 'combined') {
-                pagesToBuild.push({ type: 'cover' });
-            }
+            if (mode === 'clean' || mode === 'combined') pagesToBuild.push({ type: 'cover' });
 
             if (mode === 'clean') {
                 loadedPuzzles.forEach(p => pagesToBuild.push({ puzzle: p, showAnswers: false, type: 'puzzle' }));
-            } 
-            else if (mode === 'keys') {
+            } else if (mode === 'keys') {
                 loadedPuzzles.forEach(p => pagesToBuild.push({ puzzle: p, showAnswers: true, type: 'answer' }));
-            } 
-            else if (mode === 'combined') {
+            } else if (mode === 'combined') {
                 loadedPuzzles.forEach(p => pagesToBuild.push({ puzzle: p, showAnswers: false, type: 'puzzle' }));
                 pagesToBuild.push({ type: 'divider' });
                 loadedPuzzles.forEach(p => pagesToBuild.push({ puzzle: p, showAnswers: true, type: 'answer' }));
@@ -866,7 +843,6 @@
                 });
 
                 const imgData = canvas.toDataURL('image/jpeg', 1.0);
-
                 if (i > 0) {
                     pdfDoc.addPage([cfg.widthIn, cfg.heightIn], cfg.widthIn > cfg.heightIn ? 'landscape' : 'portrait');
                 }
@@ -880,12 +856,6 @@
             if (mode === 'keys') finalName = `answer_keys_${selectedSizeKey}.pdf`;
 
             pdfDoc.save(finalName);
-
-            if (mode === 'clean') {
-                setTimeout(() => {
-                    alert("📘 Clean Puzzle Book Downloaded!\n\nDon't forget to click the orange button ('Export Teacher Answer Key Only') next so you have the solutions file ready for printing!");
-                }, 500);
-            }
         }
 
         function createBookCoverPageElement(cfg) {
@@ -950,7 +920,6 @@
             footerContainer.appendChild(line3);
 
             container.appendChild(footerContainer);
-
             return container;
         }
 
@@ -981,7 +950,6 @@
             rule.style.height = '4px';
             rule.style.backgroundColor = '#000000';
             container.appendChild(rule);
-
             return container;
         }
 
@@ -1050,11 +1018,9 @@
                     cell.style.boxSizing = 'border-box';
                     cell.style.border = '2px solid transparent';
                     cell.textContent = puzzle.matrix[r][c];
-                    
                     if (pdfHighlightSet.has(`${r}-${c}`)) {
                         cell.style.border = '2.5px solid #000000';
                     }
-                    
                     gridEl.appendChild(cell);
                 }
             }
@@ -1099,11 +1065,8 @@
                 listEl.appendChild(item);
             });
             pageContainer.appendChild(listEl);
-
             return pageContainer;
         }
-
-        processBulkInput();
     </script>
 
     <script>
@@ -1111,27 +1074,21 @@
             const modal = document.getElementById("privacyModal");
             const link = document.getElementById("privacyLink");
             const closeBtn = document.getElementById("closePrivacy");
-
             if (link && modal && closeBtn) {
-                // Open modal when footer link is clicked
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    modal.style.display = "block";
-                });
-
-                // Close modal when 'x' is clicked
-                closeBtn.addEventListener('click', function() {
-                    modal.style.display = "none";
-                });
-
-                // Safe background click: only close if clicking the dark overlay background itself
-                modal.addEventListener('click', function(event) {
-                    if (event.target === modal) {
-                        modal.style.display = "none";
-                    }
-                });
+                link.addEventListener('click', (e) => { e.preventDefault(); modal.style.display = "block"; });
+                closeBtn.addEventListener('click', () => modal.style.display = "none");
+                modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = "none"; });
             }
         })();
+    </script>
+
+    <script>
+        const incomingData = localStorage.getItem('sharedPuzzleDataBlocks');
+        if (incomingData && incomingData.trim() !== "") {
+            document.getElementById('bulk-input').value = incomingData;
+            localStorage.removeItem('sharedPuzzleDataBlocks');
+        }
+        processBulkInput();
     </script>
 </body>
 </html>
