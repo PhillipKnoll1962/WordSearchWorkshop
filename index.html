@@ -1112,12 +1112,30 @@
     </script>
 
     <script>
-        const incomingData = localStorage.getItem('sharedPuzzleDataBlocks');
-        if (incomingData && incomingData.trim() !== "") {
-            document.getElementById('bulk-input').value = incomingData;
-            localStorage.removeItem('sharedPuzzleDataBlocks');
+        // =========================================================================
+        // FIXED: Active Data Listener to automatically refresh the data stream
+        // =========================================================================
+        function checkAndLoadIncomingData() {
+            const incomingData = localStorage.getItem('sharedPuzzleDataBlocks');
+            if (incomingData && incomingData.trim() !== "") {
+                document.getElementById('bulk-input').value = incomingData;
+                localStorage.removeItem('sharedPuzzleDataBlocks'); // Clear the tank
+                processBulkInput(); // Process and update the preview grid instantly
+            }
         }
-        processBulkInput();
+
+        // Run immediately when the page finishes loading
+        checkAndLoadIncomingData();
+
+        // Actively listen for data updates sent over from the Creator window
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'sharedPuzzleDataBlocks') {
+                checkAndLoadIncomingData();
+            }
+        });
+
+        // Also catch focus if the user clicks back onto the tab manually
+        window.addEventListener('focus', checkAndLoadIncomingData);
     </script>
 </body>
 </html>
