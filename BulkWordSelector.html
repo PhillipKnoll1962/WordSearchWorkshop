@@ -240,6 +240,7 @@
 
             localStorage.setItem('sharedPuzzleDataBlocks', dataBlocks);
 
+            // Targets your main dashboard tab context seamlessly
             const workshopWND = window.open('index.html', 'workshopMainTab');
             if (workshopWND) {
                 try {
