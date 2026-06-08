@@ -591,14 +591,12 @@
         fileUpload.addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (!file) return;
-            const reader = e.target.files[0] ? new FileReader() : null;
-            if (reader) {
-                reader.onload = function(evt) {
-                    bulkInput.value = evt.target.result;
-                    processBulkInput(); 
-                };
-                reader.readAsText(file);
-            }
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                bulkInput.value = evt.target.result;
+                processBulkInput(); 
+            };
+            reader.readAsText(file);
         });
 
         document.getElementById('open-creator-btn').addEventListener('click', () => {
@@ -1109,11 +1107,12 @@
             pageContainer.appendChild(listEl);
             return pageContainer;
         }
-    </script>
 
-    <script>
+        // Run the main engine immediately on page startup
+        processBulkInput();
+
         // =========================================================================
-        // FIXED: Active Data Listener to automatically refresh the data stream
+        // Active Data Listener to automatically refresh the data stream safely
         // =========================================================================
         function checkAndLoadIncomingData() {
             const incomingData = localStorage.getItem('sharedPuzzleDataBlocks');
