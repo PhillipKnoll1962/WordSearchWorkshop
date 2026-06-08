@@ -134,19 +134,36 @@
         .btn-success { background-color: var(--success); }
         .btn-success:hover { background-color: var(--success-hover); }
 
+        /* FIXED: Clean styling rules for horizontal banner mock slot */
         .ad-placeholder {
             margin-top: 25px;
-            border: 2px dashed #cbd5e1;
-            background-color: #f8fafc;
-            border-radius: 6px;
-            height: 90px;
+            border: 1px solid #cbd5e1;
+            background-color: #e2e8f0; 
+            border-radius: 8px;
+            height: 90px; 
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+
+        .ad-placeholder-icon-horiz {
+            width: 20px;
+            height: 20px;
+            border: 3px double #94a3b8;
+            border-radius: 50%;
+            margin-bottom: 4px;
+            opacity: 0.7;
+        }
+
+        .ad-placeholder-text-horiz {
             font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #64748b;
             font-weight: 700;
-            color: #94a3b8;
-            text-align: center;
         }
     </style>
 </head>
@@ -163,17 +180,17 @@
         <div class="form-grid">
             <div class="form-group">
                 <label for="num-puzzles">Number of Puzzles:</label>
-                <input type="number" id="num-puzzles" value="10" min="1" max="100">
+                <input type="number" id="num-puzzles" value="25" min="1" max="100">
             </div>
             <div class="form-group">
                 <label for="words-per-block">Words per Block:</label>
-                <input type="number" id="words-per-block" value="12" min="4" max="30">
+                <input type="number" id="words-per-block" value="10" min="4" max="30">
             </div>
             <div class="form-group full-width">
                 <label for="puzzle-topic">Select Puzzle Topic:</label>
                 <select id="puzzle-topic">
-                    <option value="camping" selected>Camping & Outdoors</option>
-                    <option value="general">General Dictionary (Random)</option>
+                    <option value="general" selected>General Dictionary (Random)</option>
+                    <option value="camping">Camping & Outdoors</option>
                     <option value="animals">Animals & Wildlife</option>
                     <option value="space">Astronomy & Space</option>
                 </select>
@@ -192,7 +209,8 @@
         </div>
 
         <div class="ad-placeholder">
-            ADVERTISEMENT<br>Google AdSense &bull; Leaderboard (728 x 90)
+            <div class="ad-placeholder-icon-horiz"></div>
+            <div class="ad-placeholder-text-horiz">Sponsored Link</div>
         </div>
     </div>
 
@@ -212,7 +230,6 @@
         generateFormatBtn.addEventListener('click', generateBlocks);
         downloadTxtBtn.addEventListener('click', downloadTxtFile);
 
-        // FIXED: Refreshes host workshop tab cleanly and routes data without opening duplicate windows
         sendWorkshopBtn.addEventListener('click', () => {
             const dataBlocks = bulkOutput.value;
             if (!dataBlocks.trim()) {
@@ -220,16 +237,13 @@
                 return;
             }
 
-            // Pack dataset into the local domain memory lane
             localStorage.setItem('sharedPuzzleDataBlocks', dataBlocks);
 
-            // Verify if a parent frame window context target path is accessible
-            if (window.opener && !window.opener.closed) {
-                window.opener.location.reload();
-                window.close(); 
+            const workshopWND = window.open('index.html', 'workshopMainTab');
+            if (workshopWND) {
+                workshopWND.location.reload();
             } else {
-                // Live host fallback configuration targeting index.html container instance name descriptor
-                window.open('index.html', 'workshopMainTab');
+                alert("If the dashboard doesn't update, please make sure index.html is open in a neighboring browser tab!");
             }
         });
 
@@ -238,7 +252,7 @@
             const wordsPerBlock = parseInt(document.getElementById('words-per-block').value) || 12;
             const chosenTopic = document.getElementById('puzzle-topic').value;
 
-            const baseWords = topicsData[chosenTopic] || topicsData.camping;
+            const baseWords = topicsData[chosenTopic] || topicsData.general;
             let finalOutputString = "";
 
             for (let i = 1; i <= numPuzzles; i++) {
@@ -274,7 +288,6 @@
             URL.revokeObjectURL(url);
         }
 
-        // Automatic run setup upon view execution framing
         generateBlocks();
     </script>
 </body>
