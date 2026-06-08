@@ -613,7 +613,6 @@
         function processBulkInput() {
             errorMsg.textContent = "";
             
-            // FIXED: Enforced strict ceiling check inside JavaScript engine to prevent values > 15
             let parsedSize = parseInt(gridSizeInput.value) || 12;
             if (parsedSize > 15) {
                 parsedSize = 15;
@@ -865,12 +864,11 @@
                 } else if (currentItem.type === 'divider') {
                     pageEl = createDividerPageElement(cfg);
                 } else {
-                    pageEl = createPageElement(currentItem.puzzle, currentItem.showAnswers, cfg);
+                    pageEl = createPageElement(currentItem.puzzle, currentItem.showAnswers, selectedSizeKey, cfg);
                 }
 
                 hiddenRenderingDeck.appendChild(pageEl);
 
-                // FIXED: Paced delivery delay gives engine room to release graphical cache
                 await new Promise(resolve => setTimeout(resolve, 50));
 
                 const canvas = await html2canvas(pageEl, {
@@ -993,7 +991,8 @@
             return container;
         }
 
-        function createPageElement(puzzle, showAnswersInPDF, cfg) {
+        // FIXED: Passed sizeKey to page generation logic to intelligently scale up letter size layouts
+        function createPageElement(puzzle, showAnswersInPDF, sizeKey, cfg) {
             const pageContainer = document.createElement('div');
             pageContainer.style.boxSizing = 'border-box';
             pageContainer.style.backgroundColor = '#ffffff';
@@ -1010,7 +1009,8 @@
             const titleEl = document.createElement('h2');
             titleEl.textContent = showAnswersInPDF ? `${puzzle.title} (ANSWERS)` : puzzle.title;
             titleEl.style.fontFamily = "'Montserrat', Arial, sans-serif";
-            titleEl.style.fontSize = '24px';
+            // FIXED: Make title stand out more on large 8.5x11 book formats
+            titleEl.style.fontSize = (sizeKey === '8.5x11') ? '32px' : '24px';
             titleEl.style.fontWeight = '800';
             titleEl.style.margin = '0 0 15px 0';
             titleEl.style.textTransform = 'uppercase';
@@ -1020,7 +1020,13 @@
             const relativeWrapper = document.createElement('div');
             relativeWrapper.style.position = 'relative';
             const isLandscape = cfg.widthIn > cfg.heightIn;
-            const boxDimension = isLandscape ? 310 : 360;
+            
+            // FIXED: Dynamically upscale printable puzzle grid block bounding sizes for large letter formats
+            let boxDimension = isLandscape ? 310 : 360;
+            if (sizeKey === '8.5x11') {
+                boxDimension = 500; 
+            }
+            
             relativeWrapper.style.width = `${boxDimension}px`;
             relativeWrapper.style.height = `${boxDimension}px`;
             relativeWrapper.style.overflow = 'visible';
@@ -1049,6 +1055,12 @@
                 });
             }
             
+            // FIXED: Scale inner font grid characters proportionally with document expansion
+            let cellFontSize = isLandscape ? '14px' : '16px';
+            if (sizeKey === '8.5x11') {
+                cellFontSize = '22px'; 
+            }
+
             for (let r = 0; r < gridSize; r++) {
                 for (let c = 0; c < gridSize; c++) {
                     const cell = document.createElement('div');
@@ -1058,7 +1070,7 @@
                     cell.style.justifyContent = 'center';
                     cell.style.fontWeight = '700';
                     cell.style.fontFamily = "'Montserrat', sans-serif";
-                    cell.style.fontSize = isLandscape ? '14px' : '16px';
+                    cell.style.fontSize = cellFontSize;
                     cell.style.textTransform = 'uppercase';
                     cell.style.boxSizing = 'border-box';
                     cell.style.border = '2px solid transparent';
@@ -1080,20 +1092,21 @@
             listEl.style.padding = '0';
             listEl.style.margin = '15px auto 0 auto';
             listEl.style.width = '100%';
-            listEl.style.maxWidth = '460px';
+            listEl.style.maxWidth = (sizeKey === '8.5x11') ? '600px' : '460px';
             listEl.style.textAlign = 'left';
 
             let columns = isLandscape ? 5 : 3;
-            let fontSize = '13px';
+            // FIXED: Upscale footer search tracking word strings to prevent straining eyes on large print options
+            let fontSize = (sizeKey === '8.5x11') ? '16px' : '13px';
             let rowGap = '10px';
 
             if (puzzle.words.length > 24) {
                 columns = isLandscape ? 6 : 5;
-                fontSize = '11px';
+                fontSize = (sizeKey === '8.5x11') ? '13px' : '11px';
                 rowGap = '6px';
             } else if (puzzle.words.length > 12) {
                 columns = isLandscape ? 5 : 4;
-                fontSize = '12px';
+                fontSize = (sizeKey === '8.5x11') ? '14px' : '12px';
                 rowGap = '8px';
             }
 
