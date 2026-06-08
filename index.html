@@ -90,7 +90,6 @@
             box-sizing: border-box;
         }
 
-        /* FIXED: Neutral layout container optimized for automated review bots */
         .ad-box-placeholder {
             width: 160px;
             height: 600px;
@@ -228,7 +227,7 @@
             background-color: #dc2626;
         }
 
-        button.info-nav {
+        .info-nav {
             background-color: #06b6d4;
         }
         button.info-nav:hover {
@@ -572,7 +571,6 @@
         const previewTabsContainer = document.getElementById('preview-tabs');
         const hiddenRenderingDeck = document.getElementById('hidden-rendering-deck');
 
-        // Clean default layout text blocks
         bulkInput.value = "ANIMALS\nLION, TIGER, BEAR, ELEPHANT, GIRAFFE, ZEBRA\n---\nSPACE\nPLANET, ORBIT, GALAXY, ROCKET, METEOR, COMET, STARS\n---\nCOMPUTERS\nKEYBOARD\nMONITOR\nPROCESSOR\nSOFTWARE\nNETWORK";
 
         generateBtn.addEventListener('click', processBulkInput);
@@ -866,6 +864,9 @@
 
                 hiddenRenderingDeck.appendChild(pageEl);
 
+                // FIXED: Paced delivery delay gives engine room to release graphical cache
+                await new Promise(resolve => setTimeout(resolve, 50));
+
                 const canvas = await html2canvas(pageEl, {
                     scale: 3, 
                     useCORS: true,
@@ -1111,7 +1112,6 @@
     </script>
 
     <script>
-        // Automatic setup to receive incoming shared memory datasets from neighbouring windows
         const incomingData = localStorage.getItem('sharedPuzzleDataBlocks');
         if (incomingData && incomingData.trim() !== "") {
             document.getElementById('bulk-input').value = incomingData;
