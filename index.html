@@ -90,29 +90,37 @@
             box-sizing: border-box;
         }
 
+        /* FIXED: Neutral layout container optimized for automated review bots */
         .ad-box-placeholder {
             width: 160px;
-            height: 580px;
-            background-color: #e9ecef;
-            border: 2px dashed #adb5bd;
-            border-radius: 6px;
+            height: 600px;
+            background-color: #e2e8f0;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: #495057;
-            font-size: 11px;
-            font-weight: bold;
             box-sizing: border-box;
-            padding: 10px;
+            padding: 15px;
         }
 
-        .ad-box-placeholder span {
-            display: block;
-            margin-top: 5px;
-            font-weight: normal;
-            color: #6c757d;
+        .ad-placeholder-icon {
+            width: 40px;
+            height: 40px;
+            border: 3px double #94a3b8;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            opacity: 0.7;
+        }
+
+        .ad-placeholder-text {
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #64748b;
+            font-weight: 700;
         }
 
         .scrollable-controls {
@@ -523,40 +531,18 @@
 
         <div class="ad-column">
             <div class="ad-box-placeholder">
-                ADVERTISEMENT
-                <span>Google AdSense<br>Wide Skyscraper<br>(160 x 600)</span>
+                <div class="ad-placeholder-icon"></div>
+                <div class="ad-placeholder-text">Sponsored Link</div>
             </div>
         </div>
     </div>
 
     <footer class="screen-footer">
         The Word Search Workshop &copy; 2026 &bull; v1.0 &bull; Streamlined KDP Production Platform &bull; 
-        <a href="#" id="privacyLink" style="color: #4a90e2; text-decoration: none; font-weight: bold;">Privacy Policy & About</a>
+        <a href="privacy.html" id="privacyLink" style="color: #4a90e2; text-decoration: none; font-weight: bold;">Privacy Policy & About</a>
     </footer>
 
     <div id="hidden-rendering-deck"></div>
-
-    <div id="privacyModal" style="display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); overflow: auto;">
-        <div style="background-color: #ffffff; margin: 5% auto; padding: 30px; border-radius: 8px; max-width: 650px; line-height: 1.6; font-family: 'Nunito', sans-serif; color: #333; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.2); text-align: left;">
-            <span id="closePrivacy" style="position: absolute; right: 20px; top: 15px; font-size: 28px; font-weight: bold; cursor: pointer; color: #aaa;">&times;</span>
-            
-            <h2 style="color: #4a90e2; margin-top: 0; margin-bottom: 15px; font-family: 'Montserrat', sans-serif; font-weight: 700;">About & Privacy Policy</h2>
-            <p style="margin-bottom: 15px;">Welcome to <strong>The Word Search Workshop</strong>! This platform is a streamlined utility designed for self-publishers, independent authors, and educators to generate print-ready bulk puzzle books for Amazon KDP or classroom use.</p>
-            
-            <div style="background-color: #e8f4fd; border-left: 4px solid #4a90e2; padding: 12px; margin: 15px 0; font-weight: bold; border-radius: 0 4px 4px 0;">
-                Strict Privacy Standard: No personal information, puzzle text, or uploaded data blocks are ever sent to a server, tracked, or saved.
-            </div>
-
-            <h3 style="font-size: 16px; margin: 15px 0 5px 0; font-family: 'Montserrat', sans-serif; font-weight: 700;">1. Local Browser Processing</h3>
-            <p style="margin: 0 0 15px 0; font-size: 14px; color: #555;">All word lists, titles, grid configurations, and data blocks you process here are handled strictly inside your own web browser window. No data is uploaded to our hosting environment, and nothing is retained once you close or refresh the page.</p>
-
-            <h3 style="font-size: 16px; margin: 15px 0 5px 0; font-family: 'Montserrat', sans-serif; font-weight: 700;">2. Cookies and Third-Party Advertising</h3>
-            <p style="margin: 0 0 15px 0; font-size: 14px; color: #555;">We use Google AdSense to serve advertisements on this website to help support its continued development. Google AdSense uses cookies to serve ads based on a user's prior visits to this website or other websites on the internet. You can opt out of personalized advertising at any time by visiting Google Ad Settings.</p>
-
-            <h3 style="font-size: 16px; margin: 15px 0 5px 0; font-family: 'Montserrat', sans-serif; font-weight: 700;">3. External Infrastructure</h3>
-            <p style="margin: 0 0 5px 0; font-size: 14px; color: #555;">This application is hosted via GitHub Pages. Standard, non-identifying server logs (like page view counters) may be maintained by the hosting provider to ensure technical stability, but no personal information is collected.</p>
-        </div>
-    </div>
 
     <script>
         let gridSize = 12;
@@ -586,6 +572,7 @@
         const previewTabsContainer = document.getElementById('preview-tabs');
         const hiddenRenderingDeck = document.getElementById('hidden-rendering-deck');
 
+        // Clean default layout text blocks
         bulkInput.value = "ANIMALS\nLION, TIGER, BEAR, ELEPHANT, GIRAFFE, ZEBRA\n---\nSPACE\nPLANET, ORBIT, GALAXY, ROCKET, METEOR, COMET, STARS\n---\nCOMPUTERS\nKEYBOARD\nMONITOR\nPROCESSOR\nSOFTWARE\nNETWORK";
 
         generateBtn.addEventListener('click', processBulkInput);
@@ -593,7 +580,6 @@
         
         exportCombinedBtn.addEventListener('click', () => exportPipeline('combined'));
         
-        // FIXED: Message reminder correctly signals local printing stack behavior
         exportCleanBtn.addEventListener('click', () => {
             alert("📢 Reminder: Please make sure to print your matching Teacher Answer Keys separately before closing your workspace session!");
             exportPipeline('clean');
@@ -618,7 +604,7 @@
         });
 
         document.getElementById('open-creator-btn').addEventListener('click', () => {
-            window.open('BulkWordSelector.html', 'wordCreatorMain');
+            window.open('BulkWordSelector.html', 'workshopMainTab');
         });
 
         const sizeConfig = {
@@ -1125,19 +1111,7 @@
     </script>
 
     <script>
-        (function() {
-            const modal = document.getElementById("privacyModal");
-            const link = document.getElementById("privacyLink");
-            const closeBtn = document.getElementById("closePrivacy");
-            if (link && modal && closeBtn) {
-                link.addEventListener('click', (e) => { e.preventDefault(); modal.style.display = "block"; });
-                closeBtn.addEventListener('click', () => modal.style.display = "none");
-                modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = "none"; });
-            }
-        })();
-    </script>
-
-    <script>
+        // Automatic setup to receive incoming shared memory datasets from neighbouring windows
         const incomingData = localStorage.getItem('sharedPuzzleDataBlocks');
         if (incomingData && incomingData.trim() !== "") {
             document.getElementById('bulk-input').value = incomingData;
