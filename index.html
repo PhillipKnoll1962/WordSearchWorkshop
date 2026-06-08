@@ -4,14 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Word Search Workshop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --primary: #4a90e2;
             --primary-hover: #357abd;
             --bg: #f5f7fa;
             --card-bg: #ffffff;
-            --text: #333333;
-            --grid-border: #ccc;
+            --text: #2c3e50;
+            --grid-border: #cbd5e1; 
         }
 
         html, body {
@@ -19,7 +23,7 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Nunito', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg);
             color: var(--text);
         }
@@ -41,12 +45,14 @@
             margin: 0 0 2px 0;
             color: var(--primary);
             font-size: 26px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
             letter-spacing: -0.5px;
         }
 
         .subtitle {
             margin: 0;
-            color: #666;
+            color: #64748b;
             font-size: 13px;
         }
 
@@ -65,7 +71,7 @@
             background: var(--card-bg);
             padding: 15px;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             flex: 1;
             min-width: 340px;
             box-sizing: border-box;
@@ -134,19 +140,20 @@
         label {
             display: block;
             margin-bottom: 4px;
-            font-weight: bold;
+            font-weight: 700;
             font-size: 13px;
         }
 
         input[type="text"], input[type="number"], select, textarea {
             width: 100%;
             padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
             box-sizing: border-box;
             font-family: inherit;
             font-size: 13px;
             background-color: #fff;
+            color: #334155;
         }
 
         textarea {
@@ -181,10 +188,10 @@
             color: white;
             border: none;
             padding: 10px 12px;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 14px;
-            font-weight: bold;
+            font-weight: 700;
             width: 100%;
             transition: background 0.2s;
             margin-bottom: 8px;
@@ -196,33 +203,33 @@
         }
 
         button.success {
-            background-color: #28a745;
+            background-color: #10b981;
         }
         button.success:hover {
-            background-color: #218838;
+            background-color: #059669;
         }
 
         button.warning {
-            background-color: #ff9800;
+            background-color: #f59e0b;
         }
         button.warning:hover {
-            background-color: #e68a00;
+            background-color: #d97706;
         }
         
         button.warning.active {
-            background-color: #d84315;
+            background-color: #dc2626;
         }
 
         button.info-nav {
-            background-color: #17a2b8;
+            background-color: #06b6d4;
         }
         button.info-nav:hover {
-            background-color: #138496;
+            background-color: #0891b2;
         }
 
         .export-group {
             margin-top: 8px;
-            border-top: 2px dashed #ddd;
+            border-top: 2px dashed #e2e8f0;
             padding-top: 8px;
             flex-shrink: 0;
         }
@@ -230,9 +237,10 @@
         .export-label {
             font-size: 11px;
             text-transform: uppercase;
-            color: #777;
+            color: #94a3b8;
             margin-bottom: 6px;
             letter-spacing: 0.5px;
+            font-weight: 700;
         }
 
         #word-search-container {
@@ -246,6 +254,8 @@
             margin-top: 0;
             margin-bottom: 10px;
             font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
         }
 
         #preview-tabs {
@@ -259,10 +269,10 @@
         }
 
         .tab-btn {
-            background-color: #e9ecef;
-            color: #495057;
+            background-color: #f1f5f9;
+            color: #64748b;
             padding: 5px 10px;
-            border-radius: 4px;
+            border-radius: 6px;
             font-size: 12px;
             white-space: nowrap;
             width: auto;
@@ -283,6 +293,8 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            padding: 4px;
+            box-sizing: border-box;
         }
 
         #grid {
@@ -290,13 +302,14 @@
             gap: 1px;
             background-color: var(--grid-border);
             padding: 1px;
-            border-radius: 4px;
+            border-radius: 6px;
             user-select: none;
             width: 100%;
             max-width: 100%;
             height: auto;
             aspect-ratio: 1 / 1; 
             box-sizing: border-box;
+            overflow: visible;
         }
 
         .cell {
@@ -304,17 +317,20 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
+            font-weight: 700;
             text-transform: uppercase;
             box-sizing: border-box;
             border: 1px solid transparent; 
             aspect-ratio: 1 / 1;
             width: 100%;
             height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            color: #1e293b;
         }
 
         .cell.answer-highlight {
             border: 2px solid #000000 !important;
+            background-color: #f1f5f9;
         }
 
         .word-list-container {
@@ -329,6 +345,8 @@
         .word-list-container h4 {
             margin: 0 0 6px 0;
             font-size: 13px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
         }
 
         .word-list-scroll {
@@ -350,15 +368,17 @@
 
         .word-item {
             padding: 4px 10px;
-            background: #e9ecef;
+            background: #f1f5f9;
             border-radius: 20px;
-            font-weight: 500;
+            font-weight: 600;
             text-transform: uppercase;
-            font-size: 12px;
+            font-size: 11px;
+            color: #334155;
+            letter-spacing: 0.3px;
         }
 
         .error {
-            color: #dc3545;
+            color: #ef4444;
             font-size: 12px;
             margin-top: 4px;
             font-weight: bold;
@@ -367,7 +387,7 @@
         .screen-footer {
             text-align: center;
             font-size: 11px;
-            color: #777;
+            color: #64748b;
             margin-top: 10px;
             flex-shrink: 0;
             letter-spacing: 0.3px;
@@ -517,23 +537,23 @@
     <div id="hidden-rendering-deck"></div>
 
     <div id="privacyModal" style="display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); overflow: auto;">
-        <div style="background-color: #ffffff; margin: 5% auto; padding: 30px; border-radius: 8px; max-width: 650px; line-height: 1.6; font-family: 'Segoe UI', Arial, sans-serif; color: #333; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.2); text-align: left;">
+        <div style="background-color: #ffffff; margin: 5% auto; padding: 30px; border-radius: 8px; max-width: 650px; line-height: 1.6; font-family: 'Nunito', sans-serif; color: #333; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.2); text-align: left;">
             <span id="closePrivacy" style="position: absolute; right: 20px; top: 15px; font-size: 28px; font-weight: bold; cursor: pointer; color: #aaa;">&times;</span>
             
-            <h2 style="color: #4a90e2; margin-top: 0; margin-bottom: 15px;">About & Privacy Policy</h2>
+            <h2 style="color: #4a90e2; margin-top: 0; margin-bottom: 15px; font-family: 'Montserrat', sans-serif; font-weight: 700;">About & Privacy Policy</h2>
             <p style="margin-bottom: 15px;">Welcome to <strong>The Word Search Workshop</strong>! This platform is a streamlined utility designed for self-publishers, independent authors, and educators to generate print-ready bulk puzzle books for Amazon KDP or classroom use.</p>
             
             <div style="background-color: #e8f4fd; border-left: 4px solid #4a90e2; padding: 12px; margin: 15px 0; font-weight: bold; border-radius: 0 4px 4px 0;">
                 Strict Privacy Standard: No personal information, puzzle text, or uploaded data blocks are ever sent to a server, tracked, or saved.
             </div>
 
-            <h3 style="font-size: 16px; margin: 15px 0 5px 0; color: #333;">1. Local Browser Processing</h3>
+            <h3 style="font-size: 16px; margin: 15px 0 5px 0; font-family: 'Montserrat', sans-serif; font-weight: 700;">1. Local Browser Processing</h3>
             <p style="margin: 0 0 15px 0; font-size: 14px; color: #555;">All word lists, titles, grid configurations, and data blocks you process here are handled strictly inside your own web browser window. No data is uploaded to our hosting environment, and nothing is retained once you close or refresh the page.</p>
 
-            <h3 style="font-size: 16px; margin: 15px 0 5px 0; color: #333;">2. Cookies and Third-Party Advertising</h3>
+            <h3 style="font-size: 16px; margin: 15px 0 5px 0; font-family: 'Montserrat', sans-serif; font-weight: 700;">2. Cookies and Third-Party Advertising</h3>
             <p style="margin: 0 0 15px 0; font-size: 14px; color: #555;">We use Google AdSense to serve advertisements on this website to help support its continued development. Google AdSense uses cookies to serve ads based on a user's prior visits to this website or other websites on the internet. You can opt out of personalized advertising at any time by visiting Google Ad Settings.</p>
 
-            <h3 style="font-size: 16px; margin: 15px 0 5px 0; color: #333;">3. External Infrastructure</h3>
+            <h3 style="font-size: 16px; margin: 15px 0 5px 0; font-family: 'Montserrat', sans-serif; font-weight: 700;">3. External Infrastructure</h3>
             <p style="margin: 0 0 5px 0; font-size: 14px; color: #555;">This application is hosted via GitHub Pages. Standard, non-identifying server logs (like page view counters) may be maintained by the hosting provider to ensure technical stability, but no personal information is collected.</p>
         </div>
     </div>
@@ -573,25 +593,28 @@
         
         exportCombinedBtn.addEventListener('click', () => exportPipeline('combined'));
         
+        // FIXED: Message reminder correctly signals local printing stack behavior
         exportCleanBtn.addEventListener('click', () => {
-            alert("📢 Don't forget! This option prints a clean puzzle book only. Make sure to also export your Teacher Answer Keys separately before closing out!");
+            alert("📢 Reminder: Please make sure to print your matching Teacher Answer Keys separately before closing your workspace session!");
             exportPipeline('clean');
         });
         
         exportKeysBtn.addEventListener('click', () => {
-            alert("⚠️ Warning: Do not upload standalone Teacher Answer Keys directly as an independent puzzle book layout package on Amazon KDP! For proper KDP publication, use the green 'Export Book + Answers at End' platform profile distribution instead.");
+            alert("📢 Processing standard double-sided teacher answer keys layout (stretching across odd and even pages continuously to save paper). Ready for local printing!");
             exportPipeline('keys');
         });
 
         fileUpload.addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(evt) {
-                bulkInput.value = evt.target.result;
-                processBulkInput(); 
-            };
-            reader.readAsText(file);
+            const reader = e.target.files[0] ? new FileReader() : null;
+            if (reader) {
+                reader.onload = function(evt) {
+                    bulkInput.value = evt.target.result;
+                    processBulkInput(); 
+                };
+                reader.readAsText(file);
+            }
         });
 
         document.getElementById('open-creator-btn').addEventListener('click', () => {
@@ -778,7 +801,7 @@
             puzzle.words.forEach(word => {
                 const li = document.createElement('li');
                 li.classList.add('word-item');
-                li.textContent = word;
+                li.textContent = `▢ ${word}`;
                 listElement.appendChild(li);
             });
         }
@@ -808,23 +831,46 @@
             });
 
             let pagesToBuild = [];
-            if (mode === 'clean' || mode === 'combined') pagesToBuild.push({ type: 'cover' });
+            
+            if (mode === 'combined') {
+                pagesToBuild.push({ type: 'cover' });
+                pagesToBuild.push({ type: 'blank' }); 
 
-            if (mode === 'clean') {
-                loadedPuzzles.forEach(p => pagesToBuild.push({ puzzle: p, showAnswers: false, type: 'puzzle' }));
-            } else if (mode === 'keys') {
-                loadedPuzzles.forEach(p => pagesToBuild.push({ puzzle: p, showAnswers: true, type: 'answer' }));
-            } else if (mode === 'combined') {
-                loadedPuzzles.forEach(p => pagesToBuild.push({ puzzle: p, showAnswers: false, type: 'puzzle' }));
+                loadedPuzzles.forEach(p => {
+                    pagesToBuild.push({ puzzle: p, showAnswers: false, type: 'puzzle' });
+                    pagesToBuild.push({ type: 'blank' }); 
+                });
+
                 pagesToBuild.push({ type: 'divider' });
-                loadedPuzzles.forEach(p => pagesToBuild.push({ puzzle: p, showAnswers: true, type: 'answer' }));
+                pagesToBuild.push({ type: 'blank' }); 
+
+                loadedPuzzles.forEach(p => {
+                    pagesToBuild.push({ puzzle: p, showAnswers: true, type: 'answer' });
+                    pagesToBuild.push({ type: 'blank' }); 
+                });
+
+            } else if (mode === 'clean') {
+                loadedPuzzles.forEach(p => {
+                    pagesToBuild.push({ puzzle: p, showAnswers: false, type: 'puzzle' });
+                });
+
+            } else if (mode === 'keys') {
+                loadedPuzzles.forEach(p => {
+                    pagesToBuild.push({ puzzle: p, showAnswers: true, type: 'answer' });
+                });
             }
 
             for (let i = 0; i < pagesToBuild.length; i++) {
                 const currentItem = pagesToBuild[i];
                 let pageEl;
 
-                if (currentItem.type === 'cover') {
+                if (currentItem.type === 'blank') {
+                    pageEl = document.createElement('div');
+                    pageEl.style.boxSizing = 'border-box';
+                    pageEl.style.backgroundColor = '#ffffff';
+                    pageEl.style.width = `${cfg.widthPx}px`;
+                    pageEl.style.height = `${cfg.heightPx}px`;
+                } else if (currentItem.type === 'cover') {
                     pageEl = createBookCoverPageElement(cfg);
                 } else if (currentItem.type === 'divider') {
                     pageEl = createDividerPageElement(cfg);
@@ -868,23 +914,23 @@
             container.style.flexDirection = 'column';
             container.style.justifyContent = 'center'; 
             container.style.alignItems = 'center';     
-            container.style.fontFamily = "'Segoe UI', Arial, sans-serif";
+            container.style.fontFamily = "'Montserrat', 'Segoe UI', Arial, sans-serif";
             container.style.color = '#000000';
             container.style.padding = '40px';
 
             const bookTitle = document.createElement('h1');
             bookTitle.textContent = baseTitleInput.value.trim().toUpperCase() || "WORD SEARCH BOOK";
-            bookTitle.style.fontSize = '44px';
+            bookTitle.style.fontSize = '40px';
             bookTitle.style.margin = '0 0 20px 0';
             bookTitle.style.textTransform = 'uppercase';
             bookTitle.style.letterSpacing = '2px';
-            bookTitle.style.fontWeight = 'bold';
+            bookTitle.style.fontWeight = '800';
             bookTitle.style.textAlign = 'center';
             container.appendChild(bookTitle);
 
             const rule = document.createElement('div');
-            rule.style.width = '220px';
-            rule.style.height = '5px';
+            rule.style.width = '200px';
+            rule.style.height = '4px';
             rule.style.backgroundColor = '#000000';
             rule.style.marginBottom = '140px';
             container.appendChild(rule);
@@ -894,12 +940,13 @@
             footerContainer.style.display = 'flex';
             footerContainer.style.flexDirection = 'column';
             footerContainer.style.gap = '8px';
+            footerContainer.style.fontFamily = "'Nunito', sans-serif";
 
             const line1 = document.createElement('p');
             line1.textContent = footerLine1Input.value.trim();
             line1.style.margin = '0';
             line1.style.fontSize = '14px';
-            line1.style.color = '#666666';
+            line1.style.color = '#475569';
             line1.style.fontStyle = 'italic';
             footerContainer.appendChild(line1);
 
@@ -907,16 +954,16 @@
             line2.textContent = footerLine2Input.value.trim();
             line2.style.margin = '0';
             line2.style.fontSize = '14px';
-            line2.style.color = '#555555';
-            line2.style.fontWeight = '600';
+            line2.style.color = '#1e293b';
+            line2.style.fontWeight = '700';
             footerContainer.appendChild(line2);
 
             const line3 = document.createElement('p');
             line3.textContent = footerLine3Input.value.trim();
             line3.style.margin = '0';
             line3.style.fontSize = '13px';
-            line3.style.color = '#777777';
-            line3.style.fontWeight = '500';
+            line3.style.color = '#64748b';
+            line3.style.fontWeight = '600';
             footerContainer.appendChild(line3);
 
             container.appendChild(footerContainer);
@@ -933,20 +980,20 @@
             container.style.flexDirection = 'column';
             container.style.justifyContent = 'center'; 
             container.style.alignItems = 'center';     
-            container.style.fontFamily = "'Segoe UI', Arial, sans-serif";
+            container.style.fontFamily = "'Montserrat', Arial, sans-serif";
             container.style.color = '#000000';
 
             const majorTitle = document.createElement('h1');
             majorTitle.textContent = "ANSWER KEYS";
-            majorTitle.style.fontSize = '44px';
+            majorTitle.style.fontSize = '40px';
             majorTitle.style.margin = '0 0 15px 0';
             majorTitle.style.textTransform = 'uppercase';
             majorTitle.style.letterSpacing = '2px';
-            majorTitle.style.fontWeight = 'bold';
+            majorTitle.style.fontWeight = '800';
             container.appendChild(majorTitle);
 
             const rule = document.createElement('div');
-            rule.style.width = '180px';
+            rule.style.width = '160px';
             rule.style.height = '4px';
             rule.style.backgroundColor = '#000000';
             container.appendChild(rule);
@@ -960,17 +1007,19 @@
             pageContainer.style.color = '#000000';
             pageContainer.style.width = `${cfg.widthPx}px`;   
             pageContainer.style.height = `${cfg.heightPx}px`;  
-            pageContainer.style.padding = '50px 50px 30px 50px'; 
+            pageContainer.style.padding = '55px 50px 35px 50px'; 
             pageContainer.style.display = 'flex';
             pageContainer.style.flexDirection = 'column';
             pageContainer.style.justifyContent = 'space-around'; 
             pageContainer.style.alignItems = 'center';     
-            pageContainer.style.fontFamily = "'Segoe UI', Arial, sans-serif";
+            pageContainer.style.fontFamily = "'Nunito', sans-serif";
 
             const titleEl = document.createElement('h2');
             titleEl.textContent = showAnswersInPDF ? `${puzzle.title} (ANSWERS)` : puzzle.title;
-            titleEl.style.fontSize = '26px';
-            titleEl.style.margin = '5px 0 15px 0';
+            titleEl.style.fontFamily = "'Montserrat', Arial, sans-serif";
+            titleEl.style.fontSize = '24px';
+            titleEl.style.fontWeight = '800';
+            titleEl.style.margin = '0 0 15px 0';
             titleEl.style.textTransform = 'uppercase';
             titleEl.style.letterSpacing = '1px';
             pageContainer.appendChild(titleEl);
@@ -981,16 +1030,18 @@
             const boxDimension = isLandscape ? 310 : 360;
             relativeWrapper.style.width = `${boxDimension}px`;
             relativeWrapper.style.height = `${boxDimension}px`;
+            relativeWrapper.style.overflow = 'visible';
 
             const gridEl = document.createElement('div');
             gridEl.style.display = 'grid';
             gridEl.style.gap = '1px';
-            gridEl.style.backgroundColor = '#000000';
+            gridEl.style.backgroundColor = '#94a3b8'; 
             gridEl.style.padding = '1px';
             gridEl.style.width = '100%';  
             gridEl.style.height = '100%';
             gridEl.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
             gridEl.style.boxSizing = 'border-box';
+            gridEl.style.border = '1px solid #475569'; 
 
             const pdfHighlightSet = new Set();
             if (showAnswersInPDF) {
@@ -1012,14 +1063,17 @@
                     cell.style.display = 'flex';
                     cell.style.alignItems = 'center';
                     cell.style.justifyContent = 'center';
-                    cell.style.fontWeight = 'bold';
+                    cell.style.fontWeight = '700';
+                    cell.style.fontFamily = "'Montserrat', sans-serif";
                     cell.style.fontSize = isLandscape ? '14px' : '16px';
                     cell.style.textTransform = 'uppercase';
                     cell.style.boxSizing = 'border-box';
                     cell.style.border = '2px solid transparent';
                     cell.textContent = puzzle.matrix[r][c];
+                    
                     if (pdfHighlightSet.has(`${r}-${c}`)) {
-                        cell.style.border = '2.5px solid #000000';
+                        cell.style.border = '2px solid #000000';
+                        cell.style.backgroundColor = '#f1f5f9';
                     }
                     gridEl.appendChild(cell);
                 }
@@ -1031,7 +1085,7 @@
             listEl.style.display = 'grid';
             listEl.style.listStyle = 'none';
             listEl.style.padding = '0';
-            listEl.style.margin = '10px auto 0 auto';
+            listEl.style.margin = '15px auto 0 auto';
             listEl.style.width = '100%';
             listEl.style.maxWidth = '460px';
             listEl.style.textAlign = 'left';
@@ -1051,7 +1105,7 @@
             }
 
             listEl.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
-            listEl.style.gap = `${rowGap} 10px`;
+            listEl.style.gap = `${rowGap} 12px`;
             
             puzzle.words.forEach(word => {
                 const item = document.createElement('li');
@@ -1061,7 +1115,8 @@
                 item.style.whiteSpace = 'nowrap';
                 item.style.overflow = 'hidden';
                 item.style.textOverflow = 'ellipsis';
-                item.textContent = `O ${word}`;
+                item.style.color = '#1e293b';
+                item.textContent = `▢  ${word}`;
                 listEl.appendChild(item);
             });
             pageContainer.appendChild(listEl);
