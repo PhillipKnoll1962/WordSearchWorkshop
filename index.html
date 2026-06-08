@@ -6,9 +6,8 @@
     <title>The Word Search Workshop</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7795617443302913"
-     crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght=400;500;700;800&family=Nunito:wght=400;600;700;900&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --primary: #4a90e2;
@@ -456,7 +455,7 @@
                 <div class="form-row-pack">
                     <div class="form-group">
                         <label for="grid-size">Grid Size:</label>
-                        <input type="number" id="grid-size" value="12" min="5" max="25">
+                        <input type="number" id="grid-size" value="12" min="5" max="15">
                     </div>
                     <div class="form-group">
                         <label for="book-dimensions">Book Trim Size:</label>
@@ -613,7 +612,15 @@
 
         function processBulkInput() {
             errorMsg.textContent = "";
-            gridSize = parseInt(gridSizeInput.value) || 12;
+            
+            // FIXED: Enforced strict ceiling check inside JavaScript engine to prevent values > 15
+            let parsedSize = parseInt(gridSizeInput.value) || 12;
+            if (parsedSize > 15) {
+                parsedSize = 15;
+                gridSizeInput.value = 15;
+            }
+            gridSize = parsedSize;
+            
             loadedPuzzles = [];
             
             const rawBlocks = bulkInput.value.split(/\n\s*---\s*\n/);
