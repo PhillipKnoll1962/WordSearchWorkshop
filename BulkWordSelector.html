@@ -97,6 +97,7 @@
             background-color: #fff;
             color: #334155;
             box-sizing: border-box;
+            width: 100%;
         }
 
         textarea {
@@ -225,6 +226,7 @@
         const downloadTxtBtn = document.getElementById('download-txt-btn');
         const sendWorkshopBtn = document.getElementById('send-workshop-btn');
         const bulkOutput = document.getElementById('bulk-output');
+        const puzzleTopicSelect = document.getElementById('puzzle-topic');
 
         generateFormatBtn.addEventListener('click', generateBlocks);
         downloadTxtBtn.addEventListener('click', downloadTxtFile);
@@ -240,25 +242,31 @@
 
             const workshopWND = window.open('index.html', 'workshopMainTab');
             if (workshopWND) {
-                workshopWND.location.reload();
+                try {
+                    workshopWND.location.reload();
+                } catch(e) {}
             } else {
-                alert("If the dashboard doesn't update, please make sure index.html is open in a neighboring browser tab!");
+                alert("If the dashboard doesn't update automatically, please ensure your index.html file tab is open next door!");
             }
+
+            window.close();
         });
 
         function generateBlocks() {
             const numPuzzles = parseInt(document.getElementById('num-puzzles').value) || 10;
             const wordsPerBlock = parseInt(document.getElementById('words-per-block').value) || 12;
-            const chosenTopic = document.getElementById('puzzle-topic').value;
+            const chosenTopic = puzzleTopicSelect.value;
 
             const baseWords = topicsData[chosenTopic] || topicsData.general;
             let finalOutputString = "";
+
+            const selectedIndex = puzzleTopicSelect.selectedIndex;
+            const topicLabel = puzzleTopicSelect.options[selectedIndex].text.split(' ')[0].toUpperCase();
 
             for (let i = 1; i <= numPuzzles; i++) {
                 let shuffled = [...baseWords].sort(() => 0.5 - Math.random());
                 let selectedWords = shuffled.slice(0, Math.min(wordsPerBlock, shuffled.length));
                 
-                let topicLabel = document.getElementById('puzzle-topic').options[document.getElementById('puzzle-topic').selectedIndex].text.split(' ')[0].toUpperCase();
                 finalOutputString += `${topicLabel} PUZZLE ${i}\n`;
                 finalOutputString += selectedWords.join(', ');
 
