@@ -49,6 +49,8 @@
     <div id="status"></div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/audio-recorder-polyfill@0.4.1/index.js"></script>
+
 <script>
     const recordBtn = document.getElementById('recordBtn');
     const statusDiv = document.getElementById('status');
@@ -63,7 +65,13 @@
         
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            mediaRecorder = new MediaRecorder(stream);
+            
+            // Use the formatter to force a standard clean audio container format
+            if (window.AudioRecorder) {
+                mediaRecorder = new window.AudioRecorder(stream);
+            } else {
+                mediaRecorder = new MediaRecorder(stream);
+            }
 
             mediaRecorder.ondataavailable = (event) => {
                 if (event.data.size > 0) audioChunks.push(event.data);
@@ -72,9 +80,13 @@
             mediaRecorder.onstop = async () => {
                 const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
                 
-                // Hugging Face API prefers audio sent as a clean binary array data stream
-                const arrayBuffer = await audioBlob.arrayBuffer();
-                await uploadAndAnalyze(arrayBuffer);
+                // Read the file as a clean binary format the database can map
+                const reader = new FileReader();
+                reader.readAsDataURL(audioBlob);
+                reader.onloadend = async () => {
+                    const base64Audio = reader.result.split(',')[1];
+                    await uploadAndAnalyze(base64Audio);
+                };
             };
 
             mediaRecorder.start();
@@ -93,7 +105,7 @@
                     mediaRecorder.stop();
                     stream.getTracks().forEach(track => track.stop());
                     statusDiv.className = '';
-                    statusDiv.innerText = '⚙️ Querying open-source database...';
+                    statusDiv.innerText = '⚙️ Formatting audio file...';
                 }
             }, 1000);
 
@@ -104,35 +116,51 @@
         }
     });
 
-    async function uploadAndAnalyze(audioData) {
-        // Points to an open, public BirdNET space endpoint built explicitly for web apps
+    async function uploadAndAnalyze(base64Data) {
+        // Create the structured JSON layout the cloud space expects
+        const payload = {
+            data: [
+                {
+                    data: base64Data,
+                    name: "recording.wav"
+                }
+            ]
+        };
+
         const targetUrl = 'https://tomaarsen-birdnet-sound-analysis.hf.space/api/predict';
 
         try {
             const response = await fetch(targetUrl, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/octet-stream' },
-                body: audioData
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
             });
 
             if (!response.ok) throw new Error();
 
             const data = await response.json();
             
-            // Parse Hugging Face's standard data response layout
-            if (data.data && data.data[0] && data.data[0].label) {
-                const matchName = data.data[0].label;
-                const matchConf = Math.round(data.data[0].confidences[0].confidence * 100);
-                
-                statusDiv.className = 'success';
-                statusDiv.innerHTML = `🎯 <b>Match Found:</b><br>${matchName} (${matchConf}% match)`;
-            } else {
-                statusDiv.className = '';
-                statusDiv.innerText = '🤔 No matching bird species detected. Try getting a closer recording!';
+            // Read back the specific data array structure returned from the model
+            if (data.data && data.data[0]) {
+                const results = data.data[0];
+                // Check if the model returned structured text labels
+                if (results.confidences && results.confidences.length > 0) {
+                    const topMatch = results.confidences[0];
+                    const matchName = topMatch.label;
+                    const matchConf = Math.round(topMatch.confidence * 100);
+                    
+                    statusDiv.className = 'success';
+                    statusDiv.innerHTML = `🎯 <b>Match Found:</b><br>${matchName} (${matchConf}% match)`;
+                    return;
+                }
             }
+            
+            statusDiv.className = '';
+            statusDiv.innerText = '🤔 No matching bird species detected. Try getting a closer recording!';
+            
         } catch (error) {
             statusDiv.className = 'error';
-            statusDiv.innerText = `❌ Connection Error: Cloud analysis database rejected the audio file format.`;
+            statusDiv.innerText = `❌ Audio file format error. Database failed to process the audio structure.`;
         } finally {
             recordBtn.disabled = false;
         }
