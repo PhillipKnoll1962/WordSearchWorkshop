@@ -6,125 +6,113 @@
     <title>Privacy Policy & About - The Word Search Workshop</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght=700;800&family=Nunito:wght=400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #4a90e2;
-            --bg: #f5f7fa;
-            --card-bg: #ffffff;
-            --text: #2c3e50;
-        }
-
         body {
             font-family: 'Nunito', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
+            line-height: 1.6;
+            color: #334155;
+            background-color: #f5f7fa;
             margin: 0;
             padding: 40px 20px;
-            display: flex;
-            justify-content: center;
         }
-
-        .policy-container {
+        .privacy-container {
             max-width: 800px;
-            width: 100%;
-            background: var(--card-bg);
+            margin: 0 auto;
+            background: #ffffff;
             padding: 40px;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            box-sizing: border-box;
         }
-
         h1 {
             font-family: 'Montserrat', sans-serif;
+            color: #4a90e2;
             font-weight: 800;
-            color: #1e3a8a;
             margin-top: 0;
             border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 15px;
+            padding-bottom: 10px;
         }
-
         h2 {
             font-family: 'Montserrat', sans-serif;
+            color: #1e293b;
             font-weight: 700;
-            color: var(--primary);
             font-size: 18px;
-            margin-top: 30px;
-            margin-bottom: 10px;
+            margin-top: 25px;
         }
-
-        p {
-            font-size: 15px;
-            line-height: 1.6;
+        p, li {
+            font-size: 14px;
             color: #475569;
-            margin-top: 0;
-            margin-bottom: 15px;
         }
-
         ul {
             padding-left: 20px;
-            margin-bottom: 20px;
         }
-
-        li {
-            font-size: 15px;
-            line-height: 1.6;
-            color: #475569;
-            margin-bottom: 8px;
+        .highlight-box {
+            background-color: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
         }
-
-        .back-btn {
+        .back-link {
             display: inline-block;
-            background-color: var(--primary);
-            color: white;
+            margin-bottom: 20px;
+            color: #4a90e2;
             text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 6px;
             font-weight: 700;
             font-size: 14px;
-            margin-top: 20px;
-            transition: background 0.2s;
         }
-
-        .back-btn:hover {
-            background-color: #357abd;
+        .back-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
-    <div class="policy-container">
-        <h1>Privacy Policy & About</h1>
-        <p><em>Last Updated: June 2026</em></p>
-        
-        <p>Welcome to <strong>The Word Search Workshop</strong>. Your privacy is paramount to us. This page outlines how data is handled on our platform and discloses our advertising practices.</p>
+<div class="privacy-container">
+    <a href="index.html" class="back-link">← Return to Workshop Dashboard</a>
+    
+    <h1>Privacy Policy</h1>
+    <p><em>Last Updated: June 2026</em></p>
+    
+    <p>At The Word Search Workshop, accessible from your website domain, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by our platform and how we use it.</p>
 
-        <h2>1. Data Collection & Processing</h2>
-        <p>The Word Search Workshop is a <strong>fully local browser application</strong>. We do not operate databases or cloud storage accounts to log your custom puzzle inputs. </p>
+    <h2>1. Log Files & LocalStorage Cache</h2>
+    <p>The Word Search Workshop follows a standard procedure of using log files. These files log visitors when they visit websites. The information collected by log files includes internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable.</p>
+    <p>Additionally, this web application utilizes standard browser <code>localStorage</code> exclusively to pipe user-entered text puzzle formats between your active workspace windows. No word list strings or puzzle titles are monitored, processed, stored, or mirrored on external web server frameworks.</p>
+
+    <h2>2. Google AdSense & Third-Party Advertising Cookies</h2>
+    <div class="highlight-box">
+        <p><strong>Important Disclosure for Our Visitors regarding Google Cookies:</strong></p>
         <ul>
-            <li><strong>Puzzle Lists & Text Blocks:</strong> All vocabulary words, layout configuration preferences, titles, and generated letter matrix tracks remain completely inside your personal device session.</li>
-            <li><strong>Browser LocalStorage:</strong> The app utilizes standard browser <code>localStorage</code> cache targets exclusively to instantly pipe text formats between your active workspace windows. No word list strings are monitored, processed, or mirrored on an external web server framework.</li>
+            <li>Google, as a third-party vendor, uses cookies to serve ads on this site.</li>
+            <li>Google's use of the DART cookie enables it to serve ads to our users based on their visit to this site and other sites on the Internet.</li>
+            <li>Users may choose to opt out of the use of the DART cookie by visiting the Google Ad and Content Network Privacy Policy.</li>
         </ul>
-
-        <h2>2. Third-Party Advertising & Cookies</h2>
-        <p>We may display automated programmatic advertisements via third-party network provider services to help sustain software hosting costs. Because of this deployment structure:</p>
-        <ul>
-            <li>Third-party vendors and ad networks use cookies to serve ads based on a user's prior visits to this website or other sites on the Internet.</li>
-            <li>The use of advertising cookies enables these platforms and their partners to serve relevant ads to users based on their visit to our platform and/or other sites across the web.</li>
-            <li>Users can typically choose to opt out of personalized advertising by managing their web browser cookie preferences or visiting standard industry opt-out portals.</li>
-        </ul>
-
-        <h2>3. Local File Security & Image Rendering</h2>
-        <p>Document exports (including printable book layouts and structural target key collections) are computed client-side using localized canvas rendering loops. No tracking mechanisms are embedded within the compiled PDF distribution arrays.</p>
-
-        <h2>4. Changes to This Privacy Document</h2>
-        <p>We reserve the right to modify this structural disclosure notice at any time to align with dynamic layout adjustments or ad vendor policy modifications. Feel free to monitor structural revisions directly via our platform dashboard access link options.</p>
-
-        <h2>About the Developer</h2>
-        <p>The Word Search Workshop is custom engineered to streamline indie self-publishing workflows—providing low-content book designers and paperback puzzle creators with an optimized platform for generating high-resolution printable media structures rapidly.</p>
-
-        <a href="index.html" class="back-btn">← Return to Dashboard</a>
     </div>
+    <p>Third-party ad servers or ad networks use technologies like cookies, JavaScript, or Web Beacons that are used in their respective advertisements and links that appear on The Word Search Workshop, which are sent directly to users' browsers. They automatically receive your IP address when this occurs. These technologies are used to measure the effectiveness of their advertising campaigns and/or to personalize the advertising content that you see on websites that you visit.</p>
+    <p>Note that The Word Search Workshop has no access to or control over these cookies that are used by third-party advertisers.</p>
+
+    <h2>3. Third-Party Privacy Policies</h2>
+    <p>The Word Search Workshop's Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you to consult the respective Privacy Policies of these third-party ad servers for more detailed information. It may include their practices and instructions about how to opt-out of certain options.</p>
+    <p>You can choose to disable cookies through your individual browser options. To know more detailed information about cookie management with specific web browsers, it can be found at the browsers' respective websites.</p>
+
+    <h2>4. CCPA Privacy Rights (Do Not Sell My Personal Information)</h2>
+    <p>Under the CCPA, among other rights, California consumers have the right to request that a business delete the consumer's personal data, and request that a business that sells a consumer's personal data, not sell the consumer's personal data. If you make a request, we have one month to respond to you.</p>
+
+    <h2>5. GDPR Data Protection Rights</h2>
+    <p>We would like to make sure you are fully aware of all of your data protection rights. Every user is entitled to the following: The right to access, the right to rectification, the right to erasure, the right to restrict processing, the right to object to processing, and the right to data portability.</p>
+
+    <h2>6. Client-Side Image Rendering Security</h2>
+    <p>Document exports (including printable book layouts and structural target key collections) are computed strictly client-side using localized HTML5 canvas rendering loops. No tracking mechanisms are embedded within the compiled PDF distribution arrays.</p>
+
+    <h2>7. Consent</h2>
+    <p>By using our website, you hereby consent to our Privacy Policy and agree to its Terms and Conditions.</p>
+
+    <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 30px 0;">
+
+    <h1>About the Developer</h1>
+    <p>The Word Search Workshop was designed and engineered as a streamlined, commercial-grade KDP production platform. Created by a retired public service employee and indie author, this specialized platform removes the technical overhead from puzzle grid compilation, letting creators focus purely on theme creation and niche book publishing success.</p>
+</div>
 
 </body>
 </html>
