@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shazam for Birds 🐦</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #eef2f3 0%, #8e9eab 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        h2 { color: #1e3c72; margin-top: 0; }
+        p { color: #666; font-size: 0.95rem; margin-bottom: 2rem; }
+        .btn {
+            background: #2a75d3; color: white; border: none; padding: 12px 28px;
+            font-size: 1rem; font-weight: bold; border-radius: 50px; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(42, 117, 211, 0.4); transition: all 0.2s ease;
+        }
+        .btn:hover { background: #1b5cb3; transform: translateY(-1px); }
+        .btn:disabled { background: #a0aec0; box-shadow: none; cursor: not-allowed; }
+        #status { margin-top: 1.5rem; font-weight: 500; font-size: 0.95rem; }
+        .success { color: #2f855a; }
+        .error { color: #c53030; }
+        .recording { color: #dd6b20; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Shazam for Birds 🦜</h2>
+    <p>Record a bird sound to identify the exact species using AI.</p>
+    
+    <button id="recordBtn" class="btn">🎤 Record & Identify (5s)</button>
+    
+    <div id="status"></div>
+</div>
+
+<script>
+    const recordBtn = document.getElementById('recordBtn');
+    const statusDiv = document.getElementById('status');
+    
+    let mediaRecorder;
+    let audioChunks = [];
+
+    recordBtn.addEventListener('click', async () => {
+        statusDiv.className = '';
+        statusDiv.innerText = '';
+        audioChunks = [];
+        
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder = new MediaRecorder(stream);
+
+            mediaRecorder.ondataavailable = (event) => {
+                if (event.data.size > 0) audioChunks.push(event.data);
+            };
+
+            mediaRecorder.onstop = async () => {
+                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                
+                // Convert audio file directly to text string to bypass proxy restrictions
+                const reader = new FileReader();
+                reader.readAsDataURL(audioBlob);
+                reader.onloadend = async () => {
+                    const base64Audio = reader.result.split(',')[1];
+                    await uploadAndAnalyze(base64Audio);
+                };
+            };
+
+            mediaRecorder.start();
+            recordBtn.disabled = true;
+            
+            let secondsLeft = 5;
+            statusDiv.className = 'recording';
+            statusDiv.innerText = `🔴 Recording... Listening for ${secondsLeft}s`;
+            
+            const interval = setInterval(() => {
+                secondsLeft--;
+                if (secondsLeft > 0) {
+                    statusDiv.innerText = `🔴 Recording... Listening for ${secondsLeft}s`;
+                } else {
+                    clearInterval(interval);
+                    mediaRecorder.stop();
+                    stream.getTracks().forEach(track => track.stop());
+                    statusDiv.className = '';
+                    statusDiv.innerText = '⚙️ Analyzing text stream...';
+                }
+            }, 1000);
+
+        } catch (err) {
+            statusDiv.className = 'error';
+            statusDiv.innerText = `❌ Microphone access denied or missing.`;
+            recordBtn.disabled = false;
+        }
+    });
+
+    async function uploadAndAnalyze(base64Data) {
+        // Prepare payload data entirely as a clean text object
+        const payload = {
+            audio: base64Data,
+            meta: {
+                latitude: 42.5,
+                longitude: -76.5,
+                week: 23,
+                threshold: 0.3
+            }
+        };
+
+        // Standard text proxy endpoint handling string translations smoothly
+        const proxyUrl = 'https://api.allorigins.win/raw?url=';
+        const targetUrl = 'https://birdnet.cornell.edu/api/v1/analyze';
+
+        try {
+            const response = await fetch(proxyUrl + encodeURIComponent(targetUrl), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) throw new Error();
+
+            const data = await response.json();
+            
+            if (data.results && data.results.length > 0) {
+                const topMatch = data.results[0];
+                const confidence = Math.round(topMatch.score * 100);
+                statusDiv.className = 'success';
+                statusDiv.innerHTML = `🎯 <b>Match Found:</b> ${topMatch.species} (${confidence}% match)`;
+            } else {
+                statusDiv.className = '';
+                statusDiv.innerText = '🤔 No bird species recognized. Try again closer to the sound!';
+            }
+        } catch (error) {
+            statusDiv.className = 'error';
+            statusDiv.innerText = `❌ Web Connection blocked. Local file limits prevent remote access.`;
+        } finally {
+            recordBtn.disabled = false;
+        }
+    }
+</script>
+
+</body>
+</html>
