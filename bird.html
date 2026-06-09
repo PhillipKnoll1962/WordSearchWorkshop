@@ -1,3 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shazam for Birds 🐦</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #eef2f3 0%, #8e9eab 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        h2 { color: #1e3c72; margin-top: 0; }
+        p { color: #666; font-size: 0.95rem; margin-bottom: 2rem; }
+        .btn {
+            background: #2a75d3; color: white; border: none; padding: 12px 28px;
+            font-size: 1rem; font-weight: bold; border-radius: 50px; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(42, 117, 211, 0.4); transition: all 0.2s ease;
+        }
+        .btn:hover { background: #1b5cb3; transform: translateY(-1px); }
+        .btn:disabled { background: #a0aec0; box-shadow: none; cursor: not-allowed; }
+        #status { margin-top: 1.5rem; font-weight: 500; font-size: 0.95rem; line-height: 1.4; }
+        .success { color: #2f855a; }
+        .error { color: #c53030; }
+        .recording { color: #dd6b20; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Shazam for Birds 🦜</h2>
+    <p>Record a bird sound to identify the exact species using AI.</p>
+    
+    <button id="recordBtn" class="btn">🎤 Record & Identify (5s)</button>
+    
+    <div id="status"></div>
+</div>
+
 <script>
     const recordBtn = document.getElementById('recordBtn');
     const statusDiv = document.getElementById('status');
@@ -11,7 +62,6 @@
         audioChunks = [];
         
         try {
-            // Request microphone access
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
             mediaRecorder = new MediaRecorder(stream);
 
@@ -20,9 +70,11 @@
             };
 
             mediaRecorder.onstop = async () => {
-                // Create a standard audio file blob
                 const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-                await uploadAndAnalyze(audioBlob);
+                
+                // Hugging Face API prefers audio sent as a clean binary array data stream
+                const arrayBuffer = await audioBlob.arrayBuffer();
+                await uploadAndAnalyze(arrayBuffer);
             };
 
             mediaRecorder.start();
@@ -41,7 +93,7 @@
                     mediaRecorder.stop();
                     stream.getTracks().forEach(track => track.stop());
                     statusDiv.className = '';
-                    statusDiv.innerText = '⚙️ Analyzing audio snippet...';
+                    statusDiv.innerText = '⚙️ Querying open-source database...';
                 }
             }, 1000);
 
@@ -52,44 +104,40 @@
         }
     });
 
-    async function uploadAndAnalyze(audioBlob) {
-        // Create a standard form upload payload
-        const formData = new FormData();
-        formData.append('audio', audioBlob, 'recording.wav');
-        
-        // Cornell's required settings parameters
-        formData.append('latitude', '42.5');
-        formData.append('longitude', '-76.5');
-        formData.append('week', '23');
-        formData.append('threshold', '0.3');
-
-        // Direct connection to Cornell's public analysis engine
-        const targetUrl = 'https://birdnet.cornell.edu/api/v1/analyze';
+    async function uploadAndAnalyze(audioData) {
+        // Points to an open, public BirdNET space endpoint built explicitly for web apps
+        const targetUrl = 'https://tomaarsen-birdnet-sound-analysis.hf.space/api/predict';
 
         try {
             const response = await fetch(targetUrl, {
                 method: 'POST',
-                body: formData
+                headers: { 'Content-Type': 'application/octet-stream' },
+                body: audioData
             });
 
             if (!response.ok) throw new Error();
 
             const data = await response.json();
             
-            if (data.results && data.results.length > 0) {
-                const topMatch = data.results[0];
-                const confidence = Math.round(topMatch.score * 100);
+            // Parse Hugging Face's standard data response layout
+            if (data.data && data.data[0] && data.data[0].label) {
+                const matchName = data.data[0].label;
+                const matchConf = Math.round(data.data[0].confidences[0].confidence * 100);
+                
                 statusDiv.className = 'success';
-                statusDiv.innerHTML = `🎯 <b>Match Found:</b> ${topMatch.species} (${confidence}% match)`;
+                statusDiv.innerHTML = `🎯 <b>Match Found:</b><br>${matchName} (${matchConf}% match)`;
             } else {
                 statusDiv.className = '';
-                statusDiv.innerText = '🤔 No bird species recognized. Try again closer to the sound!';
+                statusDiv.innerText = '🤔 No matching bird species detected. Try getting a closer recording!';
             }
         } catch (error) {
             statusDiv.className = 'error';
-            statusDiv.innerText = `❌ Connection Error: Cornell server rejected the request format.`;
+            statusDiv.innerText = `❌ Connection Error: Cloud analysis database rejected the audio file format.`;
         } finally {
             recordBtn.disabled = false;
         }
     }
 </script>
+
+</body>
+</html>
