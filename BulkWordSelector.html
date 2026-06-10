@@ -134,37 +134,6 @@
 
         .btn-success { background-color: var(--success); }
         .btn-success:hover { background-color: var(--success-hover); }
-
-        .ad-placeholder {
-            margin-top: 25px;
-            border: 1px solid #cbd5e1;
-            background-color: #e2e8f0; 
-            border-radius: 8px;
-            height: 90px; 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-sizing: border-box;
-            padding: 10px;
-        }
-
-        .ad-placeholder-icon-horiz {
-            width: 20px;
-            height: 20px;
-            border: 3px double #94a3b8;
-            border-radius: 50%;
-            margin-bottom: 4px;
-            opacity: 0.7;
-        }
-
-        .ad-placeholder-text-horiz {
-            font-size: 11px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: #64748b;
-            font-weight: 700;
-        }
     </style>
 </head>
 <body>
@@ -207,11 +176,6 @@
             <label for="bulk-output">Generated Data Stream:</label>
             <textarea id="bulk-output" readonly></textarea>
         </div>
-
-        <div class="ad-placeholder">
-            <div class="ad-placeholder-icon-horiz"></div>
-            <div class="ad-placeholder-text-horiz">Sponsored Link</div>
-        </div>
     </div>
 
     <script>
@@ -240,7 +204,6 @@
 
             localStorage.setItem('sharedPuzzleDataBlocks', dataBlocks);
 
-            // Targets your main dashboard tab context seamlessly
             const workshopWND = window.open('index.html', 'workshopMainTab');
             if (workshopWND) {
                 try {
