@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Riverside Rat - Free Tools</title>
+  <style>
+    /* Global responsive rule */
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fcfaf3;
+      color: #4a3728;
+      text-align: center;
+      padding: 50px;
+      margin: 0;
+    }
+
+    h1 { font-size: 3rem; margin-bottom: 50px; }
+
+    /* Layout */
+    .container {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      max-width: 1000px;
+      margin: 0 auto;
+      align-items: flex-start;
+      flex-wrap: wrap; /* allow wrapping on small screens */
+      padding: 0 16px;
+    }
+
+    .tool-card {
+      flex: 1 1 280px; /* grow, shrink, base width */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 220px;
+      max-width: 320px;
+      box-sizing: border-box;
+      padding: 18px;
+    }
+
+    .icon-circle {
+      width: 140px;
+      height: 140px;
+      border: 4px solid #a66e4a;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      overflow: hidden;
+      background: white;
+    }
+
+    /* Constrain the image inside the circle so it never overflows */
+    .icon-circle img {
+      width: 60%;
+      height: auto;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    hr {
+      width: 100%;
+      border: 0;
+      border-top: 2px solid #dcd4c9;
+      margin: 20px 0;
+    }
+
+    h3 { margin: 10px 0; font-size: 1.15rem; }
+    p { color: #5c4d3f; line-height: 1.4; margin: 0; }
+
+    /* Optional utility classes */
+    .small-icon { width: 100px; height: 100px; }
+    .center { text-align: center; }
+
+    /* Responsive tweaks */
+    @media (max-width: 760px) {
+      body { padding: 28px; }
+      h1 { font-size: 2rem; margin-bottom: 28px; }
+      .container { gap: 24px; }
+      .icon-circle { width: 120px; height: 120px; }
+      .icon-circle img { width: 55%; }
+      .tool-card { padding: 12px; }
+    }
+
+    @media (max-width: 420px) {
+      .icon-circle { width: 100px; height: 100px; }
+      .icon-circle img { width: 50%; }
+      .tool-card { flex-basis: 100%; max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Free Tools</h1>
+
+  <div class="container">
+    <div class="tool-card">
+      <div class="icon-circle">
+        <img src="2.png" alt="Mouse Icon" width="200" height="200" loading="lazy">
+      </div>
+      <h3>The Word Search Workshop</h3>
+      <hr>
+      <p>This program will help you generate word search puzzles.</p>
+<hr>
+<a href="https://thewordsearchworkshop.com">The Word Search Workshop</a>
+    </div>
+
+    <div class="tool-card">
+      <div class="icon-circle">
+        <img src="2.png" alt="Mouse Icon" width="200" height="200" loading="lazy">
+      </div>
+      <h3>The Word Unscrambler Workshop</h3>
+      <hr>
+      <p>This tool unscramble most words.</p>
+      <hr>
+      <a href="https://thewordsearchworkshop.com">The Word Search Workshop</a>
+	</div>
+
+    <div class="tool-card">
+      <div class="icon-circle">
+        <img src="2.png" alt="Mouse Icon" width="200" height="200" loading="lazy">
+      </div>
+      <h3>The Puzzle Workshop</h3>
+      <hr>
+      <p>This tool will help you generate puzzles.</p>
+      <hr>
+      <a href="https://thewordsearchworkshop.com">The Word Search Workshop</a>
+   </div>
+  </div>
+
+</body>
+</html>
