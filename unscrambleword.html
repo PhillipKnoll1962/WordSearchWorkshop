@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Word Unscrambler</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --accent: #6366f1;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .app-card {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 600px;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            margin: 0 0 0.5rem 0;
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            color: #1e1b4b;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .status-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            width: fit-content;
+            margin: 0 auto 2rem auto;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #cbd5e1;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .status-dot.ready {
+            background-color: var(--success);
+            box-shadow: 0 0 8px var(--success);
+        }
+
+        .input-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #334155;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 0.85rem 1.25rem;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            outline: none;
+            transition: all 0.2s ease;
+            color: #334155;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+        }
+
+        input[type="text"]:disabled {
+            background-color: #f8fafc;
+            cursor: not-allowed;
+        }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.85rem 1.75rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
+        }
+
+        button:hover:not(:disabled) {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 12px -1px rgba(79, 70, 229, 0.3);
+        }
+
+        button:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            background-color: #cbd5e1;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        .toggle-container {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #475569;
+            cursor: pointer;
+        }
+
+        .radio-label input {
+            accent-color: var(--primary);
+            width: 16px;
+            height: 16px;
+        }
+
+        .results-box {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .results-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #1e293b;
+        }
+
+        .word-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .word-item {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            padding: 0.5rem;
+            border-radius: 8px;
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #334155;
+            text-align: center;
+            letter-spacing: 0.5px;
+            transition: all 0.15s ease;
+        }
+
+        .word-item:hover {
+            border-color: var(--accent);
+            background: #f5f3ff;
+            color: var(--primary);
+            transform: scale(1.03);
+        }
+
+        .no-results {
+            color: #ef4444;
+            font-weight: 500;
+            background: #fef2f2;
+            border: 1px solid #fee2e2;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-card">
+    <div class="header">
+        <h1>Word Unscrambler</h1>
+        <p class="subtitle">Instantly discover clean, valid English dictionary combinations</p>
+    </div>
+    
+    <div class="status-container">
+        <div id="statusDot" class="status-dot"></div>
+        <span id="statusText">Connecting to server database...</span>
+    </div>
+
+    <label class="input-label" for="letterInput">SCRAMBLED LETTERS</label>
+    <div class="input-group">
+        <input type="text" id="letterInput" placeholder="OHTGUR" maxlength="15" autocomplete="off" disabled>
+        <button id="unscrambleBtn" onclick="unscrambleWords()" disabled>Unscramble</button>
+    </div>
+
+    <div class="toggle-container">
+        <label class="radio-label">
+            <input type="radio" name="matchMode" value="exact" checked> Exact Anagrams Only
+        </label>
+        <label class="radio-label">
+            <input type="radio" name="matchMode" value="subword"> Sub-words (Scrabble Style)
+        </label>
+    </div>
+
+    <div id="resultsBox" class="results-box">
+        <div class="results-header">
+            <div id="resultsTitle" class="results-title"></div>
+        </div>
+        <ul id="wordGrid" class="word-grid"></ul>
+    </div>
+</div>
+
+<script>
+    let fullDictionary = [];
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const dictionaryUrl = 'https://cdn.jsdelivr.net/gh/dwyl/english-words@master/words_alpha.txt';
+        const statusDot = document.getElementById('statusDot');
+        const statusText = document.getElementById('statusText');
+        const letterInput = document.getElementById('letterInput');
+        const unscrambleBtn = document.getElementById('unscrambleBtn');
+        
+        fetch(dictionaryUrl)
+            .then(response => response.text())
+            .then(text => {
+                fullDictionary = text.split(/\r?\n/).map(word => word.trim().toLowerCase());
+                
+                statusDot.classList.add('ready');
+                statusText.style.color = 'var(--text-main)';
+                statusText.innerText = `Dictionary Connected (${fullDictionary.length.toLocaleString()} words loaded)`;
+                letterInput.disabled = false;
+                unscrambleBtn.disabled = false;
+                letterInput.focus();
+            })
+            .catch(err => {
+                console.error("Database connection failure:", err);
+                statusText.style.color = '#ef4444';
+                statusText.innerText = "Connection offline. Please check your network connection.";
+            });
+    });
+
+    function sortLetters(word) {
+        return word.toLowerCase().split('').sort().join('');
+    }
+
+    // Checks if target word can be completely formed from input letters subset
+    function canFormWord(word, letters) {
+        if (word.length > letters.length) return false;
+        
+        const letterCount = {};
+        for (let l of letters.toLowerCase()) {
+            letterCount[l] = (letterCount[l] || 0) + 1;
+        }
+        for (let l of word.toLowerCase()) {
+            if (!letterCount[l]) return false;
+            letterCount[l]--;
+        }
+        return true;
+    }
+
+    function unscrambleWords() {
+        const input = document.getElementById('letterInput').value.trim().toLowerCase();
+        const resultsBox = document.getElementById('resultsBox');
+        const resultsTitle = document.getElementById('resultsTitle');
+        const wordGrid = document.getElementById('wordGrid');
+        const mode = document.querySelector('input[name="matchMode"]:checked').value;
+        
+        wordGrid.innerHTML = '';
+        
+        if (!input) {
+            resultsBox.style.display = 'none';
+            return;
+        }
+
+        const sortedInput = sortLetters(input);
+        const matches = [];
+
+        fullDictionary.forEach(word => {
+            if (!word) return;
+            
+            if (mode === 'exact') {
+                if (word.length === input.length && sortLetters(word) === sortedInput) {
+                    matches.push(word);
+                }
+            } else {
+                // Filter out single letters except 'a' and 'i' for better Scrabble results
+                if (word.length === 1 && word !== 'a' && word !== 'i') return;
+                
+                if (canFormWord(word, input)) {
+                    matches.push(word);
+                }
+            }
+        });
+
+        // Sort sub-words by length descending, then alphabetically
+        if (mode === 'subword') {
+            matches.sort((a, b) => b.length - a.length || a.localeCompare(b));
+        } else {
+            matches.sort();
+        }
+
+        resultsBox.style.display = 'block';
+        if (matches.length > 0) {
+            resultsTitle.innerText = `Results (${matches.length} found):`;
+            matches.forEach(word => {
+                const li = document.createElement('li');
+                li.className = 'word-item';
+                li.innerText = word.toUpperCase();
+                wordGrid.appendChild(li);
+            });
+        } else {
+            resultsTitle.innerHTML = '<div class="no-results">No dictionary terms matched those criteria.</div>';
+        }
+    }
+
+    document.getElementById('letterInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' && !this.disabled) {
+            unscrambleWords();
+        }
+    });
+</script>
+
+</body>
+</html>
