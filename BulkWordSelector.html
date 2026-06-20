@@ -134,21 +134,6 @@
 
         .btn-success { background-color: var(--success); }
         .btn-success:hover { background-color: var(--success-hover); }
-
-        .btn-success:disabled {
-            background-color: #94d3a2;
-            cursor: default;
-        }
-
-        .send-status {
-            text-align: center;
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--success);
-            margin-top: -10px;
-            margin-bottom: 15px;
-            min-height: 18px;
-        }
     </style>
 </head>
 <body>
@@ -186,7 +171,6 @@
             <button id="download-txt-btn" class="btn-secondary">Download .TXT File</button>
             <button id="send-workshop-btn" class="btn-success">⚡ Send to Workshop</button>
         </div>
-        <div id="send-status" class="send-status"></div>
 
         <div class="form-group">
             <label for="bulk-output">Generated Data Stream:</label>
@@ -197,7 +181,7 @@
     <script>
         const topicsData = {
             camping: ["TENT", "FOREST", "TRAIL", "STOVE", "WILDERNESS", "LANTERN", "WOODS", "COMPASS", "HIKING", "CABIN", "CAMPFIRE", "HAMMOCK", "CANOE", "NATURE", "BACKPACK", "SLEEPINGBAG"],
-            general: ["CHAIR", "TABLE", "WINDOW", "BREAD", "COFFEE", "YELLOW", "JOURNEY", "FLOWER", "DREAM", "SILVER", "BRIDGE", "GARDEN", "BOTTLE", "PILLOW", "MARKET"],
+            general: ["CHAIR", "TABLE", "WINDOW", "BREAD", "COFFEE", "YELLOW", "JOURNEY", "FLOWER", "DREAM", "SILVER", "BRIDGE", "GARDEN", "WINDOW", "BOTTLE", "PILLOW", "MARKET"],
             animals: ["LION", "TIGER", "BEAR", "ELEPHANT", "GIRAFFE", "ZEBRA", "MONKEY", "LEOPARD", "CHEETAH", "PANDA", "KANGAROO", "DEER", "WOLF", "FOX", "EAGLE", "HAWK"],
             space: ["PLANET", "ORBIT", "GALAXY", "ROCKET", "METEOR", "COMET", "STARS", "NEBULA", "GRAVITY", "COSMOS", "SATURN", "JUPITER", "MARS", "ASTRONAUT", "SHUTTLE", "ECLIPSE"]
         };
@@ -207,29 +191,10 @@
         const sendWorkshopBtn = document.getElementById('send-workshop-btn');
         const bulkOutput = document.getElementById('bulk-output');
         const puzzleTopicSelect = document.getElementById('puzzle-topic');
-        const sendStatus = document.getElementById('send-status');
 
         generateFormatBtn.addEventListener('click', generateBlocks);
         downloadTxtBtn.addEventListener('click', downloadTxtFile);
 
-        // ---------------------------------------------------------------
-        // FIX: "Send to Workshop" previously tried to window.open('index.html'),
-        // force a reload on that handle, then immediately window.close().
-        // That race condition meant the Workshop tab often reloaded BEFORE
-        // it could read the localStorage value, or the open()/close() calls
-        // were blocked by the browser entirely (since this Creator tab was
-        // not necessarily the one that originally opened the Workshop tab).
-        //
-        // index.html already has a robust listener (storage event + focus
-        // event) that picks up 'sharedPuzzleDataBlocks' from localStorage
-        // on its own. So all this button needs to do is:
-        //   1. Write the data to localStorage
-        //   2. Let the user know it worked
-        //   3. Try to hand focus back to the Workshop tab if we have a
-        //      reference to it (opener), without forcing a destructive reload
-        // No window.close() — closing this tab isn't necessary and was
-        // also why some browsers silently blocked the whole sequence.
-        // ---------------------------------------------------------------
         sendWorkshopBtn.addEventListener('click', () => {
             const dataBlocks = bulkOutput.value;
             if (!dataBlocks.trim()) {
@@ -239,19 +204,16 @@
 
             localStorage.setItem('sharedPuzzleDataBlocks', dataBlocks);
 
-            // If this Creator tab was opened BY the Workshop tab (e.g. via
-            // the "Open Word List Creator" button), `window.opener` points
-            // back to that exact Workshop tab/window. Focus it so the user
-            // immediately sees the update land (the Workshop's own
-            // 'storage' and 'focus' listeners will pick up the new data).
-            if (window.opener && !window.opener.closed) {
+            const workshopWND = window.open('wordsearch.html', 'workshopMainTab');
+            if (workshopWND) {
                 try {
-                    window.opener.focus();
-                } catch (e) {}
+                    workshopWND.location.reload();
+                } catch(e) {}
+            } else {
+                alert("If the dashboard doesn't update automatically, please ensure your wordsearch.html file tab is open next door!");
             }
 
-            sendStatus.textContent = "✓ Sent! Switch back to the Workshop tab to see your puzzles.";
-            setTimeout(() => { sendStatus.textContent = ""; }, 6000);
+            window.close();
         });
 
         function generateBlocks() {
@@ -268,7 +230,7 @@
             for (let i = 1; i <= numPuzzles; i++) {
                 let shuffled = [...baseWords].sort(() => 0.5 - Math.random());
                 let selectedWords = shuffled.slice(0, Math.min(wordsPerBlock, shuffled.length));
-
+                
                 finalOutputString += `${topicLabel} PUZZLE ${i}\n`;
                 finalOutputString += selectedWords.join(', ');
 
