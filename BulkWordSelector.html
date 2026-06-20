@@ -204,16 +204,28 @@
 
             localStorage.setItem('sharedPuzzleDataBlocks', dataBlocks);
 
-            const workshopWND = window.open('wordsearch.html', 'workshopMainTab');
-            if (workshopWND) {
+            // FIX: previously this called window.open('wordsearch.html', 'workshopMainTab').
+            // 'workshopMainTab' is the SAME name the Workshop page uses when it opens
+            // THIS Creator page (see wordsearch.html's open-creator-btn handler). Because
+            // this Creator window itself was opened under that name, calling
+            // window.open(..., 'workshopMainTab') again from inside it just re-targets
+            // and navigates THIS SAME window to wordsearch.html — it never reaches the
+            // original Workshop tab at all. Then window.close() fired while that
+            // navigation was still loading, which is what caused the broken half-loaded
+            // "print preview" style render.
+            //
+            // Fix: just go back via window.opener (the tab that actually opened us),
+            // or fall back to focusing/opening with a DIFFERENT window name so we don't
+            // collide with ourselves.
+            if (window.opener && !window.opener.closed) {
                 try {
-                    workshopWND.focus();
-                } catch(e) {}
-            } else {
-                alert("If the dashboard doesn't update automatically, please ensure your wordsearch.html file tab is open next door!");
+                    window.opener.focus();
+                    window.close();
+                    return;
+                } catch (e) {}
             }
 
-            window.close();
+            alert("✅ Data sent! Please switch back to your Word Search Workshop tab — it will update automatically.");
         });
 
         function generateBlocks() {
