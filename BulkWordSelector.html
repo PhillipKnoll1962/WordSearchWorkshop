@@ -207,7 +207,7 @@
             const workshopWND = window.open('wordsearch.html', 'workshopMainTab');
             if (workshopWND) {
                 try {
-                    workshopWND.location.reload();
+                    workshopWND.focus();
                 } catch(e) {}
             } else {
                 alert("If the dashboard doesn't update automatically, please ensure your wordsearch.html file tab is open next door!");
