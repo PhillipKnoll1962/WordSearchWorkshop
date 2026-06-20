@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Riverside Rat Library</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    body {
+        background-color: #fdfbf7;
+        font-family: 'Montserrat', sans-serif;
+        padding: 20px;
+        line-height: 1.6;
+        color: #333;
+    }
+    .header-section {
+        text-align: center;
+        margin-bottom: 40px;
+        border-bottom: 2px solid #e0e0e0;
+        padding-bottom: 20px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .header-logo {
+        width: 100px;
+        display: block;
+        margin: 0 auto 15px auto;
+        border-radius: 4px;
+    }
+    .disclosure {
+        font-size: 0.85em;
+        color: #666;
+        background: #f9f9f9;
+        padding: 10px;
+        border-left: 4px solid #ccc;
+        margin-bottom: 20px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .book-container {
+        display: flex;
+        align-items: flex-start;
+        background: #fff;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 12px;
+        border: 1px solid #eee;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        transition: transform 0.2s;
+    }
+    .book-container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    .book-icon {
+        width: 100px;
+        margin-right: 20px;
+        border-radius: 4px;
+    }
+    .book-info h3 {
+        margin: 0 0 5px 0;
+        color: #2c3e50;
+    }
+    .book-info p {
+        margin: 0 0 10px 0;
+        color: #555;
+    }
+    .description-indent {
+        margin-left: 20px;
+        margin-bottom: 10px;
+        font-size: 0.95em;
+    }
+    /* New Section Style */
+    .about-section {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 20px;
+        text-align: center;
+        background: #fff;
+        border-radius: 12px;
+        border: 1px solid #eee;
+    }
+    .about-section a {
+        color: #2c3e50;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+        .book-container {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .book-icon {
+            margin-right: 0;
+            margin-bottom: 15px;
+        }
+        .description-indent {
+            margin-left: 0;
+            text-align: left;
+        }
+    }
+</style>
+</head>
+<body>
+
+    <div class="header-section">
+        <img src="images/riverrat.png" alt="Riverside Rat Logo" class="header-logo">
+        <h1>Riverside Rat Library</h1>
+        <p>Explore our latest word search collections.</p>
+    </div>
+
+    <div class="disclosure">
+        <strong>Affiliate Disclosure:</strong> As an Amazon Associate I earn from qualifying purchases. This page contains affiliate links, meaning I may receive a commission if you click on a link and make a purchase.
+    </div>
+
+    <div class="book-container">
+        <a href="https://www.amazon.com/dp/B0H623KK7M" target="_blank">
+           <img src="images/uscities.jpg" alt="Book Cover" class="book-icon">
+        </a>
+        <div class="book-info">
+            <h3>CITIES BY STATES: Word Search</h3>
+            <p><strong>Author:</strong> by Phillip E Knoll | <strong>Format:</strong> Paperback</p>
+            <p><strong>What’s Inside:</strong></p>
+            <p class="description-indent">State-by-State Coverage: Every state is featured with its own dedicated section, ensuring a comprehensive tour of the U.S.</p>
+            <p class="description-indent">Educational Trivia: Go beyond the puzzle! Each state entry includes essential information, such as the official state bird, flower, tree, and rock/mineral.</p>
+            <p><a href="https://www.amazon.com/dp/B0H623KK7M" target="_blank" style="color: #2c3e50; font-weight: bold; text-decoration: underline;">View on Amazon →</a></p>
+        </div>
+    </div>
+
+    <div class="book-container">
+        <a href="https://www.amazon.com/dp/B0H59J5JDH" target="_blank">
+            <img src="images/cars.jpg" alt="Book Cover" class="book-icon">
+        </a>
+        <div class="book-info">
+            <h3>CLASSIC CARS: VINTAGE AUTOMOBILE</h3>
+            <p><strong>Author:</strong> by Phillip E Knoll | <strong>Format:</strong> Paperback</p>
+            <p><strong>What’s Inside:</strong></p>
+            <p class="description-indent">Engage your mind with classic automobile word searches. This fun and educational premium edition is designed to keep your mental health sharp.</p>
+            <p class="description-indent">25 Puzzles with answer pages on 8.5" x 11" pages making it easier to read.</p>
+            <p><a href="https://www.amazon.com/dp/B0H59J5JDH" target="_blank" style="color: #2c3e50; font-weight: bold; text-decoration: underline;">View on Amazon →</a></p>
+        </div>
+    </div>
+
+    <div class="book-container">
+        <a href="https://www.amazon.com/dp/B0H5B5TQLZ" target="_blank">
+           <img src="images/rockandroll.jpg" alt="Book Cover" class="book-icon">
+        </a>
+        <div class="book-info">
+            <h3>Old Time Rock and Roll 70's 80's</h3>
+            <p><strong>Author:</strong> by Phillip E Knoll | <strong>Format:</strong> Paperback</p>
+            <p><strong>What’s Inside:</strong></p>
+            <p class="description-indent">The golden era of rock and roll comes alive in this collection of word search puzzles! Over 100 pages of fun for music lovers of all ages.</p>
+            <p class="description-indent">Perfect for music lovers and puzzle fans, featuring legendary artists, iconic songs, and unforgettable albums from the 70s and 80s.</p>
+            <p><a href="https://www.amazon.com/dp/B0H5B5TQLZ" target="_blank" style="color: #2c3e50; font-weight: bold; text-decoration: underline;">View on Amazon →</a></p>
+        </div>
+    </div>
+
+    <div class="about-section">
+        <h3>About the Creator</h3>
+        <p>These aren't just mass-produced puzzles. I created the software <a href="https://wordsearchworkshop.com" target="_blank">Word Search Workshop</a> to generate unique themes, and I hand-curated the final layout in Canva to ensure a premium experience for every puzzle lover.</p>
+    </div>
+
+</body>
+</html>
