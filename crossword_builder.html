@@ -547,7 +547,7 @@
       <div class="editor-inner">
 
         <div>
-          <div class="field-label">Puzzle Title</div>
+          <div class="field-label">Puzzle Name</div>
           <input type="text" id="titleInput" placeholder="e.g., Wonders of Nature" oninput="onTitleChange()">
         </div>
 
@@ -578,6 +578,12 @@
     <!-- EXPORT BAR -->
     <div class="export-bar">
       <div class="export-bar-title">Export to PDF</div>
+
+      <div>
+        <div class="field-label" style="margin-bottom:5px;">Book Title (appears on cover page)</div>
+        <input type="text" id="bookTitleInput" placeholder="e.g., Riverside Rat Crossword Collection"
+          style="width:100%;padding:7px 9px;border:1px solid #334155;border-radius:6px;background:#ffffff;color:#1e293b;font-size:13px;outline:none;">
+      </div>
 
       <div>
         <div class="field-label" style="margin-bottom:5px;">Amazon KDP Page Size</div>
@@ -1191,6 +1197,8 @@ function showPreview(id) {
 //  PRINT / SAVE AS PDF
 // ═══════════════════════════════════════════════════════════
 function printPuzzles() {
+  saveActivePuzzle(); // ensure current puzzle name/text is saved before printing
+
   puzzles.forEach(p => {
     if (!generatedData[p.id]) {
       const entries = parseEntries(p.text);
@@ -1204,11 +1212,25 @@ function printPuzzles() {
     return;
   }
 
-  const sizeKey  = document.getElementById('kdpSize').value;
-  const layout   = getLayout(sizeKey);
-  const withKeys = document.getElementById('answerKeyCheck').checked;
+  const sizeKey   = document.getElementById('kdpSize').value;
+  const layout    = getLayout(sizeKey);
+  const withKeys  = document.getElementById('answerKeyCheck').checked;
+  const bookTitle = document.getElementById('bookTitleInput').value.trim() || 'Crossword Puzzle Collection';
 
-  let pagesHtml = '<div class="page"></div><div class="page"></div>';
+  // Cover page: Book Title a third of the way down, picture space below
+  const pageHmm   = layout.h - 2 * layout.margin;
+  const coverPage = `<div class="page" style="display:flex;flex-direction:column;min-height:${pageHmm}mm;box-sizing:border-box;">
+  <div style="height:50%;display:flex;align-items:flex-end;justify-content:center;padding-bottom:22px;">
+    <div style="font-size:34px;font-weight:900;font-family:Georgia,serif;color:#000;text-align:center;line-height:1.3;">${escHtml(bookTitle)}</div>
+  </div>
+  <div style="flex:1;border:2px dashed #b0bec5;border-radius:6px;margin:0;display:flex;align-items:center;justify-content:center;">
+    <span style="color:#90a4ae;font-size:13px;font-family:Arial,sans-serif;">[ Insert your cover picture here ]</span>
+  </div>
+</div>`;
+
+  // Page 2: intentionally blank (back of cover — standard for KDP books)
+  let pagesHtml = coverPage + '<div class="page"></div>';
+
   selected.forEach(p => {
     pagesHtml += buildPrintPage(p.name, generatedData[p.id], false, layout);
   });
