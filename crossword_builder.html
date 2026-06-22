@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Free crossword puzzle builder — create and export print-ready crossword PDFs sized for Amazon KDP. No signup required, runs entirely in your browser.">
 <title>Crossword Puzzle Builder</title>
 <style>
   :root {
@@ -25,6 +26,7 @@
     height: 100vh;
     overflow: hidden;
   }
+  /* ── HEADER ── */
   header {
     background: #0f172a;
     color: white;
@@ -36,7 +38,9 @@
   }
   header h1 { font-size: 19px; font-weight: 700; }
   header p  { font-size: 12px; color: #94a3b8; }
-  .app-body { display: flex; flex: 1; overflow: hidden; }
+  /* ── 3-COLUMN BODY ── */
+  .app-body { display: flex; flex: 1; overflow: hidden; position: relative; }
+  /* ── SIDEBAR ── */
   .sidebar {
     width: var(--sidebar-w);
     background: #1e293b;
@@ -135,6 +139,7 @@
   }
   .puzzle-item:hover .del-btn { display: block; }
   .del-btn:hover { color: var(--red); }
+  /* ── EDITOR + EXPORT COLUMN ── */
   .editor-col {
     width: var(--editor-w);
     display: flex;
@@ -212,6 +217,7 @@
   .gen-status.ok   { color: var(--green); }
   .gen-status.warn { color: #f59e0b; }
   .gen-status.err  { color: var(--red); }
+  /* ── EXPORT BAR ── */
   .export-bar {
     border-top: 1px solid #e2e8f0;
     padding: 13px 16px;
@@ -271,6 +277,30 @@
     color: #64748b;
   }
   .export-count.none { color: var(--red); }
+  /* ── FOOTER NOTE (inside export bar) ── */
+  .footer-note {
+    font-size: 10px;
+    color: #94a3b8;
+    line-height: 1.6;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 8px;
+    margin-top: 2px;
+  }
+  .footer-note strong { color: #64748b; }
+  .privacy-note {
+    font-size: 10px;
+    color: #64748b;
+    text-align: center;
+    padding: 6px 0 2px;
+    border-top: 1px solid #e2e8f0;
+  }
+  .copyright-note {
+    font-size: 10px;
+    color: #94a3b8;
+    text-align: center;
+    padding-bottom: 2px;
+  }
+  /* ── PREVIEW PANEL ── */
   .preview {
     flex: 1;
     overflow: auto;
@@ -308,6 +338,7 @@
     text-align: center;
     margin-bottom: 14px;
   }
+  /* ── CROSSWORD GRID (preview) ── */
   .cw-grid {
     display: inline-grid;
     gap: 1px;
@@ -342,6 +373,7 @@
     color: #0f172a;
     font-family: Georgia, serif;
   }
+  /* ── CLUES (preview) ── */
   .clues-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -359,19 +391,113 @@
   }
   .clue-col ul { list-style: none; }
   .clue-col li { font-size: 12px; line-height: 1.7; color: #1e293b; }
+  /* ── HIDDEN INPUTS ── */
   #fileInput { display: none; }
+  /* ── MOBILE NAV (hidden on desktop) ── */
+  .mobile-nav { display: none; }
+
+  /* ════════════════════════════════════════════════
+     RESPONSIVE — MOBILE & TABLET  (≤ 768px)
+     ════════════════════════════════════════════════ */
+  @media (max-width: 768px) {
+    /* Smaller grid cells so the puzzle fits on screen */
+    :root { --cell-px: 21px; }
+
+    /* Compact header */
+    header { padding: 8px 14px; }
+    header h1 { font-size: 15px; }
+    header p  { display: none; }
+
+    /* App body becomes a relative container for absolute panels */
+    .app-body {
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Each panel fills the app-body area above the nav bar */
+    .sidebar,
+    .editor-col,
+    .preview {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      bottom: 56px;          /* leave room for nav bar */
+      width: 100%;
+      display: none;
+      flex-direction: column;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Active panel is visible */
+    .sidebar.mob-active,
+    .editor-col.mob-active,
+    .preview.mob-active { display: flex; }
+
+    /* Editor col adjustments */
+    .editor-col { border-right: none; }
+    .editor     { flex: none; overflow-y: visible; }
+    .wordclue-box { height: 150px; }
+
+    /* Preview adjustments */
+    .preview { padding: 14px; align-items: center; }
+    .preview-card { padding: 14px; width: 100%; overflow-x: auto; }
+    .preview-title { font-size: 16px; }
+    .clues-row { min-width: 0; gap: 10px; }
+
+    /* Puzzle number cells on small screen */
+    .cw-cell .cnum { font-size: 7px; }
+    .cw-cell .cletter { font-size: 12px; }
+
+    /* ── MOBILE BOTTOM NAV ── */
+    .mobile-nav {
+      display: flex;
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 56px;
+      background: #0f172a;
+      border-top: 1px solid #334155;
+      z-index: 100;
+    }
+    .mnav-btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      color: #64748b;
+      cursor: pointer;
+      gap: 2px;
+      padding: 6px 4px;
+      transition: color .15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mnav-btn.mob-active { color: #818cf8; }
+    .mnav-icon { font-size: 18px; line-height: 1; }
+    .mnav-label {
+      font-size: 9px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+  }
 </style>
 </head>
 <body>
+
 <header>
   <div>
     <h1>📋 Crossword Puzzle Builder</h1>
     <p>Build word lists → click a puzzle to preview → select &amp; export print-ready KDP PDFs</p>
   </div>
 </header>
+
 <div class="app-body">
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
+
+  <!-- SIDEBAR (panel: Puzzles) -->
+  <aside class="sidebar mob-active" id="panelPuzzles">
     <div class="sidebar-top">
       <div class="sidebar-top-row">
         <span class="sidebar-label">My Puzzles</span>
@@ -384,14 +510,17 @@
     </div>
     <div class="puzzle-list" id="puzzleList"></div>
   </aside>
-  <!-- EDITOR + EXPORT -->
-  <div class="editor-col">
+
+  <!-- EDITOR + EXPORT (panel: Edit) -->
+  <div class="editor-col" id="panelEdit">
     <div class="editor">
       <div class="editor-inner">
+
         <div>
           <div class="field-label">Puzzle Title</div>
           <input type="text" id="titleInput" placeholder="e.g., Wonders of Nature" oninput="onTitleChange()">
         </div>
+
         <div>
           <div class="field-label">Import Words from .txt File</div>
           <div class="import-row">
@@ -400,6 +529,7 @@
           </div>
           <input type="file" id="fileInput" accept=".txt" onchange="importFile(event)">
         </div>
+
         <div>
           <div class="field-label">Words &amp; Clues</div>
           <textarea class="wordclue-box" id="wordClueBox"
@@ -409,12 +539,16 @@
             One per line · <code>WORD : Clue</code> · Letters only (spaces &amp; hyphens ignored)
           </div>
         </div>
+
         <div class="gen-status" id="genStatus"></div>
+
       </div>
     </div>
+
     <!-- EXPORT BAR -->
     <div class="export-bar">
       <div class="export-bar-title">Export to PDF</div>
+
       <div>
         <div class="field-label" style="margin-bottom:5px;">Amazon KDP Page Size</div>
         <select class="kdp-select" id="kdpSize" onchange="updateKdpInfo()">
@@ -430,29 +564,79 @@
         </select>
         <div class="kdp-info" id="kdpInfo"></div>
       </div>
+
       <div class="export-options">
         <input type="checkbox" id="answerKeyCheck" checked>
         <label for="answerKeyCheck">Include answer key pages</label>
       </div>
+
       <div class="export-count" id="exportCount"></div>
       <button class="export-btn" id="exportBtn" onclick="printPuzzles()">🖨️ Print / Save as PDF</button>
-      <div style="font-size:10px;color:#94a3b8;line-height:1.6;border-top:1px solid #e2e8f0;padding-top:8px;margin-top:2px;">
-        <strong style="color:#64748b;">💡 Remove date &amp; page numbers:</strong><br>
+
+      <div class="footer-note">
+        <strong>💡 Remove date &amp; page numbers:</strong><br>
         In the print dialog → <em>More settings</em><br>
         → uncheck <em>Headers and footers</em><br>
         Chrome remembers this setting.
       </div>
+
+      <div class="privacy-note">
+        🔒 Runs entirely in your browser — no data is ever collected or sent to any server.
+      </div>
+      <div class="copyright-note">
+        © 2026 Riverside Rat. All rights reserved.
+      </div>
     </div>
   </div>
-  <!-- PREVIEW -->
+
+  <!-- PREVIEW (panel: Preview) -->
   <div class="preview" id="previewPanel">
     <div class="preview-placeholder">
       <div class="icon">🧩</div>
       <p>Click a puzzle in the list to preview it</p>
     </div>
   </div>
-</div>
+
+  <!-- MOBILE BOTTOM NAV -->
+  <nav class="mobile-nav">
+    <button class="mnav-btn mob-active" data-target="panelPuzzles" onclick="mobileTab(this)">
+      <span class="mnav-icon">📋</span>
+      <span class="mnav-label">Puzzles</span>
+    </button>
+    <button class="mnav-btn" data-target="panelEdit" onclick="mobileTab(this)">
+      <span class="mnav-icon">✏️</span>
+      <span class="mnav-label">Edit</span>
+    </button>
+    <button class="mnav-btn" data-target="previewPanel" onclick="mobileTab(this)">
+      <span class="mnav-icon">🧩</span>
+      <span class="mnav-label">Preview</span>
+    </button>
+  </nav>
+
+</div><!-- end app-body -->
+
 <script>
+// ═══════════════════════════════════════════════════════════
+//  MOBILE TAB SWITCHING
+// ═══════════════════════════════════════════════════════════
+const MOBILE_PANELS = ['panelPuzzles', 'panelEdit', 'previewPanel'];
+
+function mobileTab(btn) {
+  document.querySelectorAll('.mnav-btn').forEach(b => b.classList.remove('mob-active'));
+  btn.classList.add('mob-active');
+  MOBILE_PANELS.forEach(id => document.getElementById(id).classList.remove('mob-active'));
+  document.getElementById(btn.dataset.target).classList.add('mob-active');
+}
+
+function switchMobileTab(targetId) {
+  if (window.innerWidth > 768) return;
+  const btn = document.querySelector(`.mnav-btn[data-target="${targetId}"]`);
+  if (btn) mobileTab(btn);
+}
+
+// ═══════════════════════════════════════════════════════════
+//  KDP PAGE SIZE DEFINITIONS
+// ═══════════════════════════════════════════════════════════
 const KDP_SIZES = {
   '5x8':       { w: 127,    h: 203.2,  margin: 10, label: '5" × 8"'        },
   '5.5x8.5':   { w: 139.7,  h: 215.9,  margin: 10, label: '5.5" × 8.5"'    },
@@ -482,10 +666,16 @@ function updateKdpInfo() {
   updateExportCount();
 }
 
+// ═══════════════════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════════════════
 let puzzles        = [];
 let activePuzzleId = null;
 let generatedData  = {};
 
+// ═══════════════════════════════════════════════════════════
+//  SAMPLE DATA
+// ═══════════════════════════════════════════════════════════
 const SAMPLES = [
   { name: "Wonders of Nature", text:
 `AMAZON : Massive tropical rainforest in South America
@@ -561,6 +751,9 @@ window.addEventListener('DOMContentLoaded', () => {
   updateKdpInfo();
 });
 
+// ═══════════════════════════════════════════════════════════
+//  PUZZLE MANAGEMENT
+// ═══════════════════════════════════════════════════════════
 function nextId() {
   return puzzles.length ? Math.max(...puzzles.map(p => p.id)) + 1 : 1;
 }
@@ -573,6 +766,7 @@ function addPuzzle() {
   renderSidebar();
   loadActivePuzzle();
   clearPreview();
+  switchMobileTab('panelEdit');
 }
 
 function deletePuzzle(id, e) {
@@ -592,7 +786,8 @@ function selectPuzzle(id) {
   activePuzzleId = id;
   renderSidebar();
   loadActivePuzzle();
-  generatePreview();   // ← auto-generate preview on click
+  generatePreview();
+  switchMobileTab('previewPanel'); // auto-jump to preview on mobile
 }
 
 function toggleSelected(id, checked) {
@@ -648,6 +843,9 @@ function updateExportCount() {
   }
 }
 
+// ═══════════════════════════════════════════════════════════
+//  SIDEBAR RENDER
+// ═══════════════════════════════════════════════════════════
 function renderSidebar() {
   const list = document.getElementById('puzzleList');
   list.innerHTML = '';
@@ -686,6 +884,9 @@ function renderSidebar() {
   updateExportCount();
 }
 
+// ═══════════════════════════════════════════════════════════
+//  FILE IMPORT
+// ═══════════════════════════════════════════════════════════
 function importFile(event) {
   const file = event.target.files[0];
   if (!file) return;
@@ -719,11 +920,15 @@ function importFile(event) {
     renderSidebar();
     loadActivePuzzle();
     generatePreview();
+    switchMobileTab('previewPanel');
   };
   reader.readAsText(file);
   event.target.value = '';
 }
 
+// ═══════════════════════════════════════════════════════════
+//  CROSSWORD ALGORITHM
+// ═══════════════════════════════════════════════════════════
 const GRID_SIZE = 15;
 
 function parseEntries(text) {
@@ -844,11 +1049,15 @@ function insertWord(grid, word, x, y, dir) {
   }
 }
 
+// ═══════════════════════════════════════════════════════════
+//  GRID ELEMENT BUILDER  (on-screen preview only)
+// ═══════════════════════════════════════════════════════════
 function buildGridEl(data, showLetters) {
   const { grid, rows, cols } = data;
   const el = document.createElement('div');
   el.className = 'cw-grid';
   el.style.gridTemplateColumns = `repeat(${cols}, var(--cell-px))`;
+
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
       const cell = document.createElement('div');
@@ -874,6 +1083,9 @@ function buildGridEl(data, showLetters) {
   return el;
 }
 
+// ═══════════════════════════════════════════════════════════
+//  GENERATE PREVIEW
+// ═══════════════════════════════════════════════════════════
 function generatePreview() {
   saveActivePuzzle();
   const p        = puzzles.find(p => p.id === activePuzzleId);
@@ -936,6 +1148,9 @@ function showPreview(id) {
   panel.appendChild(card);
 }
 
+// ═══════════════════════════════════════════════════════════
+//  PRINT / SAVE AS PDF
+// ═══════════════════════════════════════════════════════════
 function printPuzzles() {
   puzzles.forEach(p => {
     if (!generatedData[p.id]) {
@@ -955,16 +1170,12 @@ function printPuzzles() {
   const withKeys = document.getElementById('answerKeyCheck').checked;
 
   let pagesHtml = '<div class="page"></div><div class="page"></div>';
-  selected.forEach((p, idx) => {
-    const data   = generatedData[p.id];
-    const isLast = !withKeys && idx === selected.length - 1;
-    pagesHtml += buildPrintPage(p.name, data, false, layout, isLast);
+  selected.forEach(p => {
+    pagesHtml += buildPrintPage(p.name, generatedData[p.id], false, layout);
   });
   if (withKeys) {
-    selected.forEach((p, idx) => {
-      const data   = generatedData[p.id];
-      const isLast = idx === selected.length - 1;
-      pagesHtml += buildPrintPage(p.name, data, true, layout, isLast);
+    selected.forEach(p => {
+      pagesHtml += buildPrintPage(p.name, generatedData[p.id], true, layout);
     });
   }
 
@@ -1033,7 +1244,10 @@ ${pagesHtml}
   printWin.document.close();
 }
 
-function buildPrintPage(name, data, isAnswer, layout, isLast) {
+// ═══════════════════════════════════════════════════════════
+//  BUILD ONE PRINT PAGE
+// ═══════════════════════════════════════════════════════════
+function buildPrintPage(name, data, isAnswer, layout) {
   const { cellPx, clueFontPx } = layout;
   const { grid, rows, cols }   = data;
 
@@ -1080,6 +1294,9 @@ function buildPrintPage(name, data, isAnswer, layout, isLast) {
 </div>`;
 }
 
+// ═══════════════════════════════════════════════════════════
+//  UTILITY
+// ═══════════════════════════════════════════════════════════
 function escHtml(str) {
   return String(str)
     .replace(/&/g,'&amp;').replace(/</g,'&lt;')
