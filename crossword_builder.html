@@ -403,40 +403,38 @@
     /* Smaller grid cells so the puzzle fits on screen */
     :root { --cell-px: 21px; }
 
-    /* Ensure html/body fill the full viewport reliably on mobile */
-    html { height: 100%; }
-    body {
-      height: 100dvh;   /* dynamic viewport height — accounts for mobile browser chrome */
-      height: 100vh;    /* fallback for older browsers */
-    }
-
     /* Compact header */
     header { padding: 8px 14px; }
     header h1 { font-size: 15px; }
     header p  { display: none; }
 
-    /* App body is a flex COLUMN — panels stack, nav bar is last child */
-    .app-body {
-      flex-direction: column;
-      overflow: hidden;
-      position: static;   /* no absolute tricks needed */
+    /* Body scrolls normally on mobile */
+    body {
+      overflow-y: auto;
+      height: auto;
+      min-height: 100vh;
     }
 
-    /* All panels: hidden by default, fill remaining space when active */
+    /* App body stacks panels vertically; padding at bottom for fixed nav */
+    .app-body {
+      flex-direction: column;
+      overflow: visible;
+      padding-bottom: 56px;
+    }
+
+    /* All panels hidden by default */
     .sidebar,
     .editor-col,
     .preview {
       position: static;
       width: 100%;
-      flex: 1;
-      min-height: 0;      /* allow flex child to shrink below content size */
+      height: auto;
       display: none;
       flex-direction: column;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
+      overflow: visible;
     }
 
-    /* Active panel is visible */
+    /* Active panel is shown */
     .sidebar.mob-active,
     .editor-col.mob-active,
     .preview.mob-active { display: flex; }
@@ -478,15 +476,17 @@
     }
     .mob-print-btn:active { background: #4338ca; }
 
-    /* ── MOBILE BOTTOM NAV — natural flexbox child, always visible ── */
+    /* ── MOBILE BOTTOM NAV — FIXED to viewport bottom, always visible ── */
     .mobile-nav {
       display: flex;
-      flex-shrink: 0;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
       height: 56px;
-      width: 100%;
       background: #0f172a;
       border-top: 1px solid #334155;
-      z-index: 100;
+      z-index: 9999;
     }
     .mnav-btn {
       flex: 1;
