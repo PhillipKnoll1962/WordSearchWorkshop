@@ -403,26 +403,33 @@
     /* Smaller grid cells so the puzzle fits on screen */
     :root { --cell-px: 21px; }
 
+    /* Ensure html/body fill the full viewport reliably on mobile */
+    html { height: 100%; }
+    body {
+      height: 100dvh;   /* dynamic viewport height — accounts for mobile browser chrome */
+      height: 100vh;    /* fallback for older browsers */
+    }
+
     /* Compact header */
     header { padding: 8px 14px; }
     header h1 { font-size: 15px; }
     header p  { display: none; }
 
-    /* App body becomes a relative container for absolute panels */
+    /* App body is a flex COLUMN — panels stack, nav bar is last child */
     .app-body {
       flex-direction: column;
       overflow: hidden;
-      position: relative;
+      position: static;   /* no absolute tricks needed */
     }
 
-    /* Each panel fills the app-body area above the nav bar */
+    /* All panels: hidden by default, fill remaining space when active */
     .sidebar,
     .editor-col,
     .preview {
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      bottom: 56px;          /* leave room for nav bar */
+      position: static;
       width: 100%;
+      flex: 1;
+      min-height: 0;      /* allow flex child to shrink below content size */
       display: none;
       flex-direction: column;
       overflow-y: auto;
@@ -449,12 +456,34 @@
     .cw-cell .cnum { font-size: 7px; }
     .cw-cell .cletter { font-size: 12px; }
 
-    /* ── MOBILE BOTTOM NAV ── */
+    /* Print button shown in preview panel on mobile */
+    .mob-print-bar {
+      display: flex;
+      gap: 10px;
+      padding: 10px 14px;
+      background: #1e293b;
+      flex-shrink: 0;
+    }
+    .mob-print-btn {
+      flex: 1;
+      padding: 10px;
+      background: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 7px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mob-print-btn:active { background: #4338ca; }
+
+    /* ── MOBILE BOTTOM NAV — natural flexbox child, always visible ── */
     .mobile-nav {
       display: flex;
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
+      flex-shrink: 0;
       height: 56px;
+      width: 100%;
       background: #0f172a;
       border-top: 1px solid #334155;
       z-index: 100;
@@ -591,6 +620,10 @@
 
   <!-- PREVIEW (panel: Preview) -->
   <div class="preview" id="previewPanel">
+    <!-- Print bar shown only on mobile, at top of preview -->
+    <div class="mob-print-bar" id="mobPrintBar" style="display:none">
+      <button class="mob-print-btn" onclick="printPuzzles()">🖨️ Print / Save as PDF</button>
+    </div>
     <div class="preview-placeholder">
       <div class="icon">🧩</div>
       <p>Click a puzzle in the list to preview it</p>
@@ -1111,9 +1144,14 @@ function generatePreview() {
     statusEl.className   = 'gen-status ok';
   }
   showPreview(activePuzzleId);
+  // Show the mobile print bar whenever a preview is generated on a small screen
+  const mobBar = document.getElementById('mobPrintBar');
+  if (mobBar) mobBar.style.display = window.innerWidth <= 768 ? 'flex' : 'none';
 }
 
 function clearPreview() {
+  const mobBar = document.getElementById('mobPrintBar');
+  if (mobBar) mobBar.style.display = 'none';
   document.getElementById('previewPanel').innerHTML = `
     <div class="preview-placeholder">
       <div class="icon">🧩</div>
