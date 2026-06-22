@@ -400,47 +400,48 @@
      RESPONSIVE — MOBILE & TABLET  (≤ 768px)
      ════════════════════════════════════════════════ */
   @media (max-width: 768px) {
-    /* Smaller grid cells so the puzzle fits on screen */
     :root { --cell-px: 21px; }
+
+    /* Keep body locked to the viewport — prevents browser zoom-out */
+    body {
+      overflow: hidden;
+      height: 100vh;
+      height: 100dvh; /* uses dynamic viewport height on modern mobile browsers */
+    }
 
     /* Compact header */
     header { padding: 8px 14px; }
     header h1 { font-size: 15px; }
     header p  { display: none; }
 
-    /* Body scrolls normally on mobile */
-    body {
-      overflow-y: auto;
-      height: auto;
-      min-height: 100vh;
-    }
-
-    /* App body stacks panels vertically; padding at bottom for fixed nav */
+    /* App body: relative container so absolute panels work correctly */
     .app-body {
       flex-direction: column;
-      overflow: visible;
-      padding-bottom: 56px;
+      overflow: hidden;
+      position: relative;
+      /* flex:1 inherited — fills height left after header */
     }
 
-    /* All panels hidden by default */
+    /* All panels: absolutely fill the app-body above the nav bar */
     .sidebar,
     .editor-col,
     .preview {
-      position: static;
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      bottom: 56px;        /* clear the fixed nav bar */
       width: 100%;
-      height: auto;
-      min-height: calc(100vh - 56px); /* fill screen above fixed nav bar */
       display: none;
       flex-direction: column;
-      overflow: visible;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
-    /* Active panel is shown */
+    /* Active panel becomes visible */
     .sidebar.mob-active,
     .editor-col.mob-active,
     .preview.mob-active { display: flex; }
 
-    /* Editor col adjustments */
+    /* Editor adjustments */
     .editor-col { border-right: none; }
     .editor     { flex: none; overflow-y: visible; }
     .wordclue-box { height: 150px; }
@@ -451,11 +452,11 @@
     .preview-title { font-size: 16px; }
     .clues-row { min-width: 0; gap: 10px; }
 
-    /* Puzzle number cells on small screen */
-    .cw-cell .cnum { font-size: 7px; }
+    /* Grid cells */
+    .cw-cell .cnum   { font-size: 7px; }
     .cw-cell .cletter { font-size: 12px; }
 
-    /* Print button shown in preview panel on mobile */
+    /* Print button inside preview tab on mobile */
     .mob-print-bar {
       display: flex;
       gap: 10px;
@@ -477,13 +478,11 @@
     }
     .mob-print-btn:active { background: #4338ca; }
 
-    /* ── MOBILE BOTTOM NAV — FIXED to viewport bottom, always visible ── */
+    /* ── BOTTOM NAV: fixed to the viewport — always visible ── */
     .mobile-nav {
       display: flex;
       position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      bottom: 0; left: 0; right: 0;
       height: 56px;
       background: #0f172a;
       border-top: 1px solid #334155;
@@ -505,7 +504,7 @@
       -webkit-tap-highlight-color: transparent;
     }
     .mnav-btn.mob-active { color: #818cf8; }
-    .mnav-icon { font-size: 18px; line-height: 1; }
+    .mnav-icon  { font-size: 18px; line-height: 1; }
     .mnav-label {
       font-size: 9px;
       font-weight: 600;
