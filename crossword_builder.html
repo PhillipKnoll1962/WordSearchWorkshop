@@ -1249,7 +1249,7 @@ function buildPrintPage(name, data, isAnswer, layout) {
   return `<div class="page">
   <div style="text-align:center;margin-bottom:14px;">
     <h2 style="font-size:${titlePx}px;color:#0f172a;margin-bottom:3px;">${escHtml(name)}</h2>
-    <p style="font-size:${subtitlePx}px;color:#64748b;">${isAnswer ? '— Answer Key —' : 'Solve the crossword puzzle using the clues below'}</p>
+    ${isAnswer ? '' : `<p style="font-size:${subtitlePx}px;color:#64748b;">Solve the crossword puzzle using the clues below</p>`}
     ${answerBadge}
   </div>
   <div style="display:flex;justify-content:center;margin-bottom:14px;">${gridHtml}</div>
