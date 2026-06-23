@@ -4,9 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Riverside Rat - Free Puzzle Maker & Word Tools</title>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7795617443302913"
-     crossorigin="anonymous"></script>
-<style>
+  
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7795617443302913" crossorigin="anonymous"></script>
+
+  <style>
     /* Global responsive rule */
     img {
       max-width: 100%;
@@ -131,6 +132,42 @@
     }
     footer a:hover { text-decoration: underline; }
 
+    /* Popup (Modal) Styles */
+    .modal {
+      display: none; 
+      position: fixed; 
+      z-index: 1000; 
+      left: 0;
+      top: 0;
+      width: 100%; 
+      height: 100%; 
+      background-color: rgba(0,0,0,0.5); /* Dim background layer */
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 8px;
+      max-width: 500px;
+      width: 90%;
+      text-align: left;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #a66e4a;
+      cursor: pointer;
+    }
+    .close-btn:hover { color: #4a3728; }
+
     /* Responsive tweaks */
     @media (max-width: 760px) {
       body { padding: 25px 15px; }
@@ -196,14 +233,47 @@
    
   </div>
 
- <footer>
+  <footer>
     <p class="center">&copy; 2026 Riverside Rat. All rights reserved.</p>
     <p class="center">
-      <a href="#">About Us</a> | 
+      <a href="javascript:void(0)" onclick="openModal('aboutModal')">About Us</a> | 
       <a href="https://thewordsearchworkshop.com/privacy.html">Privacy Policy</a> | 
-      <a href="#">Terms of Service</a>
+      <a href="javascript:void(0)" onclick="openModal('termsModal')">Terms of Service</a>
     </p>
   </footer>
+
+  <div id="aboutModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('aboutModal')">&times;</span>
+      <h3>About Us</h3>
+      <hr style="margin: 10px 0 15px 0;">
+      <p>Welcome to Riverside Rat! We are dedicated to building free, simple, and clean web utilities for puzzle creators, independent book publishers, and word-game lovers. Our mission is to make custom vocabulary layouts and creative puzzle formatting fast, reliable, and entirely accessible for everyone.</p>
+    </div>
+  </div>
+
+  <div id="termsModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('termsModal')">&times;</span>
+      <h3>Terms of Service</h3>
+      <hr style="margin: 10px 0 15px 0;">
+      <p>By using Riverside Rat and our puzzle workshop tools, you agree that our web-based generators are provided "as-is" for individual entertainment, educational use, and independent publishing structures (such as layout creation for workbook platforms). We do not save, collect, or store your custom word lists or puzzle layout designs.</p>
+    </div>
+  </div>
+
+  <script>
+    function openModal(id) {
+      document.getElementById(id).style.display = "flex";
+    }
+    function closeModal(id) {
+      document.getElementById(id).style.display = "none";
+    }
+    // Close the popup window if the user clicks anywhere outside of the white box
+    window.onclick = function(event) {
+      if (event.target.className === 'modal') {
+        event.target.style.display = "none";
+      }
+    }
+  </script>
 
 </body>
 </html>
