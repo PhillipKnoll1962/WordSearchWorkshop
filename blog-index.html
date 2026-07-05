@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7795617443302913" crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Workshop Notes | Word Search Workshop</title>
+<meta name="description" content="Teaching tips, lesson ideas, and puzzle-making guides from Word Search Workshop.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3EEDD;
+    --gridline:#D9D2BC;
+    --ink:#2B2A28;
+    --blueprint:#2F5D8A;
+    --amber:#E8A33D;
+    --brick:#C4443D;
+    --paper-raised:#FFFDF6;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    background-image:
+      linear-gradient(var(--gridline) 1px, transparent 1px),
+      linear-gradient(90deg, var(--gridline) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+  }
+  a{color:var(--blueprint);}
+  header.site{
+    background:var(--paper-raised);
+    border-bottom:3px solid var(--ink);
+    padding:18px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:22px;
+    letter-spacing:-0.01em;
+  }
+  .brand span{color:var(--brick);}
+  .brand img{width:34px;height:34px;border-radius:50%;border:2px solid var(--ink);object-fit:cover;}
+  nav.site a{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    color:var(--ink);
+    text-decoration:none;
+    margin-left:18px;
+    border-bottom:2px solid transparent;
+    padding-bottom:2px;
+  }
+  nav.site a:hover{border-bottom-color:var(--amber);}
+  main{max-width:880px;margin:0 auto;padding:56px 24px 80px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    color:var(--blueprint);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    margin:0 0 10px;
+  }
+  h1.page-title{
+    font-family:'Fraunces',serif;
+    font-size:clamp(32px,5vw,48px);
+    font-weight:700;
+    margin:0 0 12px;
+    line-height:1.1;
+  }
+  .lede{font-size:18px;max-width:60ch;color:#514F49;margin-bottom:44px;}
+  .grid-decor{
+    display:grid;
+    grid-template-columns:repeat(9,1fr);
+    max-width:270px;
+    border:2px solid var(--ink);
+    background:var(--paper-raised);
+    margin:0 0 40px;
+  }
+  .grid-decor span{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:14px;
+    text-align:center;
+    padding:6px 0;
+    border-right:1px solid var(--gridline);
+    border-bottom:1px solid var(--gridline);
+  }
+  .grid-decor span.found{
+    background:var(--amber);
+    border-radius:50%;
+    color:var(--ink);
+    font-weight:700;
+  }
+  .articles{display:grid;gap:28px;}
+  .card{
+    background:var(--paper-raised);
+    border:2px solid var(--ink);
+    padding:26px 28px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;
+    left:24px;
+    background:var(--brick);
+    color:#fff;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:3px 10px;
+  }
+  .card h2{
+    font-family:'Fraunces',serif;
+    font-size:26px;
+    margin:6px 0 10px;
+  }
+  .card h2 a{color:var(--ink);text-decoration:none;}
+  .card h2 a:hover{color:var(--blueprint);}
+  .card p{margin:0 0 14px;color:#514F49;}
+  .read-more{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    text-decoration:none;
+    border-bottom:2px solid var(--amber);
+  }
+  footer{
+    text-align:center;
+    padding:36px 24px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:#77746B;
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <a href="index.html" class="brand"><img src="images/riverrat.png" alt="Riverside Rat logo">Riverside <span>Rat</span></a>
+  <nav class="site">
+    <a href="index.html">Home</a>
+    <a href="wordsearch.html">Word Search</a>
+    <a href="unscrambleword.html">Unscrambler</a>
+    <a href="crossword_builder.html">Crossword</a>
+    <a href="blog-index.html">Blog</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <p class="eyebrow">The Workshop Notes</p>
+  <h1 class="page-title">Lesson ideas &amp; puzzle-making guides</h1>
+  <p class="lede">Practical, classroom-tested ways to use word search puzzles for teaching — plus a few thoughts on what makes a puzzle actually worth solving.</p>
+
+  <div class="grid-decor">
+    <span>Q</span><span>W</span><span>T</span><span>L</span><span>Y</span><span>R</span><span>N</span><span>B</span><span>K</span>
+    <span>X</span><span class="found">L</span><span>Q</span><span>Z</span><span>K</span><span>W</span><span>Y</span><span>D</span><span>P</span>
+    <span>H</span><span>R</span><span class="found">E</span><span>N</span><span>B</span><span>M</span><span>V</span><span>T</span><span>Q</span>
+    <span>V</span><span>T</span><span>N</span><span class="found">A</span><span>X</span><span>K</span><span>L</span><span>W</span><span>R</span>
+    <span>B</span><span>K</span><span>P</span><span>Q</span><span class="found">R</span><span>Y</span><span>D</span><span>N</span><span>H</span>
+    <span>N</span><span>Q</span><span>Y</span><span>W</span><span>M</span><span class="found">N</span><span>T</span><span>K</span><span>B</span>
+  </div>
+
+  <div class="articles">
+    <div class="card" data-tag="Teaching">
+      <h2><a href="article-teaching-vocabulary.html">Where Word Search Puzzles Actually Help Students Learn Vocabulary</a></h2>
+      <p>A word search only trains recognition, not recall — knowing that difference is what separates a puzzle that's genuinely useful from one that's just filling time.</p>
+      <a class="read-more" href="article-teaching-vocabulary.html">Read the piece →</a>
+    </div>
+
+    <div class="card" data-tag="Teaching">
+      <h2><a href="article-geography-lesson.html">Teaching Geography Vocabulary: Why Sequence Matters More Than the Puzzle</a></h2>
+      <p>Most trouble memorizing states and capitals isn't a puzzle-format problem — it's a sequencing problem. How to chunk a geography unit so any practice activity actually sticks.</p>
+      <a class="read-more" href="article-geography-lesson.html">Read the piece →</a>
+    </div>
+
+    <div class="card" data-tag="Discussion">
+      <h2><a href="article-wordsearch-vs-crossword.html">Word Search vs. Crossword: Which Builds Vocabulary Better?</a></h2>
+      <p>They both hide words in a grid, but they teach very differently. A look at which puzzle format fits which learning goal — and when to use both.</p>
+      <a class="read-more" href="article-wordsearch-vs-crossword.html">Read the comparison →</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <p>&copy; 2026 Riverside Rat. All rights reserved.</p>
+  <p>
+    <a href="about.html">About Us</a> |
+    <a href="privacy.html">Privacy Policy</a> |
+    <a href="terms.html">Terms of Service</a> |
+    <a href="contact.html">Contact</a>
+  </p>
+</footer>
+
+</body>
+</html>

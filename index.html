@@ -1,295 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
+<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-EBCJ4T3KKY"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-EBCJ4T3KKY');
 </script>
-	<meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Riverside Rat - Free Puzzle Maker & Word Tools</title>
-  
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7795617443302913" crossorigin="anonymous"></script>
-
-  <style>
-    /* Global responsive rule */
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #fcfaf3;
-      color: #4a3728;
-      text-align: center;
-      padding: 50px 20px;
-      margin: 0;
-    }
-
-    h1 { font-size: 3rem; margin-bottom: 10px; text-transform: uppercase; }
-    .subtitle { font-size: 1.5rem; color: #a66e4a; margin-bottom: 40px; font-weight: 600; }
-    
-    /* Intro Section */
-    .intro-section {
-      max-width: 800px;
-      margin: 0 auto 50px auto;
-      text-align: left;
-      line-height: 1.6;
-      background: white;
-      padding: 25px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-    .intro-section h2 { margin-top: 0; color: #a66e4a; }
-
-    /* Layout */
-    .container {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      max-width: 1100px;
-      margin: 0 auto;
-      align-items: flex-start;
-      flex-wrap: wrap; /* allow wrapping on small screens */
-    }
-
-    .tool-card {
-      flex: 1 1 300px; /* grow, shrink, base width */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-width: 280px;
-      max-width: 340px;
-      box-sizing: border-box;
-      padding: 20px;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-
-    .icon-circle {
-      width: 140px;
-      height: 140px;
-      border: 4px solid #a66e4a;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-      overflow: hidden;
-      background: #fcfaf3;
-    }
-
-    /* Constrain the image inside the circle so it never overflows */
-    .icon-circle img {
-      width: 60%;
-      height: auto;
-      max-height: 100%;
-      object-fit: contain;
-      display: block;
-    }
-
-    hr {
-      width: 100%;
-      border: 0;
-      border-top: 2px solid #dcd4c9;
-      margin: 20px 0;
-    }
-
-    h3 { margin: 10px 0; font-size: 1.25rem; color: #a66e4a; }
-    p { color: #5c4d3f; line-height: 1.5; margin: 0; text-align: left; font-size: 0.95rem; }
-    
-    .btn-link {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 10px 20px;
-      background-color: #a66e4a;
-      color: white;
-      text-decoration: none;
-      border-radius: 4px;
-      font-weight: bold;
-      transition: background 0.2s;
-    }
-    .btn-link:hover { background-color: #4a3728; }
-    
-    .secondary-link {
-      display: inline-block;
-      margin-top: 10px;
-      color: #a66e4a;
-      font-size: 0.9rem;
-    }
-
-    /* Footer Styles */
-    footer {
-      margin-top: 60px;
-      padding-top: 20px;
-      border-top: 2px solid #dcd4c9;
-      font-size: 0.9rem;
-    }
-    footer a {
-      color: #a66e4a;
-      text-decoration: none;
-      margin: 0 10px;
-    }
-    footer a:hover { text-decoration: underline; }
-
-    /* Popup (Modal) Styles */
-    .modal {
-      display: none; 
-      position: fixed; 
-      z-index: 1000; 
-      left: 0;
-      top: 0;
-      width: 100%; 
-      height: 100%; 
-      background-color: rgba(0,0,0,0.5); /* Dim background layer */
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-content {
-      background-color: #ffffff;
-      padding: 30px;
-      border-radius: 8px;
-      max-width: 500px;
-      width: 90%;
-      text-align: left;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      position: relative;
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 24px;
-      font-weight: bold;
-      color: #a66e4a;
-      cursor: pointer;
-    }
-    .close-btn:hover { color: #4a3728; }
-
-    /* Responsive tweaks */
-    @media (max-width: 760px) {
-      body { padding: 25px 15px; }
-      h1 { font-size: 2.2rem; }
-      .container { gap: 24px; }
-      .icon-circle { width: 120px; height: 120px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Riverside Rat - Free Puzzle Maker & Word Tools</title>
+<meta name="description" content="Free tools for puzzle creators, teachers, and KDP publishers: word search maker, word unscrambler, and crossword builder.">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7795617443302913" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3EEDD; --gridline:#D9D2BC; --ink:#2B2A28;
+    --blueprint:#2F5D8A; --amber:#E8A33D; --brick:#C4443D; --paper-raised:#FFFDF6;
+  }
+  *{box-sizing:border-box;}
+  img{max-width:100%;height:auto;}
+  body{margin:0;background:var(--paper);
+    background-image:linear-gradient(var(--gridline) 1px, transparent 1px),linear-gradient(90deg, var(--gridline) 1px, transparent 1px);
+    background-size:28px 28px;color:var(--ink);font-family:'Inter',sans-serif;line-height:1.7;}
+  a{color:var(--blueprint);}
+  header.site{background:var(--paper-raised);border-bottom:3px solid var(--ink);padding:14px 24px;
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;position:sticky;top:0;z-index:10;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-weight:700;font-size:20px;letter-spacing:-0.01em;color:var(--ink);text-decoration:none;}
+  .brand img{width:38px;height:38px;border-radius:50%;border:2px solid var(--ink);object-fit:cover;}
+  .brand span{color:var(--brick);}
+  nav.site{display:flex;flex-wrap:wrap;gap:2px;}
+  nav.site a{font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-transform:uppercase;letter-spacing:0.04em;
+    color:var(--ink);text-decoration:none;margin-left:14px;border-bottom:2px solid transparent;padding-bottom:2px;white-space:nowrap;}
+  nav.site a:hover{border-bottom-color:var(--amber);}
+  main{max-width:1000px;margin:0 auto;padding:56px 24px 80px;}
+  .hero{text-align:center;margin-bottom:50px;}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--blueprint);
+    text-transform:uppercase;letter-spacing:0.08em;margin:0 0 10px;}
+  h1{font-family:'Fraunces',serif;font-size:clamp(34px,6vw,52px);font-weight:700;margin:0 0 14px;line-height:1.08;}
+  .lede{font-size:18px;color:#514F49;max-width:640px;margin:0 auto;}
+  .intro-card{
+    background:var(--paper-raised);border:2px solid var(--ink);padding:26px 30px;margin:0 0 50px;max-width:760px;margin-left:auto;margin-right:auto;
+  }
+  .intro-card p{margin:0;color:#3A3833;}
+  .tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-bottom:56px;}
+  .tool-card{background:var(--paper-raised);border:2px solid var(--ink);padding:26px;position:relative;}
+  .tool-card::before{content:attr(data-tag);position:absolute;top:-13px;left:22px;background:var(--blueprint);color:#fff;
+    font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;padding:3px 10px;}
+  .tool-card h3{font-family:'Fraunces',serif;font-size:22px;margin:8px 0 10px;}
+  .tool-card p{color:#514F49;font-size:15px;margin:0 0 18px;}
+  .btn-link{display:inline-block;padding:9px 18px;background:var(--ink);color:#fff;text-decoration:none;
+    font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-transform:uppercase;letter-spacing:0.04em;}
+  .btn-link:hover{background:var(--blueprint);}
+  .secondary-link{display:block;margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--brick);text-decoration:none;}
+  .blog-teaser{background:var(--paper-raised);border:2px solid var(--ink);padding:30px;text-align:center;}
+  .blog-teaser h2{font-family:'Fraunces',serif;margin-top:0;}
+  .blog-teaser a.btn-link{margin-top:12px;background:var(--brick);}
+  footer{text-align:center;padding:30px 24px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#77746B;border-top:1px solid var(--gridline);margin-top:20px;}
+  footer a{color:#77746B;margin:0 8px;text-decoration:none;}
+  footer a:hover{color:var(--blueprint);}
+  .cache-tip{max-width:600px;margin:0 auto 16px;font-size:12px;color:#8a8677;}
+</style>
 </head>
 <body>
-  
-  <h1>Riverside Rat</h1>
-  <div class="subtitle">Free Puzzle Creation Tools & Resources</div>
 
-  <section class="intro-section">
-    <h2>Welcome to the Workshop</h2>
-    <p>
-      Riverside Rat provides a collection of free, easy-to-use digital utility workshops designed for puzzle creators, educators, writers, and word-game enthusiasts. Whether you are formatting activity books for independent publishing, creating vocabulary worksheets for a classroom, or just looking to challenge yourself with a custom word game, our specialized generators streamline the entire layout process. Explore our workshops below to generate custom puzzle grids, instantly unscramble complex word lists, or build tailored crosswords in seconds.
-    </p>
-  </section>
+<header class="site">
+  <a href="index.html" class="brand"><img src="images/riverrat.png" alt="Riverside Rat logo">Riverside <span>Rat</span></a>
+  <nav class="site">
+    <a href="index.html">Home</a>
+    <a href="wordsearch.html">Word Search</a>
+    <a href="unscrambleword.html">Unscrambler</a>
+    <a href="crossword_builder.html">Crossword</a>
+    <a href="blog-index.html">Blog</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
 
-  <div class="container">
-    
-    <div class="tool-card">
-      <div class="icon-circle">
-        <img src="2.png" alt="Mouse Icon" width="200" height="200" loading="lazy">
-      </div>
+<main>
+  <div class="hero">
+    <p class="eyebrow">Free Puzzle Creation Tools</p>
+    <h1>Welcome to the Workshop</h1>
+    <p class="lede">Riverside Rat builds free, no-signup web tools for puzzle creators, teachers, and word-game lovers.</p>
+  </div>
+
+  <div class="intro-card">
+    <p>Riverside Rat provides a collection of free, easy-to-use digital utility workshops designed for puzzle creators, educators, writers, and word-game enthusiasts. Whether you're formatting activity books for independent publishing, building vocabulary worksheets for a classroom, or just looking to challenge yourself with a custom word game, our generators streamline the entire layout process. Explore the tools below, or check out the Workshop Notes blog for teaching ideas and puzzle-making guides.</p>
+  </div>
+
+  <div class="tools">
+    <div class="tool-card" data-tag="Puzzle Maker">
       <h3>The Word Search Workshop</h3>
-      <hr>
-      <p>
-        An interactive design suite built to generate custom word search puzzle matrices. Perfect for low-content book publishers and educators, this tool allows you to input your own themed word lists and automatically generates a randomized grid layout ready for printing or digital compilation.
-      </p>
-      <hr>
-      <a class="btn-link" href="https://thewordsearchworkshop.com/wordsearch.html">Launch Word Search tool</a>
-      <a class="secondary-link" href="https://thewordsearchworkshop.com/bookListPage.html" target="_blank">View Sample Books Portfolio</a>
+      <p>An interactive design suite for generating custom word search puzzle grids. Enter your own themed word lists and get a randomized, print-ready layout — built for low-content book publishers and educators alike.</p>
+      <a class="btn-link" href="wordsearch.html">Launch Word Search Tool</a>
+      <a class="secondary-link" href="bookListPage.html">View Sample Books Portfolio →</a>
     </div>
 
-    <div class="tool-card">
-      <div class="icon-circle">
-        <img src="2.png" alt="Mouse Icon" width="200" height="200" loading="lazy">
-      </div>
+    <div class="tool-card" data-tag="Word Tool">
       <h3>The Word Unscrambler Workshop</h3>
-      <hr>
-      <p>
-        An advanced language utility driven by a comprehensive dictionary backend containing over 300,000 words. Input scrambled letter combinations to immediately identify valid anagrams, check word tournament legality, or solve complex word jumbles effortlessly.
-      </p>
-      <hr>
-      <a class="btn-link" href="https://thewordsearchworkshop.com/unscrambleword.html">Launch Unscrambler</a>
-	</div>
+      <p>An advanced language utility backed by a dictionary of over 300,000 words. Drop in scrambled letters to find valid anagrams, check word legality, or solve tricky jumbles instantly.</p>
+      <a class="btn-link" href="unscrambleword.html">Launch Unscrambler</a>
+    </div>
 
-    <div class="tool-card">
-      <div class="icon-circle">
-        <img src="2.png" alt="Mouse Icon" width="200" height="200" loading="lazy">
-      </div>
-      <h3>The Puzzle Workshop</h3>
-      <hr>
-      <p>
-        A professional compilation workspace tailored for grid-based puzzles. Input your custom clues and intersecting key terms to dynamically map out crossword puzzles, ensuring clean alignments and print-ready configurations for your projects.
-      </p>
-      <hr>
-      <a class="btn-link" href="https://thewordsearchworkshop.com/crossword_builder.html">Launch Crossword Builder</a>
-   </div>
-   
-  </div>
-
-  <footer>
-<div class="footer-cache-tip">
-    <strong>💡 Tip: Page not updating?</strong> Try a <strong>Hard Refresh</strong> to bypass the cache: 
-    <span class="shortcut">Ctrl + F5</span> (Windows/Linux) or 
-    <span class="shortcut">Cmd + Shift + R</span> (Mac).
-</div>    
-
-<p class="center">&copy; 2026 Riverside Rat. All rights reserved.</p>
-    <p class="center">
-      <a href="javascript:void(0)" onclick="openModal('aboutModal')">About Us</a> | 
-      <a href="https://thewordsearchworkshop.com/privacy.html">Privacy Policy</a> | 
-      <a href="javascript:void(0)" onclick="openModal('termsModal')">Terms of Service</a>
-    </p>
-
-  </footer>
-
-  <div id="aboutModal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn" onclick="closeModal('aboutModal')">&times;</span>
-      <h3>About Us</h3>
-      <hr style="margin: 10px 0 15px 0;">
-      <p>Welcome to Riverside Rat! We are dedicated to building free, simple, and clean web utilities for puzzle creators, independent book publishers, and word-game lovers. Our mission is to make custom vocabulary layouts and creative puzzle formatting fast, reliable, and entirely accessible for everyone.</p>
+    <div class="tool-card" data-tag="Puzzle Maker">
+      <h3>The Crossword Workshop</h3>
+      <p>A compilation workspace for grid-based puzzles. Input your clues and key terms to map out a crossword with clean intersections and print-ready alignment.</p>
+      <a class="btn-link" href="crossword_builder.html">Launch Crossword Builder</a>
     </div>
   </div>
 
-  <div id="termsModal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn" onclick="closeModal('termsModal')">&times;</span>
-      <h3>Terms of Service</h3>
-      <hr style="margin: 10px 0 15px 0;">
-      <p>By using Riverside Rat and our puzzle workshop tools, you agree that our web-based generators are provided "as-is" for individual entertainment, educational use, and independent publishing structures (such as layout creation for workbook platforms). We do not save, collect, or store your custom word lists or puzzle layout designs.</p>
-    </div>
+  <div class="blog-teaser">
+    <h2>The Workshop Notes</h2>
+    <p style="color:#514F49;">Teaching ideas, lesson tips, and puzzle-making guides for teachers and homeschoolers.</p>
+    <a class="btn-link" href="blog-index.html">Read the Blog →</a>
   </div>
+</main>
 
-  <script>
-    function openModal(id) {
-      document.getElementById(id).style.display = "flex";
-    }
-    function closeModal(id) {
-      document.getElementById(id).style.display = "none";
-    }
-    // Close the popup window if the user clicks anywhere outside of the white box
-    window.onclick = function(event) {
-      if (event.target.className === 'modal') {
-        event.target.style.display = "none";
-      }
-    }
-  </script>
+<footer>
+  <p class="cache-tip"><strong>Page not updating?</strong> Try a hard refresh: Ctrl+F5 (Windows/Linux) or Cmd+Shift+R (Mac).</p>
+  <p>&copy; 2026 Riverside Rat. All rights reserved.</p>
+  <p>
+    <a href="about.html">About Us</a> |
+    <a href="privacy.html">Privacy Policy</a> |
+    <a href="terms.html">Terms of Service</a> |
+    <a href="contact.html">Contact</a>
+  </p>
+</footer>
 
 </body>
 </html>
