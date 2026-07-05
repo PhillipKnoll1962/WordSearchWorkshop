@@ -20,9 +20,11 @@
   a{color:var(--blueprint);}
   header.site{background:var(--paper-raised);border-bottom:3px solid var(--ink);padding:18px 24px;
     display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
-  .brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-weight:700;font-size:22px;letter-spacing:-0.01em;}
+  .brand-wrap{display:flex;align-items:center;gap:10px;}
+  .brand-logo-link{display:flex;}
+  .brand-logo-link img{width:34px;height:34px;border-radius:50%;border:2px solid var(--ink);object-fit:cover;}
+  .brand{font-family:'Fraunces',serif;font-weight:700;font-size:22px;letter-spacing:-0.01em;}
   .brand span{color:var(--brick);}
-  .brand img{width:34px;height:34px;border-radius:50%;border:2px solid var(--ink);object-fit:cover;}
   nav.site a{font-family:'IBM Plex Mono',monospace;font-size:13px;text-transform:uppercase;letter-spacing:0.04em;
     color:var(--ink);text-decoration:none;margin-left:18px;border-bottom:2px solid transparent;padding-bottom:2px;}
   nav.site a:hover{border-bottom-color:var(--amber);}
@@ -45,7 +47,10 @@
 <body>
 
 <header class="site">
-  <a href="index.html" class="brand"><img src="images/riverrat.png" alt="Riverside Rat logo">Riverside <span>Rat</span></a>
+  <div class="brand-wrap">
+    <a href="https://riversiderat.com" target="_blank" rel="noopener" class="brand-logo-link" title="Visit Riverside Rat"><img src="images/riverrat.png" alt="Riverside Rat logo"></a>
+    <a href="index.html" class="brand">The Wordsearch <span>Workshop</span></a>
+  </div>
   <nav class="site">
     <a href="index.html">Home</a>
     <a href="wordsearch.html">Word Search</a>
@@ -85,7 +90,7 @@
 </main>
 
 <footer>
-  <p>&copy; 2026 Riverside Rat. All rights reserved.</p>
+  <p>&copy; 2026 The Wordsearch Workshop. All rights reserved.</p>
   <p>
     <a href="about.html">About Us</a> |
     <a href="privacy.html">Privacy Policy</a> |
