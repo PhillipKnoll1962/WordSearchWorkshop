@@ -382,9 +382,8 @@
             color: #1e293b;
         }
 
-        .cell.answer-highlight {
-            border: 2px solid #000000 !important;
-            background-color: #f1f5f9;
+        #answer-overlay {
+            z-index: 2;
         }
 
         .word-list-container {
@@ -706,17 +705,29 @@
                 let placementRecords = [];
 
                 const directions = [
-                    {r: 0, c: 1}, {r: 1, c: 0}, {r: 1, c: 1},
-                    {r: -1, c: 1}, {r: 0, c: -1}, {r: -1, c: 0}
+                    {r: 0,  c: 1},   // right
+                    {r: 1,  c: 0},   // down
+                    {r: 0,  c: -1},  // left
+                    {r: -1, c: 0},   // up
+                    {r: 1,  c: 1},   // diagonal down-right
+                    {r: -1, c: 1},   // diagonal up-right
+                    {r: 1,  c: -1},  // diagonal down-left
+                    {r: -1, c: -1},  // diagonal up-left
                 ];
 
                 words.forEach(word => {
                     let placed = false;
                     let attempts = 0;
-                    while (!placed && attempts < 150) {
+                    while (!placed && attempts < 300) {
                         const dir = directions[Math.floor(Math.random() * directions.length)];
-                        const row = Math.floor(Math.random() * gridSize);
-                        const col = Math.floor(Math.random() * gridSize);
+                        // Pick a starting position that guarantees the word fits in-bounds
+                        const minRow = dir.r < 0 ? word.length - 1 : 0;
+                        const maxRow = dir.r > 0 ? gridSize - word.length : gridSize - 1;
+                        const minCol = dir.c < 0 ? word.length - 1 : 0;
+                        const maxCol = dir.c > 0 ? gridSize - word.length : gridSize - 1;
+                        if (maxRow < minRow || maxCol < minCol) { attempts++; continue; }
+                        const row = minRow + Math.floor(Math.random() * (maxRow - minRow + 1));
+                        const col = minCol + Math.floor(Math.random() * (maxCol - minCol + 1));
                         if (canPlaceWord(matrix, word, row, col, dir)) {
                             placeWord(matrix, word, row, col, dir);
                             placementRecords.push({
@@ -813,33 +824,74 @@
             const puzzle = loadedPuzzles[activeTabIndex];
             if (!puzzle) return;
 
+            // Remove any existing answer overlay
+            const existingOverlay = document.getElementById('answer-overlay');
+            if (existingOverlay) existingOverlay.remove();
+
             gridElement.innerHTML = '';
             gridElement.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
 
-            const highlightSet = new Set();
-            if (globalShowAnswers) {
-                puzzle.placements.forEach(p => {
-                    let r = p.startRow;
-                    let c = p.startCol;
-                    for (let i = 0; i < p.word.length; i++) {
-                        highlightSet.add(`${r}-${c}`);
-                        r += p.dir.r;
-                        c += p.dir.c;
-                    }
-                });
-            }
-            
             for (let r = 0; r < gridSize; r++) {
                 for (let c = 0; c < gridSize; c++) {
                     const cell = document.createElement('div');
                     cell.classList.add('cell');
                     cell.style.fontSize = `${Math.min(24, Math.max(12, 340 / gridSize))}px`;
                     cell.textContent = puzzle.matrix[r][c];
-                    if (highlightSet.has(`${r}-${c}`)) {
-                        cell.classList.add('answer-highlight');
-                    }
                     gridElement.appendChild(cell);
                 }
+            }
+
+            // Draw SVG lines over the grid when answers are shown
+            if (globalShowAnswers) {
+                const colors = [
+                    '#e74c3c','#3498db','#2ecc71','#f39c12','#9b59b6',
+                    '#1abc9c','#e67e22','#e91e63','#00bcd4','#8bc34a',
+                    '#ff5722','#607d8b','#673ab7','#009688','#ff9800'
+                ];
+
+                // Wait one frame so the grid has rendered and we can measure it
+                requestAnimationFrame(() => {
+                    const gridRect = gridElement.getBoundingClientRect();
+                    const wrapperRect = document.querySelector('.grid-wrapper').getBoundingClientRect();
+
+                    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    svg.id = 'answer-overlay';
+                    svg.style.position = 'absolute';
+                    svg.style.top = (gridRect.top - wrapperRect.top) + 'px';
+                    svg.style.left = (gridRect.left - wrapperRect.left) + 'px';
+                    svg.style.width = gridRect.width + 'px';
+                    svg.style.height = gridRect.height + 'px';
+                    svg.style.pointerEvents = 'none';
+                    svg.style.overflow = 'visible';
+
+                    const cellW = gridRect.width / gridSize;
+                    const cellH = gridRect.height / gridSize;
+
+                    puzzle.placements.forEach((p, idx) => {
+                        const color = colors[idx % colors.length];
+
+                        // Center of start cell
+                        const x1 = p.startCol * cellW + cellW / 2;
+                        const y1 = p.startRow * cellH + cellH / 2;
+                        // Center of end cell
+                        const x2 = p.endCol * cellW + cellW / 2;
+                        const y2 = p.endRow * cellH + cellH / 2;
+
+                        // Draw a rounded stroke behind the letters
+                        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                        line.setAttribute('x1', x1);
+                        line.setAttribute('y1', y1);
+                        line.setAttribute('x2', x2);
+                        line.setAttribute('y2', y2);
+                        line.setAttribute('stroke', color);
+                        line.setAttribute('stroke-width', cellW * 0.7);
+                        line.setAttribute('stroke-linecap', 'round');
+                        line.setAttribute('stroke-opacity', '0.35');
+                        svg.appendChild(line);
+                    });
+
+                    document.querySelector('.grid-wrapper').appendChild(svg);
+                });
             }
 
             listElement.innerHTML = '';
