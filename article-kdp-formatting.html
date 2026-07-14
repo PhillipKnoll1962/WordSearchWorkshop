@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7795617443302913" crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formatting a Puzzle Book for KDP: Trim Size, Margins, and the Mistakes That Get Books Rejected | The Wordsearch Workshop</title>
+<meta name="description" content="A working publisher's guide to formatting puzzle and activity books for Kindle Direct Publishing — trim size, margins, bleed, and the print-quality mistakes that actually get manuscripts kicked back.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3EEDD; --gridline:#D9D2BC; --ink:#2B2A28;
+    --blueprint:#2F5D8A; --amber:#E8A33D; --brick:#C4443D; --paper-raised:#FFFDF6;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);
+    background-image:linear-gradient(var(--gridline) 1px, transparent 1px),linear-gradient(90deg, var(--gridline) 1px, transparent 1px);
+    background-size:28px 28px;color:var(--ink);font-family:'Inter',sans-serif;line-height:1.7;}
+  a{color:var(--blueprint);}
+  header.site{background:var(--paper-raised);border-bottom:3px solid var(--ink);padding:14px 24px;
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;position:sticky;top:0;z-index:10;}
+  .brand-wrap{display:flex;align-items:center;gap:10px;}
+  .brand-logo-link{display:flex;}
+  .brand-logo-link img{width:38px;height:38px;border-radius:50%;border:2px solid var(--ink);object-fit:cover;}
+  .brand{font-family:'Fraunces',serif;font-weight:700;font-size:20px;letter-spacing:-0.01em;color:var(--ink);text-decoration:none;}
+  .brand span{color:var(--brick);}
+  nav.site{display:flex;flex-wrap:wrap;gap:2px;}
+  nav.site a{font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-transform:uppercase;letter-spacing:0.04em;
+    color:var(--ink);text-decoration:none;margin-left:14px;border-bottom:2px solid transparent;padding-bottom:2px;white-space:nowrap;}
+  nav.site a:hover{border-bottom-color:var(--amber);}
+
+  nav.toc{position:sticky;top:66px;z-index:9;background:var(--paper-raised);border-bottom:1px solid var(--gridline);
+    padding:10px 16px;display:flex;flex-wrap:wrap;gap:6px 4px;justify-content:center;}
+  nav.toc a{font-family:'IBM Plex Mono',monospace;font-size:11.5px;text-decoration:none;color:var(--ink);
+    background:var(--paper);border:1px solid var(--gridline);padding:5px 11px;border-radius:16px;white-space:nowrap;}
+  nav.toc a:hover{background:var(--amber);border-color:var(--amber);}
+
+  main{max-width:760px;margin:0 auto;padding:44px 24px 80px;}
+  .breadcrumb{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#77746B;margin-bottom:18px;}
+  .breadcrumb a{color:#77746B;}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--blueprint);
+    text-transform:uppercase;letter-spacing:0.08em;margin:0 0 10px;}
+  h1{font-family:'Fraunces',serif;font-size:clamp(30px,4.5vw,42px);font-weight:700;margin:0 0 14px;line-height:1.15;}
+  .lede{font-size:18px;color:#514F49;}
+  section{scroll-margin-top:120px;}
+  section+section{margin-top:2.6em;}
+  .section-head{display:flex;align-items:center;gap:12px;margin:0 0 0.5em;}
+  .section-head .icon-badge{flex:0 0 auto;width:40px;height:40px;border-radius:50%;background:var(--blueprint);
+    display:flex;align-items:center;justify-content:center;}
+  h2{font-family:'Fraunces',serif;font-size:22px;font-weight:600;margin:0;color:var(--ink);}
+  p{color:#3A3833;margin:0 0 16px;}
+  .diagram-box{background:var(--paper-raised);border:2px solid var(--ink);padding:20px;margin:1.4em 0;text-align:center;}
+  .diagram-box .caption{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#77746B;margin-top:10px;}
+  .callout{background:#FBF1DC;border-left:4px solid var(--amber);padding:16px 20px;margin:1.6em 0;font-size:14.5px;}
+  .callout strong{display:block;font-family:'IBM Plex Mono',monospace;font-size:11.5px;text-transform:uppercase;
+    letter-spacing:0.06em;color:var(--brick);margin-bottom:6px;}
+  table{width:100%;border-collapse:collapse;margin:20px 0;background:var(--paper-raised);border:2px solid var(--ink);}
+  th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--gridline);font-size:14px;}
+  th{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.04em;background:var(--ink);color:#fff;}
+  tr:last-child td{border-bottom:none;}
+  .steps{margin:1.6em 0;counter-reset:step;}
+  .step{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--gridline);}
+  .step:last-child{border-bottom:none;}
+  .step::before{content:counter(step);counter-increment:step;flex:0 0 auto;width:32px;height:32px;border-radius:50%;
+    border:2px solid var(--brick);color:var(--brick);font-family:'IBM Plex Mono',monospace;font-weight:700;
+    display:flex;align-items:center;justify-content:center;}
+  .step-body h3{font-family:'Fraunces',serif;font-size:17px;margin:2px 0 4px;color:var(--ink);}
+  .step-body p{margin:0;font-size:14.5px;}
+  .cta{margin-top:1.4em;padding:22px;background:var(--ink);color:var(--paper);border-radius:6px;text-align:center;}
+  .cta a{display:inline-block;margin-top:10px;background:var(--amber);color:var(--ink);font-weight:700;
+    text-decoration:none;padding:9px 20px;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:13px;text-transform:uppercase;}
+  .aside-mention{font-size:14px;color:#77746B;border-top:1px solid var(--gridline);padding-top:18px;margin-top:44px;}
+  footer{text-align:center;padding:36px 24px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#77746B;}
+  footer a{color:#77746B;margin:0 8px;text-decoration:none;}
+  footer a:hover{color:var(--blueprint);}
+  @media (max-width:480px){ nav.toc{top:60px;} }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="brand-wrap">
+    <a href="https://riversiderat.com" target="_blank" rel="noopener" class="brand-logo-link" title="Visit Riverside Rat"><img src="images/riverrat.png" alt="Riverside Rat logo"></a>
+    <a href="index.html" class="brand">The Wordsearch <span>Workshop</span></a>
+  </div>
+  <nav class="site">
+    <a href="index.html">Home</a>
+    <a href="wordsearch.html">Word Search</a>
+    <a href="unscrambleword.html">Unscrambler</a>
+    <a href="crossword_builder.html">Crossword</a>
+    <a href="blog-index.html">Blog</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<nav class="toc" aria-label="On this page">
+  <a href="#trim-size">Trim Size</a>
+  <a href="#margins-bleed">Margins &amp; Bleed</a>
+  <a href="#font-rules">Fonts &amp; Legibility</a>
+  <a href="#common-rejections">Common Rejections</a>
+  <a href="#checklist">Pre-Upload Checklist</a>
+</nav>
+
+<main>
+  <p class="breadcrumb"><a href="blog-index.html">The Workshop Notes</a> / Publishing</p>
+  <p class="eyebrow">Publishing Notes</p>
+  <h1>Formatting a Puzzle Book for KDP: Trim Size, Margins, and the Mistakes That Get Books Rejected</h1>
+  <p class="lede">Most puzzle-book rejections on KDP have nothing to do with the puzzles themselves. They're formatting problems — the kind that are invisible on your screen and obvious the moment a printed proof lands in your hands.</p>
+
+  <section id="trim-size">
+    <div class="section-head">
+      <span class="icon-badge"><svg width="18" height="18" viewBox="0 0 20 20"><rect x="3" y="2" width="14" height="16" rx="1" fill="none" stroke="#F3EEDD" stroke-width="1.6"/></svg></span>
+      <h2>Pick a trim size before you design a single page</h2>
+    </div>
+    <p>Trim size is the finished, physical page size of the printed book — and it has to be decided first, because every layout decision downstream depends on it. Change trim size after your puzzles are built and you're not resizing a document, you're rebuilding grids that no longer fit the page.</p>
+    <p>For activity and puzzle books specifically, 8.5" &times; 11" is the default for a reason: it's large enough that grid cells stay comfortably solvable at a reasonable font size, and large-print buyers specifically search for this size. Smaller trims (6" &times; 9", 5.5" &times; 8.5") read as more "book-like" and cost less to print, but they force smaller grid cells — fine for a 10&times;10 word search, cramped for a 15&times;15 crossword.</p>
+
+    <div class="callout">
+      <strong>A mistake worth naming</strong>
+      Designing at 8.5"&times;11" on screen, then switching the KDP trim size dropdown to 6"&times;9" at upload time without touching the interior file. The grid doesn't resize itself — it gets cut off, or KDP's own auto-scaling shrinks everything, including text that was already at the edge of readable.
+    </div>
+  </section>
+
+  <section id="margins-bleed">
+    <div class="section-head">
+      <span class="icon-badge"><svg width="18" height="18" viewBox="0 0 20 20"><rect x="4" y="4" width="12" height="12" fill="none" stroke="#F3EEDD" stroke-width="1.4"/><rect x="1" y="1" width="18" height="18" fill="none" stroke="#F3EEDD" stroke-width="1.4" stroke-dasharray="2 2"/></svg></span>
+      <h2>Margins and bleed aren't the same thing, and mixing them up is expensive</h2>
+    </div>
+    <p><strong>Margin</strong> is the safe zone inside the page edge where nothing important should sit — KDP's minimum is usually 0.25" on outer edges, but the <em>inside</em> margin (the gutter, next to the spine) needs to grow with page count, since a 300-page book curves more at the spine than a 30-page one and eats into that margin when the book is physically opened.</p>
+    <p><strong>Bleed</strong> only matters if any element touches the edge of the page — a background color or image that runs to the very border. Bleed adds an extra 0.125" beyond the trim line on those pages, because the actual cutting process during printing isn't perfectly precise, and anything not extended past the edge risks showing a thin white sliver after trimming.</p>
+
+    <div class="diagram-box">
+      <svg width="240" height="180" viewBox="0 0 240 180">
+        <rect x="10" y="10" width="220" height="160" fill="#FFFDF6" stroke="#2B2A28" stroke-width="2"/>
+        <rect x="10" y="10" width="220" height="160" fill="none" stroke="#C4443D" stroke-width="1" stroke-dasharray="4 3"/>
+        <rect x="34" y="30" width="172" height="120" fill="none" stroke="#2F5D8A" stroke-width="1.4" stroke-dasharray="2 2"/>
+        <text x="120" y="24" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#C4443D">bleed edge</text>
+        <text x="120" y="42" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#2F5D8A">safe margin</text>
+        <text x="120" y="95" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#2B2A28" font-weight="700">Live content area</text>
+      </svg>
+      <div class="caption">Trim line (solid), bleed allowance (dashed red), and the safe margin (dashed blue) where puzzles and text should actually live.</div>
+    </div>
+  </section>
+
+  <section id="font-rules">
+    <div class="section-head">
+      <span class="icon-badge"><svg width="18" height="18" viewBox="0 0 20 20"><text x="3" y="15" font-family="Georgia, serif" font-size="15" fill="#F3EEDD" font-weight="700">Aa</text></svg></span>
+      <h2>Legibility in print is not the same as legibility on screen</h2>
+    </div>
+    <p>A font that looks perfectly readable on a backlit monitor can turn muddy on uncoated interior paper stock, especially at the smaller sizes puzzle grids tend to use. Two things matter more here than font choice itself: <strong>stroke weight</strong> and <strong>print testing</strong>.</p>
+    <p>Thin, light-weight fonts lose definition on matte paper — bold or semi-bold weights hold up far better at small sizes. And the only way to actually know if a grid is readable at your chosen size is to print a physical proof page and look at it under normal room lighting, not just zoom in on a screen. Screen rendering and ink-on-paper rendering are genuinely different experiences.</p>
+  </section>
+
+  <section id="common-rejections">
+    <div class="section-head">
+      <span class="icon-badge"><svg width="18" height="18" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="#F3EEDD" stroke-width="1.6"/><path d="M10 6v5M10 13.5v.1" stroke="#F3EEDD" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+      <h2>What actually gets a manuscript kicked back</h2>
+    </div>
+    <table>
+      <tr><th>Issue</th><th>Why it happens</th></tr>
+      <tr><td>Content in the bleed zone without bleed setup</td><td>Trim size selected but bleed setting left off during upload</td></tr>
+      <tr><td>Inconsistent page count parity</td><td>KDP print books need an even final page count — an odd count adds a blank page you didn't plan for</td></tr>
+      <tr><td>Text or grids crossing into the gutter</td><td>Margin wasn't widened for the book's actual page count</td></tr>
+      <tr><td>Low-resolution cover art</td><td>Cover images pulled from web search instead of exported at true print resolution (300 DPI)</td></tr>
+      <tr><td>Answer key exposed before the puzzle</td><td>Page ordering in the interior PDF wasn't checked after export</td></tr>
+    </table>
+  </section>
+
+  <section id="checklist">
+    <div class="section-head">
+      <span class="icon-badge"><svg width="18" height="18" viewBox="0 0 20 20"><path d="M4 10l4 4 8-8" stroke="#F3EEDD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <h2>Before you hit upload</h2>
+    </div>
+    <p>A short, concrete pass through the file catches most of the issues above before KDP's own review ever sees them:</p>
+
+    <div class="cta">
+      Building the puzzles themselves?
+      <br>
+      <a href="wordsearch.html">Try the Word Search Tool</a> &nbsp;·&nbsp; <a href="crossword_builder.html">Try the Crossword Builder</a>
+    </div>
+
+    <div class="steps">
+      <div class="step"><div class="step-body">
+        <h3>Confirm trim size matches your KDP listing exactly</h3>
+        <p>Open the interior PDF and check its page dimensions against what you're about to select in the KDP dropdown — they should match to the decimal.</p>
+      </div></div>
+      <div class="step"><div class="step-body">
+        <h3>Count your pages</h3>
+        <p>Confirm the total is even. An odd count means a surprise blank page gets inserted, which can land in an awkward spot if you weren't expecting it.</p>
+      </div></div>
+      <div class="step"><div class="step-body">
+        <h3>Print one physical proof page at real size</h3>
+        <p>Not a screen zoom — an actual printed page, at 100%, on regular paper. This is the fastest way to catch a font that's too thin or a grid that's too small.</p>
+      </div></div>
+      <div class="step"><div class="step-body">
+        <h3>Check the gutter on your highest page-count book</h3>
+        <p>If you reuse a template across books of different lengths, the margin that worked for a 30-page book may not hold up on a 150-page one.</p>
+      </div></div>
+      <div class="step"><div class="step-body">
+        <h3>Open the exported PDF start to finish</h3>
+        <p>Not just the first and last page — scroll through the whole thing. This is the single most common place an answer key ends up in the wrong spot.</p>
+      </div></div>
+    </div>
+  </section>
+
+  <p class="aside-mention">Related reading: <a href="article-wordsearch-construction.html">How Word Search Puzzles Are Actually Built</a> &middot; <a href="article-crossword-construction.html">Inside the Grid: How Crossword Puzzles Are Actually Built</a></p>
+</main>
+
+<footer>
+  <p>&copy; 2026 The Wordsearch Workshop. All rights reserved.</p>
+  <p>
+    <a href="about.html">About Us</a> |
+    <a href="privacy.html">Privacy Policy</a> |
+    <a href="terms.html">Terms of Service</a> |
+    <a href="contact.html">Contact</a>
+  </p>
+</footer>
+
+</body>
+</html>

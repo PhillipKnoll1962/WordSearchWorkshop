@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EBCJ4T3KKY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-EBCJ4T3KKY');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7795617443302913" crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Word Search Puzzles Are Actually Built | The Wordsearch Workshop</title>
+<meta name="description" content="A visual look at word search construction: why direction and overlap matter, what actually makes a puzzle hard, and how to build your own.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3EEDD; --gridline:#D9D2BC; --ink:#2B2A28;
+    --blueprint:#2F5D8A; --amber:#E8A33D; --brick:#C4443D; --paper-raised:#FFFDF6;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);
+    background-image:linear-gradient(var(--gridline) 1px, transparent 1px),linear-gradient(90deg, var(--gridline) 1px, transparent 1px);
+    background-size:28px 28px;color:var(--ink);font-family:'Inter',sans-serif;line-height:1.7;}
+  a{color:var(--blueprint);}
+  header.site{background:var(--paper-raised);border-bottom:3px solid var(--ink);padding:14px 24px;
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;position:sticky;top:0;z-index:10;}
+  .brand-wrap{display:flex;align-items:center;gap:10px;}
+  .brand-logo-link{display:flex;}
+  .brand-logo-link img{width:38px;height:38px;border-radius:50%;border:2px solid var(--ink);object-fit:cover;}
+  .brand{font-family:'Fraunces',serif;font-weight:700;font-size:20px;letter-spacing:-0.01em;color:var(--ink);text-decoration:none;}
+  .brand span{color:var(--brick);}
+  nav.site{display:flex;flex-wrap:wrap;gap:2px;}
+  nav.site a{font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-transform:uppercase;letter-spacing:0.04em;
+    color:var(--ink);text-decoration:none;margin-left:14px;border-bottom:2px solid transparent;padding-bottom:2px;white-space:nowrap;}
+  nav.site a:hover{border-bottom-color:var(--amber);}
+
+  nav.toc{position:sticky;top:66px;z-index:9;background:var(--paper-raised);border-bottom:1px solid var(--gridline);
+    padding:10px 16px;display:flex;flex-wrap:wrap;gap:6px 4px;justify-content:center;}
+  nav.toc a{font-family:'IBM Plex Mono',monospace;font-size:11.5px;text-decoration:none;color:var(--ink);
+    background:var(--paper);border:1px solid var(--gridline);padding:5px 11px;border-radius:16px;white-space:nowrap;}
+  nav.toc a:hover{background:var(--amber);border-color:var(--amber);}
+
+  main{max-width:760px;margin:0 auto;padding:44px 24px 80px;}
+  .breadcrumb{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#77746B;margin-bottom:18px;}
+  .breadcrumb a{color:#77746B;}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--blueprint);
+    text-transform:uppercase;letter-spacing:0.08em;margin:0 0 10px;}
+  h1{font-family:'Fraunces',serif;font-size:clamp(30px,4.5vw,42px);font-weight:700;margin:0 0 14px;line-height:1.15;}
+  .lede{font-size:18px;color:#514F49;}
+  section{scroll-margin-top:120px;}
+  section+section{margin-top:2.6em;}
+  .section-head{display:flex;align-items:center;gap:12px;margin:0 0 0.5em;}
+  .section-head .icon-badge{flex:0 0 auto;width:40px;height:40px;border-radius:50%;background:var(--blueprint);
+    display:flex;align-items:center;justify-content:center;}
+  h2{font-family:'Fraunces',serif;font-size:22px;font-weight:600;margin:0;color:var(--ink);}
+  p{color:#3A3833;margin:0 0 16px;}
+  .diagram-box{background:var(--paper-raised);border:2px solid var(--ink);padding:20px;margin:1.4em 0;text-align:center;}
+  .diagram-box .caption{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#77746B;margin-top:10px;}
+  .callout{background:#FBF1DC;border-left:4px solid var(--amber);padding:16px 20px;margin:1.6em 0;font-size:14.5px;}
+  .callout strong{display:block;font-family:'IBM Plex Mono',monospace;font-size:11.5px;text-transform:uppercase;
+    letter-spacing:0.06em;color:var(--brick);margin-bottom:6px;}
+  .steps{margin:1.6em 0;counter-reset:step;}
+  .step{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--gridline);}
+  .step:last-child{border-bottom:none;}
+  .step::before{content:counter(step);counter-increment:step;flex:0 0 auto;width:32px;height:32px;border-radius:50%;
+    border:2px solid var(--brick);color:var(--brick);font-family:'IBM Plex Mono',monospace;font-weight:700;
+    display:flex;align-items:center;justify-content:center;}
+  .step-body h3{font-family:'Fraunces',serif;font-size:17px;margin:2px 0 4px;color:var(--ink);}
+  .step-body p{margin:0;font-size:14.5px;}
+  .cta{margin-top:1.4em;padding:22px;background:var(--ink);color:var(--paper);border-radius:6px;text-align:center;}
+  .cta a{display:inline-block;margin-top:10px;background:var(--amber);color:var(--ink);font-weight:700;
+    text-decoration:none;padding:9px 20px;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:13px;text-transform:uppercase;}
+  .aside-mention{font-size:14px;color:#77746B;border-top:1px solid var(--gridline);padding-top:18px;margin-top:44px;}
+  footer{text-align:center;padding:36px 24px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#77746B;}
+  footer a{color:#77746B;margin:0 8px;text-decoration:none;}
+  footer a:hover{color:var(--blueprint);}
+  @media (max-width:480px){ nav.toc{top:60px;} }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="brand-wrap">
+    <a href="https://riversiderat.com" target="_blank" rel="noopener" class="brand-logo-link" title="Visit Riverside Rat"><img src="images/riverrat.png" alt="Riverside Rat logo"></a>
+    <a href="index.html" class="brand">The Wordsearch <span>Workshop</span></a>
+  </div>
+  <nav class="site">
+    <a href="index.html">Home</a>
+    <a href="wordsearch.html">Word Search</a>
+    <a href="unscrambleword.html">Unscrambler</a>
+    <a href="crossword_builder.html">Crossword</a>
+    <a href="blog-index.html">Blog</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<nav class="toc" aria-label="On this page">
+  <a href="#eight-directions">8 Directions</a>
+  <a href="#overlap">Overlap &amp; Collisions</a>
+  <a href="#difficulty">What Makes It Hard</a>
+  <a href="#word-list">The Word List</a>
+  <a href="#build-your-own">Build Your Own</a>
+</nav>
+
+<main>
+  <p class="breadcrumb"><a href="blog-index.html">The Workshop Notes</a> / Craft &amp; Construction</p>
+  <p class="eyebrow">Craft &amp; Construction</p>
+  <h1>How Word Search Puzzles Are Actually Built</h1>
+  <p class="lede">A word search looks like the simplest puzzle format there is &mdash; letters in a box, words hidden inside. The actual placement logic underneath it is more deliberate than it looks.</p>
+
+  <section id="eight-directions">
+    <div class="section-head">
+      <span class="icon-badge"><svg width="20" height="20" viewBox="0 0 20 20"><path d="M10 2v16M2 10h16M4.5 4.5l11 11M15.5 4.5l-11 11" stroke="#F3EEDD" stroke-width="1.6"/></svg></span>
+      <h2>Every word can face eight directions</h2>
+    </div>
+    <p>A generator doesn't just drop words in left to right. Real word search puzzles place words in up to eight directions: across, down, and both diagonals &mdash; each of those either forward or backward. That last part surprises people the most: a properly built puzzle can legitimately hide a word spelled backward, and that's not a bug, it's the standard.</p>
+
+    <div class="diagram-box">
+      <svg width="260" height="220" viewBox="0 0 260 220">
+        <rect x="105" y="95" width="50" height="30" fill="#E8A33D" rx="4"/>
+        <text x="130" y="115" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#2B2A28" font-weight="700">WORD</text>
+        <g stroke="#2F5D8A" stroke-width="2" fill="none">
+          <line x1="130" y1="90" x2="130" y2="20"/><polygon points="130,10 124,22 136,22" fill="#2F5D8A"/>
+          <line x1="130" y1="130" x2="130" y2="200"/><polygon points="130,210 124,198 136,198" fill="#2F5D8A"/>
+          <line x1="100" y1="110" x2="30" y2="110"/><polygon points="20,110 32,104 32,116" fill="#2F5D8A"/>
+          <line x1="160" y1="110" x2="230" y2="110"/><polygon points="240,110 228,104 228,116" fill="#2F5D8A"/>
+          <line x1="108" y1="92" x2="55" y2="39"/><polygon points="48,32 54,44 62,36" fill="#2F5D8A"/>
+          <line x1="152" y1="92" x2="205" y2="39"/><polygon points="212,32 206,44 198,36" fill="#2F5D8A"/>
+          <line x1="108" y1="128" x2="55" y2="181"/><polygon points="48,188 62,184 54,176" fill="#2F5D8A"/>
+          <line x1="152" y1="128" x2="205" y2="181"/><polygon points="212,188 198,184 206,176" fill="#2F5D8A"/>
+        </g>
+      </svg>
+      <div class="caption">Eight possible directions from a single starting letter &mdash; four straight, four diagonal, each usable forward or backward.</div>
+    </div>
+
+    <p>Generators typically pick a random direction, then check whether the word actually fits on the grid from that starting point before committing to it &mdash; if it would run off the edge, it tries again with a different direction or position.</p>
+  </section>
+
+  <section id="overlap">
+    <div class="section-head">
+      <span class="icon-badge"><svg width="18" height="18" viewBox="0 0 20 20"><circle cx="7" cy="10" r="6" fill="none" stroke="#F3EEDD" stroke-width="1.6"/><circle cx="13" cy="10" r="6" fill="none" stroke="#F3EEDD" stroke-width="1.6" opacity="0.6"/></svg></span>
+      <h2>Words are allowed to share letters &mdash; on purpose</h2>
+    </div>
+    <p>Unlike a crossword, a word search doesn't require every letter to belong to two words. But letting words <em>overlap</em> where they happen to share a letter isn't a mistake either &mdash; it's how a 12&times;12 grid manages to fit fifteen or twenty words without running out of room. The rule a generator actually enforces isn't "no overlap," it's "no <em>conflict</em>": two words can cross through the same square only if both words agree on what letter belongs there.</p>
+
+    <div class="callout">
+      <strong>Where generators actually fail</strong>
+      If a generator can't find a valid position for a word after enough attempts &mdash; usually because the grid's getting crowded and every remaining spot creates a letter conflict &mdash; a well-built one gives up gracefully and skips that word rather than forcing a broken placement. That's worth knowing if you've ever wondered why a puzzle sometimes ends up with slightly fewer words than requested.
+    </div>
+  </section>
+
+  <section id="difficulty">
+    <div class="section-head">
+      <span class="icon-badge"><svg width="18" height="18" viewBox="0 0 20 20"><path d="M4 16V8M10 16V4M16 16v10" stroke="#F3EEDD" stroke-width="2.2" stroke-linecap="round"/></svg></span>
+      <h2>Difficulty isn't really about grid size</h2>
+    </div>
+    <p>It's tempting to assume a bigger grid is automatically harder. In practice, the bigger lever is <strong>word density</strong> &mdash; how many words are packed into how much space, and how many of them run diagonally or backward rather than in the two "easy" directions (straight across, straight down). A small, dense grid full of diagonal and backward words can be genuinely harder to solve than a large, sparse one where everything reads left to right.</p>
+    <p>This is also why age-appropriate puzzles usually restrict direction options: a puzzle built for young kids often only allows across and down, forward only, precisely to keep the difficulty in check regardless of grid size.</p>
+  </section>
+
+  <section id="word-list">
+    <div class="section-head">
+      <span class="icon-badge"><svg width="18" height="18" viewBox="0 0 20 20"><path d="M3 4h14M3 10h14M3 16h9" stroke="#F3EEDD" stroke-width="2" stroke-linecap="round"/></svg></span>
+      <h2>The real skill is the word list, not the grid</h2>
+    </div>
+    <p>The placement logic is mechanical &mdash; a computer handles it in milliseconds. The part that actually takes judgment is choosing the word list itself: picking words that are long enough to be satisfying to find, short enough to fit comfortably, and thematically tight enough that the puzzle feels like it's actually about something, not just a random pile of letters. A strong theme with a slightly awkward layout beats a perfect layout with a scattershot theme every time.</p>
+  </section>
+
+  <section id="build-your-own">
+    <div class="section-head">
+      <span class="icon-badge"><svg width="18" height="18" viewBox="0 0 20 20"><path d="M3 17l3.5-1 8-8-2.5-2.5-8 8L3 17z" fill="none" stroke="#F3EEDD" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+      <h2>Try it yourself: building one by hand</h2>
+    </div>
+    <p>Building a small word search on graph paper is a genuinely good way to feel the constraints firsthand before letting a generator do it for you at scale:</p>
+
+    <div class="cta">
+      Ready to skip straight to the generator?
+      <br>
+      <a href="wordsearch.html">Try the Word Search Workshop</a>
+    </div>
+
+    <div class="steps">
+      <div class="step"><div class="step-body">
+        <h3>Pick a tight theme and 8&ndash;10 words</h3>
+        <p>Words that are too similar in length are harder to place without conflicts &mdash; mix short and long words for an easier build.</p>
+      </div></div>
+      <div class="step"><div class="step-body">
+        <h3>Place your longest word first, diagonally</h3>
+        <p>The longest word is the hardest to fit later, so lock it in first while you still have the whole grid to work with.</p>
+      </div></div>
+      <div class="step"><div class="step-body">
+        <h3>Place shorter words so they cross the long one</h3>
+        <p>Look for a shared letter between a new word and one already on the grid &mdash; that's a legal overlap, and it saves space.</p>
+      </div></div>
+      <div class="step"><div class="step-body">
+        <h3>Fill every empty square with a random letter</h3>
+        <p>This is what actually hides the words &mdash; without filler letters, blank squares would give away exactly where every word sits.</p>
+      </div></div>
+      <div class="step"><div class="step-body">
+        <h3>Solve it yourself before calling it done</h3>
+        <p>Check that every word you meant to hide is actually findable, and that you didn't accidentally spell a bonus word in the filler letters.</p>
+      </div></div>
+    </div>
+  </section>
+
+  <p class="aside-mention">Related reading: <a href="article-crossword-construction.html">Inside the Grid: How Crossword Puzzles Are Actually Built</a> &middot; <a href="article-teaching-vocabulary.html">Where Word Search Puzzles Actually Help Students Learn Vocabulary</a></p>
+</main>
+
+<footer>
+  <p>&copy; 2026 The Wordsearch Workshop. All rights reserved.</p>
+  <p>
+    <a href="about.html">About Us</a> |
+    <a href="privacy.html">Privacy Policy</a> |
+    <a href="terms.html">Terms of Service</a> |
+    <a href="contact.html">Contact</a>
+  </p>
+</footer>
+
+</body>
+</html>

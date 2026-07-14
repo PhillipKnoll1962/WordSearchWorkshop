@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EBCJ4T3KKY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-EBCJ4T3KKY');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7795617443302913" crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anagrams, Sub-words, and the Real Skill Behind Unscrambling | The Wordsearch Workshop</title>
+<meta name="description" content="How word unscramblers actually match letters to a dictionary, why letter frequency matters, and how to get better at unscrambling by hand.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3EEDD; --gridline:#D9D2BC; --ink:#2B2A28;
+    --blueprint:#2F5D8A; --amber:#E8A33D; --brick:#C4443D; --paper-raised:#FFFDF6;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);
+    background-image:linear-gradient(var(--gridline) 1px, transparent 1px),linear-gradient(90deg, var(--gridline) 1px, transparent 1px);
+    background-size:28px 28px;color:var(--ink);font-family:'Inter',sans-serif;line-height:1.7;}
+  a{color:var(--blueprint);}
+  header.site{background:var(--paper-raised);border-bottom:3px solid var(--ink);padding:14px 24px;
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;position:sticky;top:0;z-index:10;}
+  .brand-wrap{display:flex;align-items:center;gap:10px;}
+  .brand-logo-link{display:flex;}
+  .brand-logo-link img{width:38px;height:38px;border-radius:50%;border:2px solid var(--ink);object-fit:cover;}
+  .brand{font-family:'Fraunces',serif;font-weight:700;font-size:20px;letter-spacing:-0.01em;color:var(--ink);text-decoration:none;}
+  .brand span{color:var(--brick);}
+  nav.site{display:flex;flex-wrap:wrap;gap:2px;}
+  nav.site a{font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-transform:uppercase;letter-spacing:0.04em;
+    color:var(--ink);text-decoration:none;margin-left:14px;border-bottom:2px solid transparent;padding-bottom:2px;white-space:nowrap;}
+  nav.site a:hover{border-bottom-color:var(--amber);}
+
+  nav.toc{position:sticky;top:66px;z-index:9;background:var(--paper-raised);border-bottom:1px solid var(--gridline);
+    padding:10px 16px;display:flex;flex-wrap:wrap;gap:6px 4px;justify-content:center;}
+  nav.toc a{font-family:'IBM Plex Mono',monospace;font-size:11.5px;text-decoration:none;color:var(--ink);
+    background:var(--paper);border:1px solid var(--gridline);padding:5px 11px;border-radius:16px;white-space:nowrap;}
+  nav.toc a:hover{background:var(--amber);border-color:var(--amber);}
+
+  main{max-width:760px;margin:0 auto;padding:44px 24px 80px;}
+  .breadcrumb{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#77746B;margin-bottom:18px;}
+  .breadcrumb a{color:#77746B;}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--blueprint);
+    text-transform:uppercase;letter-spacing:0.08em;margin:0 0 10px;}
+  h1{font-family:'Fraunces',serif;font-size:clamp(30px,4.5vw,42px);font-weight:700;margin:0 0 14px;line-height:1.15;}
+  .lede{font-size:18px;color:#514F49;}
+  section{scroll-margin-top:120px;}
+  section+section{margin-top:2.6em;}
+  .section-head{display:flex;align-items:center;gap:12px;margin:0 0 0.5em;}
+  .section-head .icon-badge{flex:0 0 auto;width:40px;height:40px;border-radius:50%;background:var(--blueprint);
+    display:flex;align-items:center;justify-content:center;}
+  h2{font-family:'Fraunces',serif;font-size:22px;font-weight:600;margin:0;color:var(--ink);}
+  p{color:#3A3833;margin:0 0 16px;}
+  .diagram-box{background:var(--paper-raised);border:2px solid var(--ink);padding:20px;margin:1.4em 0;text-align:center;}
+  .diagram-box .caption{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#77746B;margin-top:10px;}
+  .callout{background:#FBF1DC;border-left:4px solid var(--amber);padding:16px 20px;margin:1.6em 0;font-size:14.5px;}
+  .callout strong{display:block;font-family:'IBM Plex Mono',monospace;font-size:11.5px;text-transform:uppercase;
+    letter-spacing:0.06em;color:var(--brick);margin-bottom:6px;}
+  table{width:100%;border-collapse:collapse;margin:20px 0;background:var(--paper-raised);border:2px solid var(--ink);}
+  th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--gridline);font-size:14px;}
+  th{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.04em;background:var(--ink);color:#fff;}
+  tr:last-child td{border-bottom:none;}
+  .steps{margin:1.6em 0;counter-reset:step;}
+  .step{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--gridline);}
+  .step:last-child{border-bottom:none;}
+  .step::before{content:counter(step);counter-increment:step;flex:0 0 auto;width:32px;height:32px;border-radius:50%;
+    border:2px solid var(--brick);color:var(--brick);font-family:'IBM Plex Mono',monospace;font-weight:700;
+    display:flex;align-items:center;justify-content:center;}
+  .step-body h3{font-family:'Fraunces',serif;font-size:17px;margin:2px 0 4px;color:var(--ink);}
+  .step-body p{margin:0;font-size:14.5px;}
+  .cta{margin-top:1.4em;padding:22px;background:var(--ink);color:var(--paper);border-radius:6px;text-align:center;}
+  .cta a{display:inline-block;margin-top:10px;background:var(--amber);color:var(--ink);font-weight:700;
+    text-decoration:none;padding:9px 20px;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:13px;text-transform:uppercase;}
+  .aside-mention{font-size:14px;color:#77746B;border-top:1px solid var(--gridline);padding-top:18px;margin-top:44px;}
+  footer{text-align:center;padding:36px 24px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#77746B;}
+  footer a{color:#77746B;margin:0 8px;text-decoration:none;}
+  footer a:hover{color:var(--blueprint);}
+  @media (max-width:480px){ nav.toc{top:60px;} }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="brand-wrap">
+    <a href="https://riversiderat.com" target="_blank" rel="noopener" class="brand-logo-link" title="Visit Riverside Rat"><img src="images/riverrat.png" alt="Riverside Rat logo"></a>
+    <a href="index.html" class="brand">The Wordsearch <span>Workshop</span></a>
+  </div>
+  <nav class="site">
+    <a href="index.html">Home</a>
+    <a href="wordsearch.html">Word Search</a>
+    <a href="unscrambleword.html">Unscrambler</a>
+    <a href="crossword_builder.html">Crossword</a>
+    <a href="blog-index.html">Blog</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<nav class="toc" aria-label="On this page">
+  <a href="#matching">How Matching Works</a>
+  <a href="#exact-vs-sub">Exact vs. Sub-words</a>
+  <a href="#frequency">Letter Frequency</a>
+  <a href="#strategy">Solving by Hand</a>
+</nav>
+
+<main>
+  <p class="breadcrumb"><a href="blog-index.html">The Workshop Notes</a> / Craft &amp; Construction</p>
+  <p class="eyebrow">Craft &amp; Construction</p>
+  <h1>Anagrams, Sub-words, and the Real Skill Behind Unscrambling</h1>
+  <p class="lede">An unscrambler tool looks like magic &mdash; type in a jumble, get real words back. Underneath, it's a fairly simple comparison trick, and knowing how it works is exactly what makes you faster at doing it in your head.</p>
+
+  <section id="matching">
+    <div class="section-head">
+      <span class="icon-badge"><svg width="18" height="18" viewBox="0 0 20 20"><path d="M4 10h12M10 4v12" stroke="#F3EEDD" stroke-width="2" stroke-linecap="round"/></svg></span>
+      <h2>Sorting letters is the whole trick</h2>
+    </div>
+    <p>Here's the actual mechanism: an unscrambler doesn't "figure out" a word the way a person does. It takes your scrambled letters, sorts them alphabetically, then does the same thing to every word in a dictionary, and checks for matches. "TARE," "RATE," "TEAR," and "TARE" again all sort down to the exact same letters &mdash; A, E, R, T &mdash; so a computer doesn't need to be clever, it just needs a big enough dictionary and a fast way to compare sorted letters.</p>
+    <p>This is also why an unscrambler can hand you a dozen valid words instantly: it's not searching one at a time, it's comparing your sorted letters against every word in the dictionary that happens to be the same length, which takes a computer a fraction of a second even across hundreds of thousands of entries.</p>
+  </section>
+
+  <section id="exact-vs-sub">
+    <div class="section-head">
+      <span class="icon-badge"><svg width="18" height="18" viewBox="0 0 20 20"><circle cx="7" cy="10" r="6" fill="none" stroke="#F3EEDD" stroke-width="1.6"/><circle cx="13" cy="10" r="6" fill="none" stroke="#F3EEDD" stroke-width="1.6" opacity="0.6"/></svg></span>
+      <h2>Exact anagrams and sub-words are different questions</h2>
+    </div>
+    <p>These aren't the same task, even though they feel related. An <strong>exact anagram</strong> uses every single letter you typed in, no more, no fewer &mdash; that's the classic "rearrange these letters" puzzle. A <strong>sub-word</strong> search (the Scrabble-style mode) asks a looser question: what words can be built using <em>some or all</em> of these letters, without needing to use every one? That second mode returns far more results, because it's checking a much bigger space of possibilities &mdash; every shorter word hiding inside your longer set of letters, not just the one arrangement that uses all of them.</p>
+
+    <div class="callout">
+      <strong>Why this matters for Scrabble specifically</strong>
+      In actual Scrabble play, you almost never want an exact anagram of your whole rack &mdash; you want the best-scoring word buildable from some subset of your tiles, which is exactly what sub-word mode is built for. Exact-anagram mode is really a different game: word puzzles and daily jumbles that want the full set used at once.
+    </div>
+  </section>
+
+  <section id="frequency">
+    <div class="section-head">
+      <span class="icon-badge"><svg width="18" height="18" viewBox="0 0 20 20"><path d="M4 16V8M10 16V4M16 16v10" stroke="#F3EEDD" stroke-width="2.2" stroke-linecap="round"/></svg></span>
+      <h2>Not all letters are equally useful</h2>
+    </div>
+    <p>English text isn't a random mix of the alphabet &mdash; some letters carry far more weight than others, and that's exactly why certain scrambles feel easier than others before you've even started.</p>
+
+    <div class="diagram-box">
+      <svg width="320" height="180" viewBox="0 0 320 180">
+        <g font-family="IBM Plex Mono, monospace" font-size="11" fill="#2B2A28">
+          <rect x="10" y="20" width="24" height="127" fill="#E8A33D"/><text x="22" y="160" text-anchor="middle">E</text>
+          <rect x="42" y="42" width="24" height="105" fill="#2F5D8A"/><text x="54" y="160" text-anchor="middle">T</text>
+          <rect x="74" y="58" width="24" height="89" fill="#2F5D8A"/><text x="86" y="160" text-anchor="middle">A</text>
+          <rect x="106" y="68" width="24" height="79" fill="#2F5D8A"/><text x="118" y="160" text-anchor="middle">O</text>
+          <rect x="138" y="74" width="24" height="73" fill="#2F5D8A"/><text x="150" y="160" text-anchor="middle">I</text>
+          <rect x="170" y="80" width="24" height="67" fill="#2F5D8A"/><text x="182" y="160" text-anchor="middle">N</text>
+          <rect x="202" y="86" width="24" height="61" fill="#2F5D8A"/><text x="214" y="160" text-anchor="middle">S</text>
+          <rect x="234" y="88" width="24" height="59" fill="#2F5D8A"/><text x="246" y="160" text-anchor="middle">H</text>
+          <rect x="266" y="90" width="24" height="57" fill="#2F5D8A"/><text x="278" y="160" text-anchor="middle">R</text>
+        </g>
+      </svg>
+      <div class="caption">Roughly how often each letter shows up in English text &mdash; E alone accounts for nearly 1 in every 8 letters.</div>
+    </div>
+
+    <p>A scramble loaded with E, A, T, and N tends to crack open fast, because so many English words are built from that small set. A scramble full of J, Q, X, and Z resists precisely because so few words contain them at all &mdash; there's simply less for a dictionary match, or your own brain, to latch onto.</p>
+  </section>
+
+  <section id="strategy">
+    <div class="section-head">
+      <span class="icon-badge"><svg width="18" height="18" viewBox="0 0 20 20"><path d="M3 17l3.5-1 8-8-2.5-2.5-8 8L3 17z" fill="none" stroke="#F3EEDD" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+      <h2>Getting faster at it yourself</h2>
+    </div>
+    <p>The tool is instant, but the skill underneath it is genuinely trainable, and it's the same skill competitive Scrabble and Words With Friends players lean on:</p>
+
+    <div class="cta">
+      Want to check your work?
+      <br>
+      <a href="unscrambleword.html">Try the Word Unscrambler</a>
+    </div>
+
+    <div class="steps">
+      <div class="step"><div class="step-body">
+        <h3>Separate vowels from consonants first</h3>
+        <p>Physically or mentally split your letters into two groups. Most words alternate roughly between them, so this narrows what's actually plausible before you start guessing.</p>
+      </div></div>
+      <div class="step"><div class="step-body">
+        <h3>Look for a common ending first</h3>
+        <p>-ING, -ED, -ER, -EST, -TION, and -S account for a huge share of English words. If your letters contain one of these clusters, anchor there and build backward.</p>
+      </div></div>
+      <div class="step"><div class="step-body">
+        <h3>Try common prefixes next</h3>
+        <p>RE-, UN-, PRE-, DIS-, and IN- are the mirror image of the trick above &mdash; anchor at the front instead of the back.</p>
+      </div></div>
+      <div class="step"><div class="step-body">
+        <h3>Memorize your two-letter words</h3>
+        <p>Short, high-value combinations (AN, AT, IN, ON, TO, OR) are the fastest way to start peeling a long scramble apart into smaller, more manageable pieces.</p>
+      </div></div>
+      <div class="step"><div class="step-body">
+        <h3>Practice on words you already know are solvable</h3>
+        <p>Scramble a word you picked yourself, set it aside for a few minutes, then solve it cold. Knowing a valid answer exists is oddly the hardest part to replicate once you're relying on a tool instead.</p>
+      </div></div>
+    </div>
+  </section>
+
+  <p class="aside-mention">Related reading: <a href="article-wordsearch-construction.html">How Word Search Puzzles Are Actually Built</a> &middot; <a href="article-crossword-construction.html">Inside the Grid: How Crossword Puzzles Are Actually Built</a></p>
+</main>
+
+<footer>
+  <p>&copy; 2026 The Wordsearch Workshop. All rights reserved.</p>
+  <p>
+    <a href="about.html">About Us</a> |
+    <a href="privacy.html">Privacy Policy</a> |
+    <a href="terms.html">Terms of Service</a> |
+    <a href="contact.html">Contact</a>
+  </p>
+</footer>
+
+</body>
+</html>

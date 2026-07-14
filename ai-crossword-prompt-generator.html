@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EBCJ4T3KKY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-EBCJ4T3KKY');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7795617443302913" crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Crossword Generator | The Wordsearch Workshop</title>
+<meta name="description" content="Generate a ready-to-paste AI prompt that creates crossword word:clue lists in the exact format the Crossword Puzzle Builder needs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3EEDD; --gridline:#D9D2BC; --ink:#2B2A28;
+    --blueprint:#2F5D8A; --amber:#E8A33D; --brick:#C4443D; --paper-raised:#FFFDF6;
+  }
+  *{box-sizing:border-box;}
+  img{max-width:100%;height:auto;}
+  body{margin:0;background:var(--paper);
+    background-image:linear-gradient(var(--gridline) 1px, transparent 1px),linear-gradient(90deg, var(--gridline) 1px, transparent 1px);
+    background-size:28px 28px;color:var(--ink);font-family:'Inter',sans-serif;line-height:1.7;}
+  a{color:var(--blueprint);}
+  header.site{background:var(--paper-raised);border-bottom:3px solid var(--ink);padding:14px 24px;
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;position:sticky;top:0;z-index:10;}
+  .brand-wrap{display:flex;align-items:center;gap:10px;}
+  .brand-logo-link{display:flex;}
+  .brand-logo-link img{width:38px;height:38px;border-radius:50%;border:2px solid var(--ink);object-fit:cover;}
+  .brand{font-family:'Fraunces',serif;font-weight:700;font-size:20px;letter-spacing:-0.01em;color:var(--ink);text-decoration:none;}
+  .brand span{color:var(--brick);}
+  nav.site{display:flex;flex-wrap:wrap;gap:2px;}
+  nav.site a{font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-transform:uppercase;letter-spacing:0.04em;
+    color:var(--ink);text-decoration:none;margin-left:14px;border-bottom:2px solid transparent;padding-bottom:2px;white-space:nowrap;}
+  nav.site a:hover{border-bottom-color:var(--amber);}
+  main{max-width:720px;margin:0 auto;padding:56px 24px 80px;}
+  .breadcrumb{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#77746B;margin-bottom:18px;}
+  .breadcrumb a{color:#77746B;}
+  h1{font-family:'Fraunces',serif;font-size:clamp(30px,4.5vw,42px);font-weight:700;margin:0 0 14px;line-height:1.15;}
+  .lede{font-size:16px;color:#514F49;max-width:60ch;margin:0 0 34px;}
+  h2{font-family:'Fraunces',serif;font-size:20px;font-weight:600;margin:36px 0 14px;border-left:4px solid var(--amber);padding-left:14px;}
+  .step-num{font-family:'IBM Plex Mono',monospace;color:var(--blueprint);}
+  .card{background:var(--paper-raised);border:2px solid var(--ink);padding:24px 26px;margin-bottom:10px;}
+  label{display:block;font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;
+    letter-spacing:0.04em;font-weight:700;margin:0 0 6px;color:#3A3833;}
+  input[type=text], input[type=number], textarea{
+    width:100%;padding:10px 12px;border:1px solid var(--gridline);border-radius:4px;
+    font-family:'Inter',sans-serif;font-size:14px;background:#fff;color:var(--ink);margin-bottom:16px;
+  }
+  textarea{font-family:'IBM Plex Mono',monospace;font-size:13px;resize:vertical;}
+  .form-row{display:flex;gap:16px;}
+  .form-row > div{flex:1;}
+  .btn{display:inline-block;padding:11px 22px;background:var(--ink);color:#fff;text-decoration:none;
+    font-family:'IBM Plex Mono',monospace;font-size:13px;text-transform:uppercase;letter-spacing:0.04em;
+    border:none;cursor:pointer;border-radius:4px;}
+  .btn:hover{background:var(--blueprint);}
+  .btn-amber{background:var(--brick);}
+  .btn-amber:hover{background:#a8362f;}
+  .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;}
+  .prompt-output{
+    background:var(--ink);color:#F3EEDD;font-family:'IBM Plex Mono',monospace;font-size:13px;
+    padding:20px;border-radius:4px;white-space:pre-wrap;line-height:1.6;margin:16px 0;
+    max-height:340px;overflow-y:auto;
+  }
+  .copy-note{font-size:13px;color:#77746B;margin:6px 0 0;}
+  .copy-note.confirmed{color:var(--blueprint);font-weight:600;}
+  #diagnostic-box{display:none; background:#FBF1DC; border-left:4px solid var(--amber); padding:12px 14px; margin-bottom:16px; font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:#3A3833;}
+  .divider-row{
+    display:flex;align-items:center;gap:14px;margin:44px 0 30px;
+  }
+  .divider-row hr{
+    flex:1;border:none;border-top:2px dashed var(--gridline);
+  }
+  .divider-row span{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;
+    letter-spacing:0.06em;color:#77746B;white-space:nowrap;
+  }
+  .manual-instructions{
+    background:#e8f4fd;border-left:4px solid var(--blueprint);padding:10px 14px;
+    margin-bottom:16px;border-radius:0 4px 4px 0;font-size:13px;color:#3A3833;
+  }
+  .manual-instructions code{
+    background:#fff;border:1px solid var(--gridline);padding:1px 5px;border-radius:3px;
+  }
+  footer{text-align:center;padding:30px 24px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#77746B;border-top:1px solid var(--gridline);margin-top:20px;}
+  footer a{color:#77746B;margin:0 8px;text-decoration:none;}
+  footer a:hover{color:var(--blueprint);}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="brand-wrap">
+    <a href="https://riversiderat.com" target="_blank" rel="noopener" class="brand-logo-link" title="Visit Riverside Rat"><img src="images/riverrat.png" alt="Riverside Rat logo"></a>
+    <a href="index.html" class="brand">The Wordsearch <span>Workshop</span></a>
+  </div>
+  <nav class="site">
+    <a href="index.html">Home</a>
+    <a href="wordsearch.html">Word Search</a>
+    <a href="unscrambleword.html">Unscrambler</a>
+    <a href="crossword_builder.html">Crossword</a>
+    <a href="blog-index.html">Blog</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <p class="breadcrumb"><a href="crossword_builder.html">Crossword Puzzle Builder</a> / AI Crossword Generator</p>
+  <h1>Build Crossword Clues With the AI of Your Choice</h1>
+  <p class="lede">Answer a few quick questions, copy the prompt, and paste it into ChatGPT, Claude, Gemini, or whatever AI you use. Paste the answer back in here, and every puzzle drops straight into the Crossword Builder's sidebar, ready to generate.</p>
+
+  <h2><span class="step-num">Step 1 —</span> Describe your puzzles</h2>
+  <div class="card">
+    <label for="topic">Theme / Topic</label>
+    <input type="text" id="topic" placeholder="e.g. World Capitals, Ocean Animals, Kitchen Tools">
+
+    <div class="form-row">
+      <div>
+        <label for="num-puzzles">Number of Puzzles</label>
+        <input type="number" id="num-puzzles" value="3" min="1" max="20">
+      </div>
+      <div>
+        <label for="entries-per">Words per Puzzle</label>
+        <input type="number" id="entries-per" value="14" min="6" max="24">
+      </div>
+    </div>
+
+    <label for="notes">Anything else the AI should know? (optional)</label>
+    <textarea id="notes" rows="2" placeholder="e.g. keep clues short and simple for kids, avoid proper nouns, medium difficulty..."></textarea>
+
+    <button class="btn" id="build-prompt-btn">Build My Prompt</button>
+  </div>
+
+  <div id="step2-wrap" style="display:none;">
+    <h2><span class="step-num">Step 2 —</span> Copy this into your AI</h2>
+    <div class="card">
+      <div class="prompt-output" id="prompt-output"></div>
+      <div class="btn-row">
+        <button class="btn" id="copy-prompt-btn">Copy Prompt</button>
+      </div>
+      <p class="copy-note" id="copy-note">Paste this into ChatGPT, Claude, Gemini, or any AI chat, then bring its full reply back here.</p>
+    </div>
+
+    <h2><span class="step-num">Step 3 —</span> Paste the AI's answer</h2>
+    <div class="card">
+      <label for="ai-response">AI's reply, pasted in full</label>
+      <textarea id="ai-response" rows="10" placeholder="Paste the AI's response here, exactly as it gave it to you..."></textarea>
+      <div id="diagnostic-box"></div>
+      <div class="btn-row">
+        <button class="btn btn-amber" id="send-btn">Send to Crossword Builder &rarr;</button>
+      </div>
+      <p class="copy-note" id="send-note"></p>
+    </div>
+  </div>
+
+  <div class="divider-row">
+    <hr><span>or</span><hr>
+  </div>
+
+  <h2>Already have your own words and clues?</h2>
+  <div class="card">
+    <p style="margin-top:0; color:#514F49; font-size:14px;">Skip the AI entirely and type or paste your list straight in. Works exactly the same as pasting an AI reply above.</p>
+    <div class="manual-instructions">
+      <strong>Formatting:</strong> One entry per line, as <code>WORD : Clue text</code>. A blank line between groups starts a new puzzle.
+    </div>
+    <label for="manual-input">Your words and clues</label>
+    <textarea id="manual-input" rows="8" placeholder="OCEAN : Large body of salt water&#10;WHALE : Largest mammal on Earth&#10;CORAL : Colorful reef-building sea creature"></textarea>
+    <div class="btn-row">
+      <button class="btn btn-amber" id="manual-send-btn">Send to Crossword Builder &rarr;</button>
+    </div>
+    <p class="copy-note" id="manual-send-note"></p>
+  </div>
+</main>
+
+<footer>
+  <p>&copy; 2026 The Wordsearch Workshop. All rights reserved.</p>
+  <p>
+    <a href="about.html">About Us</a> |
+    <a href="privacy.html">Privacy Policy</a> |
+    <a href="terms.html">Terms of Service</a> |
+    <a href="contact.html">Contact</a>
+  </p>
+</footer>
+
+<script>
+  const buildBtn = document.getElementById('build-prompt-btn');
+  const step2Wrap = document.getElementById('step2-wrap');
+  const promptOutput = document.getElementById('prompt-output');
+  const copyBtn = document.getElementById('copy-prompt-btn');
+  const copyNote = document.getElementById('copy-note');
+  const sendBtn = document.getElementById('send-btn');
+  const sendNote = document.getElementById('send-note');
+  const aiResponseInput = document.getElementById('ai-response');
+  const diagnosticBox = document.getElementById('diagnostic-box');
+
+  function buildPrompt() {
+    const topic = document.getElementById('topic').value.trim() || 'a general theme of your choice';
+    const numPuzzles = parseInt(document.getElementById('num-puzzles').value, 10) || 3;
+    const entriesPer = parseInt(document.getElementById('entries-per').value, 10) || 14;
+    const notes = document.getElementById('notes').value.trim();
+
+    let prompt = `I'm building crossword puzzles and need ${numPuzzles} themed puzzle${numPuzzles > 1 ? 's' : ''} about: ${topic}.\n\n`;
+    prompt += `For each puzzle, give me ${entriesPer} words with a short crossword-style clue for each (a definition or description, not the word itself). Words should be single words, no spaces or hyphens.\n\n`;
+    if (notes) {
+      prompt += `Additional notes: ${notes}\n\n`;
+    }
+    prompt += `Format your ENTIRE reply as one continuous block of text using EXACTLY this structure, with nothing else before, after, or in between:\n\n`;
+    prompt += `PUZZLE TITLE ONE :: WORD1 : Clue for word one | WORD2 : Clue for word two | WORD3 : Clue for word three @@@ PUZZLE TITLE TWO :: WORD1 : Clue for word one | WORD2 : Clue for word two @@@\n\n`;
+    prompt += `Repeat that exact pattern for all ${numPuzzles} puzzle${numPuzzles > 1 ? 's' : ''}. Use exactly "::" (two colons) between each puzzle's title and its word list, exactly "|" (a single pipe character) between each word:clue pair, a single ":" between each word and its own clue, and exactly "@@@" (three at-symbols) between one puzzle and the next — no "@@@" needed after the very last puzzle. Do not rely on line breaks to separate anything; use the "::", "|", and "@@@" markers instead, even if your whole answer ends up as one paragraph.\n\n`;
+    prompt += `IMPORTANT — plain text only, no Markdown formatting of any kind: no #, ##, or heading symbols; no ** or bold/italic markers; no bullet points, numbered lists, or code blocks. Do not add any explanation, headers, or summary — only the titles, word:clue pairs, and the "::", "|", and "@@@" separators exactly as shown.`;
+
+    promptOutput.textContent = prompt;
+    step2Wrap.style.display = 'block';
+    step2Wrap.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  buildBtn.addEventListener('click', buildPrompt);
+
+  copyBtn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(promptOutput.textContent);
+      copyNote.textContent = '✓ Copied! Now paste it into your AI of choice.';
+      copyNote.classList.add('confirmed');
+    } catch (e) {
+      copyNote.textContent = 'Could not auto-copy — please select the text above manually.';
+    }
+  });
+
+  function stripMarkdown(text) {
+    let cleaned = text;
+    cleaned = cleaned.replace(/\r\n?/g, '\n');
+    cleaned = cleaned.replace(/[\u200B\u200C\u200D\uFEFF\u00AD]/g, '');
+    cleaned = cleaned.replace(/^[ \t]*[#\-*_][ \t#\-*_]{2,}[ \t]*$/gm, '---');
+    cleaned = cleaned.replace(/^#+\s*/gm, '');
+    cleaned = cleaned.replace(/\*\*/g, '').replace(/(^|\s)\*(\S)/g, '$1$2').replace(/(\S)\*(\s|$)/g, '$1$2');
+    return cleaned;
+  }
+
+  // Parses the AI's reply into an array of {name, text} puzzle objects, where
+  // "text" is already in the exact "WORD : Clue" (one per line) format the
+  // Crossword Builder's own parser expects. Uses "::" / "|" / "@@@" markers
+  // rather than line breaks, so it works even if an AI chat interface
+  // collapses newlines when the text is copied.
+  function parseAIResponse(text) {
+    const cleaned = stripMarkdown(text);
+    if (!cleaned.includes('@@@')) {
+      return []; // Not in the expected format at all
+    }
+    const rawBlocks = cleaned.split('@@@').map(b => b.trim()).filter(b => b.length > 0);
+    const puzzles = [];
+    rawBlocks.forEach(block => {
+      const titleSep = block.indexOf('::');
+      if (titleSep === -1) return;
+      const title = block.slice(0, titleSep).replace(/\s+/g, ' ').trim();
+      const entriesPart = block.slice(titleSep + 2).trim();
+      const rawEntries = entriesPart.split('|').map(e => e.trim()).filter(e => e.length > 0);
+      const lines = [];
+      rawEntries.forEach(entry => {
+        const clueSep = entry.indexOf(':');
+        if (clueSep === -1) return;
+        const word = entry.slice(0, clueSep).replace(/\s+/g, ' ').trim().toUpperCase();
+        const clue = entry.slice(clueSep + 1).replace(/\s+/g, ' ').trim();
+        if (word && clue) lines.push(`${word} : ${clue}`);
+      });
+      if (title && lines.length > 0) {
+        puzzles.push({ name: title, text: lines.join('\n') });
+      }
+    });
+    return puzzles;
+  }
+
+  function runDiagnostic() {
+    const raw = aiResponseInput.value;
+    if (!raw.trim()) {
+      diagnosticBox.style.display = 'none';
+      return;
+    }
+    const puzzles = parseAIResponse(raw);
+    let html = `<strong>${puzzles.length} puzzle${puzzles.length === 1 ? '' : 's'} detected:</strong><br>`;
+    if (puzzles.length === 0) {
+      html += `<span style="color:#C4443D;">⚠ Could not find the "::" / "@@@" markers — check that you pasted the AI's full reply, and that it followed the requested format.</span>`;
+    } else {
+      puzzles.forEach((p, i) => {
+        html += `${i + 1}. ${p.name} — ${p.text.split('\n').length} word${p.text.split('\n').length === 1 ? '' : 's'}<br>`;
+      });
+    }
+    diagnosticBox.innerHTML = html;
+    diagnosticBox.style.display = 'block';
+  }
+
+  aiResponseInput.addEventListener('input', runDiagnostic);
+
+  sendBtn.addEventListener('click', () => {
+    const rawResponse = aiResponseInput.value;
+    if (!rawResponse.trim()) {
+      sendNote.textContent = 'Paste the AI\'s reply above first.';
+      sendNote.classList.remove('confirmed');
+      return;
+    }
+    const puzzles = parseAIResponse(rawResponse);
+    if (puzzles.length === 0) {
+      sendNote.textContent = 'Could not detect any puzzles in that text — check the diagnostic message above.';
+      sendNote.classList.remove('confirmed');
+      return;
+    }
+    localStorage.setItem('sharedCrosswordPuzzles', JSON.stringify(puzzles));
+    sendNote.textContent = 'Sending you to the Crossword Builder...';
+    sendNote.classList.add('confirmed');
+    setTimeout(() => {
+      window.location.href = 'crossword_builder.html';
+    }, 400);
+  });
+
+  // ===========================================================
+  // Manual entry path — same destination as the AI path above,
+  // just skips the prompt-building and AI round-trip entirely.
+  // Groups are separated by a blank line; if a group's first line
+  // has no ":" in it, that line is treated as the puzzle's title.
+  // ===========================================================
+  const manualInput = document.getElementById('manual-input');
+  const manualSendBtn = document.getElementById('manual-send-btn');
+  const manualSendNote = document.getElementById('manual-send-note');
+
+  manualSendBtn.addEventListener('click', () => {
+    const raw = manualInput.value;
+    if (!raw.trim()) {
+      manualSendNote.textContent = 'Type or paste your words and clues above first.';
+      manualSendNote.classList.remove('confirmed');
+      return;
+    }
+    const cleaned = stripMarkdown(raw).replace(/\r/g, '');
+    const sections = cleaned.split(/\n[ \t]*\n/).map(s => s.trim()).filter(s => s.length > 0);
+    const puzzlesOut = [];
+    sections.forEach((sec, idx) => {
+      const lines = sec.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+      let name = `Puzzle ${idx + 1}`;
+      let bodyLines = lines;
+      if (lines.length > 0 && !lines[0].includes(':')) {
+        name = lines[0];
+        bodyLines = lines.slice(1);
+      }
+      const clueLines = bodyLines.filter(l => l.includes(':'));
+      if (clueLines.length > 0) {
+        puzzlesOut.push({ name, text: clueLines.join('\n') });
+      }
+    });
+    if (puzzlesOut.length === 0) {
+      manualSendNote.textContent = 'Could not find any "WORD : Clue" lines — check the formatting above.';
+      manualSendNote.classList.remove('confirmed');
+      return;
+    }
+    localStorage.setItem('sharedCrosswordPuzzles', JSON.stringify(puzzlesOut));
+    manualSendNote.textContent = 'Sending you to the Crossword Builder...';
+    manualSendNote.classList.add('confirmed');
+    setTimeout(() => {
+      window.location.href = 'crossword_builder.html';
+    }, 400);
+  });
+</script>
+
+</body>
+</html>

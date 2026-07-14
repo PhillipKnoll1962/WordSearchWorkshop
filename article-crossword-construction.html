@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EBCJ4T3KKY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-EBCJ4T3KKY');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7795617443302913" crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inside the Grid: How Crossword Puzzles Are Actually Built | The Wordsearch Workshop</title>
+<meta name="description" content="A visual look at crossword construction: grid symmetry, checked letters, cluing craft, and how to build your own step by step.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3EEDD; --gridline:#D9D2BC; --ink:#2B2A28;
+    --blueprint:#2F5D8A; --amber:#E8A33D; --brick:#C4443D; --paper-raised:#FFFDF6;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);
+    background-image:linear-gradient(var(--gridline) 1px, transparent 1px),linear-gradient(90deg, var(--gridline) 1px, transparent 1px);
+    background-size:28px 28px;color:var(--ink);font-family:'Inter',sans-serif;line-height:1.7;}
+  a{color:var(--blueprint);}
+  header.site{background:var(--paper-raised);border-bottom:3px solid var(--ink);padding:14px 24px;
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;position:sticky;top:0;z-index:10;}
+  .brand-wrap{display:flex;align-items:center;gap:10px;}
+  .brand-logo-link{display:flex;}
+  .brand-logo-link img{width:38px;height:38px;border-radius:50%;border:2px solid var(--ink);object-fit:cover;}
+  .brand{font-family:'Fraunces',serif;font-weight:700;font-size:20px;letter-spacing:-0.01em;color:var(--ink);text-decoration:none;}
+  .brand span{color:var(--brick);}
+  nav.site{display:flex;flex-wrap:wrap;gap:2px;}
+  nav.site a{font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-transform:uppercase;letter-spacing:0.04em;
+    color:var(--ink);text-decoration:none;margin-left:14px;border-bottom:2px solid transparent;padding-bottom:2px;white-space:nowrap;}
+  nav.site a:hover{border-bottom-color:var(--amber);}
+
+  nav.toc{position:sticky;top:66px;z-index:9;background:var(--paper-raised);border-bottom:1px solid var(--gridline);
+    padding:10px 16px;display:flex;flex-wrap:wrap;gap:6px 4px;justify-content:center;}
+  nav.toc a{font-family:'IBM Plex Mono',monospace;font-size:11.5px;text-decoration:none;color:var(--ink);
+    background:var(--paper);border:1px solid var(--gridline);padding:5px 11px;border-radius:16px;white-space:nowrap;}
+  nav.toc a:hover{background:var(--amber);border-color:var(--amber);}
+
+  main{max-width:760px;margin:0 auto;padding:44px 24px 80px;}
+  .breadcrumb{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#77746B;margin-bottom:18px;}
+  .breadcrumb a{color:#77746B;}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--blueprint);
+    text-transform:uppercase;letter-spacing:0.08em;margin:0 0 10px;}
+  h1{font-family:'Fraunces',serif;font-size:clamp(30px,4.5vw,42px);font-weight:700;margin:0 0 14px;line-height:1.15;}
+  .lede{font-size:18px;color:#514F49;}
+  section{scroll-margin-top:120px;}
+  section+section{margin-top:2.6em;}
+  .section-head{display:flex;align-items:center;gap:12px;margin:0 0 0.5em;}
+  .section-head .icon-badge{flex:0 0 auto;width:40px;height:40px;border-radius:50%;background:var(--blueprint);
+    display:flex;align-items:center;justify-content:center;}
+  h2{font-family:'Fraunces',serif;font-size:22px;font-weight:600;margin:0;color:var(--ink);}
+  p{color:#3A3833;margin:0 0 16px;}
+  .diagram-box{background:var(--paper-raised);border:2px solid var(--ink);padding:20px;margin:1.4em 0;text-align:center;}
+  .diagram-box .caption{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#77746B;margin-top:10px;}
+  .callout{background:#FBF1DC;border-left:4px solid var(--amber);padding:16px 20px;margin:1.6em 0;font-size:14.5px;}
+  .callout strong{display:block;font-family:'IBM Plex Mono',monospace;font-size:11.5px;text-transform:uppercase;
+    letter-spacing:0.06em;color:var(--brick);margin-bottom:6px;}
+  .steps{margin:1.6em 0;}
+  .step{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--gridline);}
+  .step:last-child{border-bottom:none;}
+  .step::before{content:counter(step);counter-increment:step;flex:0 0 auto;width:32px;height:32px;border-radius:50%;
+    border:2px solid var(--brick);color:var(--brick);font-family:'IBM Plex Mono',monospace;font-weight:700;
+    display:flex;align-items:center;justify-content:center;}
+  .steps{counter-reset:step;}
+  .step-body h3{font-family:'Fraunces',serif;font-size:17px;margin:2px 0 4px;color:var(--ink);}
+  .step-body p{margin:0;font-size:14.5px;}
+  .cta{margin-top:1.4em;padding:22px;background:var(--ink);color:var(--paper);border-radius:6px;text-align:center;}
+  .cta a{display:inline-block;margin-top:10px;background:var(--amber);color:var(--ink);font-weight:700;
+    text-decoration:none;padding:9px 20px;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:13px;text-transform:uppercase;}
+  .aside-mention{font-size:14px;color:#77746B;border-top:1px solid var(--gridline);padding-top:18px;margin-top:44px;}
+  footer{text-align:center;padding:36px 24px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#77746B;}
+  footer a{color:#77746B;margin:0 8px;text-decoration:none;}
+  footer a:hover{color:var(--blueprint);}
+  @media (max-width:480px){ nav.toc{top:60px;} }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="brand-wrap">
+    <a href="https://riversiderat.com" target="_blank" rel="noopener" class="brand-logo-link" title="Visit Riverside Rat"><img src="images/riverrat.png" alt="Riverside Rat logo"></a>
+    <a href="index.html" class="brand">The Wordsearch <span>Workshop</span></a>
+  </div>
+  <nav class="site">
+    <a href="index.html">Home</a>
+    <a href="wordsearch.html">Word Search</a>
+    <a href="unscrambleword.html">Unscrambler</a>
+    <a href="crossword_builder.html">Crossword</a>
+    <a href="blog-index.html">Blog</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<nav class="toc" aria-label="On this page">
+  <a href="#grid-first">Grid First</a>
+  <a href="#checked-letters">Checked Letters</a>
+  <a href="#clues">Writing Clues</a>
+  <a href="#themes">Themed Puzzles</a>
+  <a href="#build-your-own">Build Your Own</a>
+</nav>
+
+<main>
+  <p class="breadcrumb"><a href="blog-index.html">The Workshop Notes</a> / Craft &amp; Construction</p>
+  <p class="eyebrow">Craft &amp; Construction</p>
+  <h1>Inside the Grid: How Crossword Puzzles Are Actually Built</h1>
+  <p class="lede">Behind every crossword is a set of quiet rules &mdash; symmetry, word count, letter-checking &mdash; that shape the puzzle long before a single clue gets written.</p>
+
+  <section id="grid-first">
+    <div class="section-head">
+      <span class="icon-badge"><svg width="20" height="20" viewBox="0 0 22 22"><rect x="1" y="1" width="9" height="9" fill="#E8A33D"/><rect x="12" y="1" width="9" height="9" fill="#F3EEDD" stroke="#F3EEDD" stroke-width="1"/><rect x="1" y="12" width="9" height="9" fill="#F3EEDD" stroke="#F3EEDD" stroke-width="1"/><rect x="12" y="12" width="9" height="9" fill="#E8A33D"/></svg></span>
+      <h2>The grid comes first, not the clues</h2>
+    </div>
+    <p>New puzzle makers almost always make the same mistake: they start with clever clues in mind. Experienced puzzle makers do the opposite &mdash; the grid gets built first, because it dictates everything else. The single rule that shapes it most is <strong>rotational symmetry</strong>: rotate the grid 180&deg; and the pattern of black and white squares lines up with itself exactly.</p>
+
+    <div class="diagram-box">
+      <svg width="280" height="130" viewBox="0 0 300 130">
+        <g transform="translate(10,10)">
+          <rect width="110" height="110" fill="#FFFDF6" stroke="#2B2A28" stroke-width="1.5"/>
+          <g fill="#2B2A28">
+            <rect x="0" y="0" width="22" height="22"/><rect x="88" y="0" width="22" height="22"/>
+            <rect x="44" y="22" width="22" height="22"/><rect x="0" y="88" width="22" height="22"/><rect x="88" y="88" width="22" height="22"/>
+          </g>
+          <g stroke="#D9D2BC" stroke-width="1">
+            <line x1="22" y1="0" x2="22" y2="110"/><line x1="44" y1="0" x2="44" y2="110"/><line x1="66" y1="0" x2="66" y2="110"/><line x1="88" y1="0" x2="88" y2="110"/>
+            <line x1="0" y1="22" x2="110" y2="22"/><line x1="0" y1="44" x2="110" y2="44"/><line x1="0" y1="66" x2="110" y2="66"/><line x1="0" y1="88" x2="110" y2="88"/>
+          </g>
+        </g>
+        <g transform="translate(122,58)">
+          <line x1="0" y1="0" x2="46" y2="0" stroke="#E8A33D" stroke-width="2"/>
+          <polygon points="46,-6 56,0 46,6" fill="#E8A33D"/>
+        </g>
+        <g transform="translate(180,10)">
+          <rect width="110" height="110" fill="#FFFDF6" stroke="#2B2A28" stroke-width="1.5"/>
+          <g fill="#2B2A28">
+            <rect x="88" y="88" width="22" height="22"/><rect x="0" y="88" width="22" height="22"/>
+            <rect x="44" y="66" width="22" height="22"/><rect x="88" y="0" width="22" height="22"/><rect x="0" y="0" width="22" height="22"/>
+          </g>
+          <g stroke="#D9D2BC" stroke-width="1">
+            <line x1="22" y1="0" x2="22" y2="110"/><line x1="44" y1="0" x2="44" y2="110"/><line x1="66" y1="0" x2="66" y2="110"/><line x1="88" y1="0" x2="88" y2="110"/>
+            <line x1="0" y1="22" x2="110" y2="22"/><line x1="0" y1="44" x2="110" y2="44"/><line x1="0" y1="66" x2="110" y2="66"/><line x1="0" y1="88" x2="110" y2="88"/>
+          </g>
+        </g>
+      </svg>
+      <div class="caption">Same grid, rotated 180&deg; &mdash; the black squares line up perfectly.</div>
+    </div>
+
+    <p>Without this discipline, a puzzle maker could cluster all the hard words in one corner and leave the rest trivial &mdash; and solvers can feel that imbalance even if they can't name why.</p>
+  </section>
+
+  <section id="checked-letters">
+    <div class="section-head">
+      <span class="icon-badge"><svg width="18" height="18" viewBox="0 0 22 22"><path d="M11 2v18M2 11h18" stroke="#F3EEDD" stroke-width="2.5"/></svg></span>
+      <h2>Every letter does double duty</h2>
+    </div>
+    <p>In a standard crossword, nearly every letter belongs to two words at once &mdash; one running across, one running down. This is called <strong>checking</strong>, and it's what makes crossword construction genuinely hard in a way word searches simply aren't.</p>
+
+    <div class="diagram-box">
+      <svg width="240" height="140" viewBox="0 0 240 140">
+        <g font-family="IBM Plex Mono, monospace" font-size="16" font-weight="600">
+          <rect x="20" y="40" width="30" height="30" fill="#FFFDF6" stroke="#2B2A28"/>
+          <rect x="50" y="40" width="30" height="30" fill="#FBF1DC" stroke="#2B2A28"/>
+          <rect x="80" y="40" width="30" height="30" fill="#FFFDF6" stroke="#2B2A28"/>
+          <rect x="110" y="40" width="30" height="30" fill="#FFFDF6" stroke="#2B2A28"/>
+          <rect x="140" y="40" width="30" height="30" fill="#FFFDF6" stroke="#2B2A28"/>
+          <text x="35" y="62" text-anchor="middle" fill="#2B2A28">C</text>
+          <text x="65" y="62" text-anchor="middle" fill="#C4443D">R</text>
+          <text x="95" y="62" text-anchor="middle" fill="#2B2A28">A</text>
+          <text x="125" y="62" text-anchor="middle" fill="#2B2A28">N</text>
+          <text x="155" y="62" text-anchor="middle" fill="#2B2A28">E</text>
+          <rect x="50" y="10" width="30" height="30" fill="#FFFDF6" stroke="#2B2A28"/>
+          <rect x="50" y="70" width="30" height="30" fill="#FFFDF6" stroke="#2B2A28"/>
+          <rect x="50" y="100" width="30" height="30" fill="#FFFDF6" stroke="#2B2A28"/>
+          <text x="65" y="32" text-anchor="middle" fill="#2B2A28">T</text>
+          <text x="65" y="92" text-anchor="middle" fill="#2B2A28">I</text>
+          <text x="65" y="122" text-anchor="middle" fill="#2B2A28">P</text>
+        </g>
+      </svg>
+      <div class="caption">The "R" in CRANE is also the "R" in TRIP (T&ndash;R&ndash;I&ndash;P) &mdash; one letter, satisfying two words at once.</div>
+    </div>
+
+    <p>This is why puzzle makers talk about <strong>fill</strong> the way novelists talk about plot. A striking word might be exactly what a puzzle maker wants &mdash; until it forces three ugly, obscure words to cross it. Good puzzle makers will drop a favorite word rather than let bad fill sit next to it.</p>
+  </section>
+
+  <section id="clues">
+    <div class="section-head">
+      <span class="icon-badge"><svg width="18" height="18" viewBox="0 0 20 20"><circle cx="8" cy="8" r="6" fill="none" stroke="#F3EEDD" stroke-width="2"/><line x1="12.5" y1="12.5" x2="18" y2="18" stroke="#F3EEDD" stroke-width="2.5" stroke-linecap="round"/></svg></span>
+      <h2>Clue-writing is a different skill entirely</h2>
+    </div>
+    <p>Where grid construction is mechanical, clue-writing is about misdirection and rhythm. A well-written clue rarely just defines a word &mdash; it reframes it.</p>
+
+    <div class="callout">
+      <strong>Same answer, two clues</strong>
+      Easy: "Necktie" &rarr; TIE.<br>
+      Sharper: "Result with no winner" &rarr; TIE. Same three letters, but the second clue makes you pause and reconsider before it clicks.
+    </div>
+
+    <p>That small jolt of realization is the entire product. Everything else in construction exists to create the conditions for that moment to happen, over and over, across a whole grid.</p>
+  </section>
+
+  <section id="themes">
+    <div class="section-head">
+      <span class="icon-badge"><svg width="18" height="18" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="3" fill="none" stroke="#F3EEDD" stroke-width="2"/><path d="M5 10h10M5 6h10M5 14h6" stroke="#F3EEDD" stroke-width="1.6"/></svg></span>
+      <h2>Themed puzzles raise the difficulty further</h2>
+    </div>
+    <p>Themed crosswords &mdash; where several long answers share a connected idea, often with a twist &mdash; add another full layer of constraint. The theme answers must fit the grid's symmetry, be roughly equal in length, and stay thematically coherent, all at once. It's common for a themed puzzle to take hours longer to build than an unthemed one the same size, even though the word count barely changes.</p>
+  </section>
+
+  <section id="build-your-own">
+    <div class="section-head">
+      <span class="icon-badge"><svg width="18" height="18" viewBox="0 0 20 20"><path d="M3 17l3.5-1 8-8-2.5-2.5-8 8L3 17z" fill="none" stroke="#F3EEDD" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+      <h2>Try it yourself: building a small themed crossword</h2>
+    </div>
+    <p>You don't need professional software to feel this process firsthand. Here's a simplified version of what a puzzle maker actually does, start to finish:</p>
+
+    <div class="cta">
+      Ready to put this into practice?
+      <br>
+      <a href="crossword_builder.html">Try building your own crossword</a>
+    </div>
+
+    <div class="steps">
+      <div class="step"><div class="step-body">
+        <h3>Pick 3&ndash;5 theme answers first</h3>
+        <p>Choose words or phrases connected by a clear idea, and roughly similar in length. This is your foundation &mdash; everything else gets built around it.</p>
+      </div></div>
+      <div class="step"><div class="step-body">
+        <h3>Sketch a symmetric grid around them</h3>
+        <p>Place your theme answers first, then black out squares in a rotationally symmetric pattern to frame them. Resist filling in random black squares wherever convenient &mdash; symmetry first.</p>
+      </div></div>
+      <div class="step"><div class="step-body">
+        <h3>Fill the remaining white squares</h3>
+        <p>Work outward from your theme answers, checking every crossing letter forms a real word in both directions. Expect to backtrack &mdash; this is the slowest, most iterative part of construction.</p>
+      </div></div>
+      <div class="step"><div class="step-body">
+        <h3>Write two clues per word, then pick the sharper one</h3>
+        <p>Draft an easy, literal clue first to confirm the word is right. Then write a second, more playful version. Keep whichever makes a solver pause half a beat before the answer clicks.</p>
+      </div></div>
+      <div class="step"><div class="step-body">
+        <h3>Solve it yourself, blind, a day later</h3>
+        <p>Come back after a break and solve your own puzzle as if you'd never seen it. Anywhere you get stuck for the wrong reasons (unfair crossings, obscure fill) is worth revising.</p>
+      </div></div>
+    </div>
+
+    <p>None of this is meant to be discouraging &mdash; once you see the grid as a structural puzzle in its own right, building one becomes a genuinely satisfying craft problem, closer to a logic puzzle than trivia writing.</p>
+  </section>
+
+  <p class="aside-mention">Related reading: <a href="article-wordsearch-construction.html">How Word Search Puzzles Are Actually Built</a> &middot; <a href="article-unscrambler-strategy.html">Anagrams, Sub-words, and the Real Skill Behind Unscrambling</a></p>
+</main>
+
+<footer>
+  <p>&copy; 2026 The Wordsearch Workshop. All rights reserved.</p>
+  <p>
+    <a href="about.html">About Us</a> |
+    <a href="privacy.html">Privacy Policy</a> |
+    <a href="terms.html">Terms of Service</a> |
+    <a href="contact.html">Contact</a>
+  </p>
+</footer>
+
+</body>
+</html>

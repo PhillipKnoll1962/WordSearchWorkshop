@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EBCJ4T3KKY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-EBCJ4T3KKY');
+</script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7795617443302913" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Word Search Workshop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght=400;500;700;800&family=Nunito:wght=400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4a90e2;
+            --primary-hover: #357abd;
+            --bg: #f5f7fa;
+            --paper: #F3EEDD;
+            --gridline: #D9D2BC;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --grid-border: #cbd5e1; 
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            font-family: 'Nunito', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--paper);
+            background-image: linear-gradient(var(--gridline) 1px, transparent 1px), linear-gradient(90deg, var(--gridline) 1px, transparent 1px);
+            background-size: 28px 28px;
+            color: var(--text);
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            min-height: 100vh;
+            padding: 12px 15px 5px 15px; 
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 10px;
+            flex-shrink: 0;
+        }
+
+        header.site {
+            background: #ffffff;
+            border-bottom: 3px solid var(--primary);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: -12px -15px 14px -15px;
+        }
+
+        .brand-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-logo-link {
+            display: flex;
+        }
+
+        .brand-logo-link img {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            object-fit: cover;
+        }
+
+        .brand {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 16px;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        nav.site {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2px;
+        }
+
+        nav.site a {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            color: var(--text);
+            text-decoration: none;
+            margin-left: 12px;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 2px;
+            white-space: nowrap;
+        }
+
+        nav.site a:hover {
+            border-bottom-color: var(--primary);
+        }
+
+        h1 {
+            margin: 0 0 2px 0;
+            color: var(--primary);
+            font-size: 26px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            margin: 0;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .shop-books-link {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 6px 16px;
+            background-color: #10b981;
+            color: #ffffff;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 12px;
+            border-radius: 20px;
+            transition: background 0.2s;
+        }
+
+        .shop-books-link:hover {
+            background-color: #059669;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            justify-content: center;
+            max-width: 980px; 
+            width: 100%;
+            margin: 0 auto;
+            flex: 0 1 auto;
+        }
+
+        @media (max-width: 850px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            min-width: 0;
+        }
+
+        .scrollable-controls {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 5px;
+            margin-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        .form-row-pack {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .form-row-pack .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        input[type="text"], input[type="number"], select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 13px;
+            background-color: #fff;
+            color: #334155;
+        }
+
+        textarea {
+            height: 95px; 
+            resize: none;
+        }
+
+        .instructions-box {
+            background-color: #e8f4fd;
+            border-left: 4px solid var(--primary);
+            padding: 6px 10px;
+            margin-bottom: 10px;
+            border-radius: 0 4px 4px 0;
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        .upload-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .file-input-wrapper {
+            font-size: 12px;
+            color: #555;
+        }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 700;
+            width: 100%;
+            transition: background 0.2s;
+            margin-bottom: 8px;
+            flex-shrink: 0;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        button.success {
+            background-color: #10b981;
+        }
+        button.success:hover {
+            background-color: #059669;
+        }
+
+        button.warning {
+            background-color: #f59e0b;
+        }
+        button.warning:hover {
+            background-color: #d97706;
+        }
+        
+        button.warning.active {
+            background-color: #dc2626;
+        }
+
+        .info-nav {
+            background-color: #06b6d4;
+        }
+        button.info-nav:hover {
+            background-color: #0891b2;
+        }
+
+        #open-ai-btn:hover {
+            background-color: #6d28d9 !important;
+        }
+
+        .export-group {
+            margin-top: 8px;
+            border-top: 2px dashed #e2e8f0;
+            padding-top: 8px;
+            flex-shrink: 0;
+        }
+
+        .export-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #94a3b8;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+        }
+
+        #word-search-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        #word-search-container h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        #preview-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 12px;
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            flex-shrink: 0;
+        }
+
+        .tab-btn {
+            background-color: #f1f5f9;
+            color: #64748b;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            width: auto;
+            margin-bottom: 0;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .grid-wrapper {
+            position: relative;
+            margin-bottom: 10px;
+            max-width: 375px; 
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            padding: 4px;
+            box-sizing: border-box;
+        }
+
+        #grid {
+            display: grid;
+            gap: 1px;
+            background-color: var(--grid-border);
+            padding: 1px;
+            border-radius: 6px;
+            user-select: none;
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            aspect-ratio: 1 / 1; 
+            box-sizing: border-box;
+            overflow: visible;
+        }
+
+        .cell {
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            text-transform: uppercase;
+            box-sizing: border-box;
+            border: 1px solid transparent; 
+            width: 100%;
+            height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            color: #1e293b;
+        }
+
+        #answer-overlay {
+            z-index: 2;
+        }
+
+        .word-list-container {
+            width: 100%;
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            margin-top: 5px;
+        }
+
+        .word-list-container h4 {
+            margin: 0 0 6px 0;
+            font-size: 13px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        .word-list-scroll {
+            flex: 1;
+            overflow-y: auto;
+            width: 100%;
+            padding-right: 3px;
+            max-height: 115px; 
+        }
+
+        .word-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .word-item {
+            padding: 4px 10px;
+            background: #f1f5f9;
+            border-radius: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 11px;
+            color: #334155;
+            letter-spacing: 0.3px;
+        }
+
+        .error {
+            color: #ef4444;
+            font-size: 12px;
+            margin-top: 4px;
+            font-weight: bold;
+        }
+
+        .screen-footer {
+            text-align: center;
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 10px;
+            flex-shrink: 0;
+            letter-spacing: 0.3px;
+        }
+
+        #hidden-rendering-deck {
+            position: absolute;
+            left: -9999px;
+            top: -9999px;
+        }
+
+        @media (max-width: 850px) {
+            html, body {
+                overflow-y: auto; 
+                height: auto;
+            }
+            body {
+                padding: 10px;
+            }
+            #word-search-container {
+                order: -1; 
+            }
+            .scrollable-controls {
+                overflow-y: visible; 
+            }
+        }
+    </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+    <header class="site">
+        <div class="brand-wrap">
+            <a href="https://riversiderat.com" target="_blank" rel="noopener" class="brand-logo-link" title="Visit Riverside Rat"><img src="images/riverrat.png" alt="Riverside Rat logo"></a>
+            <a href="index.html" class="brand">The Wordsearch Workshop</a>
+        </div>
+        <nav class="site">
+            <a href="index.html">Home</a>
+            <a href="wordsearch.html">Word Search</a>
+            <a href="unscrambleword.html">Unscrambler</a>
+            <a href="crossword_builder.html">Crossword</a>
+            <a href="blog-index.html">Blog</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <header>
+        <h1>The Word Search Workshop</h1>
+        <p class="subtitle">Design, preview, and instantly generate print-ready bulk puzzle books for KDP self-publishing.</p>
+        <a href="bookListPage.html" class="shop-books-link">📚 Shop Our Puzzle Books</a>
+    </header>
+
+    <div class="container">
+        <div class="panel">
+            <div class="scrollable-controls">
+                <div class="form-group">
+                    <label for="base-title">Base Puzzle Title:</label>
+                    <input type="text" id="base-title" value="WORD SEARCH">
+                </div>
+                
+                <div class="form-row-pack">
+                    <div class="form-group">
+                        <label for="grid-size">Grid Size:</label>
+                        <input type="number" id="grid-size" value="12" min="5" max="15">
+                    </div>
+                    <div class="form-group">
+                        <label for="book-dimensions">Book Trim Size:</label>
+                        <select id="book-dimensions">
+                            <option value="6x9">6.0" x 9.0"</option>
+                            <option value="8.5x11" selected>8.5" x 11.0"</option>
+                            <option value="5.5x8.5">5.5" x 8.5"</option>
+                            <option value="8.25x6">8.25" x 6.0"</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="footer-line1">Cover Footer Line 1:</label>
+                    <input type="text" id="footer-line1" value="Created with The Word Search Workshop">
+                </div>
+                <div class="form-row-pack">
+                    <div class="form-group">
+                        <label for="footer-line2">Footer Line 2:</label>
+                        <input type="text" id="footer-line2" placeholder="e.g. Your Name or Brand">
+                    </div>
+                    <div class="form-group">
+                        <label for="footer-line3">Footer Line 3:</label>
+                        <input type="text" id="footer-line3" placeholder="e.g. Your City, State">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="upload-row">
+                        <label for="bulk-input">Puzzles Data Blocks:</label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="file-upload" accept=".txt">
+                        </div>
+                    </div>
+                    
+                    <button id="open-ai-btn" style="margin: 5px 0 10px 0; padding: 8px 10px; font-size: 12px; background-color:#7c3aed;">
+                        🤖 Generate Word List with AI
+                    </button>
+
+                    <div class="instructions-box">
+                        <strong>Formatting:</strong> Separate puzzles with <code>---</code>. Words can be listed on new lines <strong>OR</strong> separated by commas. Type your own list directly below, or use the AI generator above.
+                    </div>
+                    <textarea id="bulk-input" placeholder="Enter data blocks..."></textarea>
+                    <div id="error-msg" class="error"></div>
+                </div>
+            </div>
+            
+            <button id="generate-btn">Process & Preview All Puzzles</button>
+            <button id="toggle-answers-btn" class="warning">Toggle Answers On Dashboard</button>
+            
+            <div class="export-group">
+                <div class="export-label">Print & PDF Delivery Options</div>
+                <button id="export-combined-btn" class="success">Export Book + Answers at End</button>
+                <button id="export-clean-btn">Export Clean Puzzle Book Only</button>
+                <button id="export-keys-btn" class="warning">Export Teacher Answer Key Only</button>
+            </div>
+        </div>
+
+        <div class="panel" id="word-search-container">
+            <h3>Live Book Preview Panel</h3>
+            <div id="preview-tabs"></div>
+            <div class="grid-wrapper">
+                <div id="grid"></div>
+            </div>
+            <div class="word-list-container">
+                <h4>Words to Find:</h4>
+                <div class="word-list-scroll">
+                    <ul id="list" class="word-list"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="screen-footer">
+        The Word Search Workshop &copy; 2026 &bull; v1.0 &bull; Streamlined KDP Production Platform &bull; 
+        <a href="privacy.html" id="privacyLink" style="color: #4a90e2; text-decoration: none; font-weight: bold;">Privacy Policy & About</a>
+    </footer>
+
+    <div id="hidden-rendering-deck"></div>
+
+    <script>
+        let gridSize = 12;
+        let activeTabIndex = 0;
+        let loadedPuzzles = []; 
+        let hasExportedSinceEdit = true; // becomes false once there's unexported content
+        let globalShowAnswers = false;
+
+        const baseTitleInput = document.getElementById('base-title');
+        const gridSizeInput = document.getElementById('grid-size');
+        const bookDimensionsInput = document.getElementById('book-dimensions');
+        const bulkInput = document.getElementById('bulk-input');
+        const fileUpload = document.getElementById('file-upload');
+        const generateBtn = document.getElementById('generate-btn');
+        const toggleAnswersBtn = document.getElementById('toggle-answers-btn');
+        
+        const footerLine1Input = document.getElementById('footer-line1');
+        const footerLine2Input = document.getElementById('footer-line2');
+        const footerLine3Input = document.getElementById('footer-line3');
+
+        const exportCombinedBtn = document.getElementById('export-combined-btn');
+        const exportCleanBtn = document.getElementById('export-clean-btn');
+        const exportKeysBtn = document.getElementById('export-keys-btn');
+
+        const gridElement = document.getElementById('grid');
+        const listElement = document.getElementById('list');
+        const errorMsg = document.getElementById('error-msg');
+        const previewTabsContainer = document.getElementById('preview-tabs');
+        const hiddenRenderingDeck = document.getElementById('hidden-rendering-deck');
+
+        bulkInput.value = "ANIMALS\nLION, TIGER, BEAR, ELEPHANT, GIRAFFE, ZEBRA\n---\nSPACE\nPLANET, ORBIT, GALAXY, ROCKET, METEOR, COMET, STARS\n---\nCOMPUTERS\nKEYBOARD\nMONITOR\nPROCESSOR\nSOFTWARE\nNETWORK";
+
+        generateBtn.addEventListener('click', processBulkInput);
+        toggleAnswersBtn.addEventListener('click', toggleAnswersView);
+        
+        exportCombinedBtn.addEventListener('click', () => exportPipeline('combined'));
+        
+        exportCleanBtn.addEventListener('click', () => {
+            alert("📢 Reminder: Please make sure to print your matching Teacher Answer Keys separately before closing your workspace session!");
+            exportPipeline('clean');
+        });
+        
+        exportKeysBtn.addEventListener('click', () => {
+            alert("📢 Processing standard double-sided teacher answer keys layout (stretching across odd and even pages continuously to save paper). Ready for local printing!");
+            exportPipeline('keys');
+        });
+
+        fileUpload.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                bulkInput.value = evt.target.result;
+                processBulkInput(); 
+            };
+            reader.readAsText(file);
+        });
+
+        document.getElementById('open-ai-btn').addEventListener('click', () => {
+            window.location.href = 'ai-word-list-generator.html';
+        });
+
+        const sizeConfig = {
+            "6x9":    { widthIn: 6.0,  heightIn: 9.0,  widthPx: 576, heightPx: 864 },
+            "8.5x11": { widthIn: 8.5,  heightIn: 11.0, widthPx: 816, heightPx: 1056 },
+            "5.5x8.5":{ widthIn: 5.5,  heightIn: 8.5,  widthPx: 528, heightPx: 816 },
+            "8.25x6": { widthIn: 8.25, heightIn: 6.0,  widthPx: 792, heightPx: 576 }
+        };
+
+        function processBulkInput(isUserAction = true) {
+            if (isUserAction) {
+                hasExportedSinceEdit = false;
+            }
+            errorMsg.textContent = "";
+            
+            let parsedSize = parseInt(gridSizeInput.value) || 12;
+            if (parsedSize > 15) {
+                parsedSize = 15;
+                gridSizeInput.value = 15;
+            }
+            gridSize = parsedSize;
+            
+            loadedPuzzles = [];
+            
+            const rawBlocks = bulkInput.value.split(/\n\s*---\s*\n/);
+            
+            rawBlocks.forEach((block, index) => {
+                let rawLines = block.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+                if (rawLines.length === 0) return;
+
+                let specificTitle = "";
+                if (rawLines[0].length > 0 && rawLines.length > 1) {
+                    specificTitle = rawLines.shift().toUpperCase();
+                }
+
+                let words = [];
+                rawLines.forEach(line => {
+                    if (line.includes(',')) {
+                        let splitCommas = line.split(',').map(w => w.trim().toUpperCase()).filter(w => w.length > 0);
+                        words.push(...splitCommas);
+                    } else {
+                        words.push(line.toUpperCase());
+                    }
+                });
+
+                words = words.filter(w => w.length <= gridSize);
+                if (words.length === 0) return;
+
+                let matrix = Array(gridSize).fill(null).map(() => Array(gridSize).fill(''));
+                let placementRecords = [];
+
+                const directions = [
+                    {r: 0,  c: 1},   // right
+                    {r: 1,  c: 0},   // down
+                    {r: 0,  c: -1},  // left
+                    {r: -1, c: 0},   // up
+                    {r: 1,  c: 1},   // diagonal down-right
+                    {r: -1, c: 1},   // diagonal up-right
+                    {r: 1,  c: -1},  // diagonal down-left
+                    {r: -1, c: -1},  // diagonal up-left
+                ];
+
+                words.forEach(word => {
+                    let placed = false;
+                    let attempts = 0;
+                    while (!placed && attempts < 300) {
+                        const dir = directions[Math.floor(Math.random() * directions.length)];
+                        // Pick a starting position that guarantees the word fits in-bounds
+                        const minRow = dir.r < 0 ? word.length - 1 : 0;
+                        const maxRow = dir.r > 0 ? gridSize - word.length : gridSize - 1;
+                        const minCol = dir.c < 0 ? word.length - 1 : 0;
+                        const maxCol = dir.c > 0 ? gridSize - word.length : gridSize - 1;
+                        if (maxRow < minRow || maxCol < minCol) { attempts++; continue; }
+                        const row = minRow + Math.floor(Math.random() * (maxRow - minRow + 1));
+                        const col = minCol + Math.floor(Math.random() * (maxCol - minCol + 1));
+                        if (canPlaceWord(matrix, word, row, col, dir)) {
+                            placeWord(matrix, word, row, col, dir);
+                            placementRecords.push({
+                                word: word,
+                                startRow: row,
+                                startCol: col,
+                                endRow: row + dir.r * (word.length - 1),
+                                endCol: col + dir.c * (word.length - 1),
+                                dir: dir
+                            });
+                            placed = true;
+                        }
+                        attempts++;
+                    }
+                });
+
+                const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                for (let r = 0; r < gridSize; r++) {
+                    for (let c = 0; c < gridSize; c++) {
+                        if (matrix[r][c] === '') {
+                            matrix[r][c] = alphabet[Math.floor(Math.random() * alphabet.length)];
+                        }
+                    }
+                }
+
+                loadedPuzzles.push({
+                    id: index + 1,
+                    title: specificTitle || `${baseTitleInput.value.trim()} ${index + 1}`,
+                    words: words,
+                    matrix: matrix,
+                    placements: placementRecords
+                });
+            });
+
+            if (loadedPuzzles.length === 0) {
+                errorMsg.textContent = "Could not parse any valid puzzle blocks.";
+                return;
+            }
+            renderTabs();
+            renderActivePreview();
+        }
+
+        function canPlaceWord(matrix, word, row, col, dir) {
+            let r = row;
+            let c = col;
+            for (let i = 0; i < word.length; i++) {
+                if (r < 0 || r >= gridSize || c < 0 || c >= gridSize) return false;
+                if (matrix[r][c] !== '' && matrix[r][c] !== word[i]) return false;
+                r += dir.r;
+                c += dir.c;
+            }
+            return true;
+        }
+
+        function placeWord(matrix, word, row, col, dir) {
+            let r = row;
+            let c = col;
+            for (let i = 0; i < word.length; i++) {
+                matrix[r][c] = word[i];
+                r += dir.r;
+                c += dir.c;
+            }
+        }
+
+        function toggleAnswersView() {
+            globalShowAnswers = !globalShowAnswers;
+            if (globalShowAnswers) {
+                toggleAnswersBtn.textContent = "Hide Answers";
+                toggleAnswersBtn.classList.add('active');
+            } else {
+                toggleAnswersBtn.textContent = "Toggle Answers On Dashboard";
+                toggleAnswersBtn.classList.remove('active');
+            }
+            renderActivePreview();
+        }
+
+        function renderTabs() {
+            previewTabsContainer.innerHTML = '';
+            loadedPuzzles.forEach((puzzle, idx) => {
+                const btn = document.createElement('button');
+                btn.classList.add('tab-btn');
+                if (idx === activeTabIndex) btn.classList.add('active');
+                btn.textContent = puzzle.title;
+                btn.addEventListener('click', () => {
+                    activeTabIndex = idx;
+                    renderTabs();
+                    renderActivePreview();
+                });
+                previewTabsContainer.appendChild(btn);
+            });
+        }
+
+        function renderActivePreview() {
+            const puzzle = loadedPuzzles[activeTabIndex];
+            if (!puzzle) return;
+
+            // Remove any existing answer overlay
+            const existingOverlay = document.getElementById('answer-overlay');
+            if (existingOverlay) existingOverlay.remove();
+
+            gridElement.innerHTML = '';
+            gridElement.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+
+            for (let r = 0; r < gridSize; r++) {
+                for (let c = 0; c < gridSize; c++) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('cell');
+                    cell.style.fontSize = `${Math.min(24, Math.max(12, 340 / gridSize))}px`;
+                    cell.textContent = puzzle.matrix[r][c];
+                    gridElement.appendChild(cell);
+                }
+            }
+
+            // Draw SVG lines over the grid when answers are shown
+            if (globalShowAnswers) {
+                const colors = [
+                    '#e74c3c','#3498db','#2ecc71','#f39c12','#9b59b6',
+                    '#1abc9c','#e67e22','#e91e63','#00bcd4','#8bc34a',
+                    '#ff5722','#607d8b','#673ab7','#009688','#ff9800'
+                ];
+
+                // Wait one frame so the grid has rendered and we can measure it
+                requestAnimationFrame(() => {
+                    const gridRect = gridElement.getBoundingClientRect();
+                    const wrapperRect = document.querySelector('.grid-wrapper').getBoundingClientRect();
+
+                    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    svg.id = 'answer-overlay';
+                    svg.style.position = 'absolute';
+                    svg.style.top = (gridRect.top - wrapperRect.top) + 'px';
+                    svg.style.left = (gridRect.left - wrapperRect.left) + 'px';
+                    svg.style.width = gridRect.width + 'px';
+                    svg.style.height = gridRect.height + 'px';
+                    svg.style.pointerEvents = 'none';
+                    svg.style.overflow = 'visible';
+
+                    const cellW = gridRect.width / gridSize;
+                    const cellH = gridRect.height / gridSize;
+
+                    puzzle.placements.forEach((p, idx) => {
+                        const color = colors[idx % colors.length];
+
+                        // Center of start cell
+                        const x1 = p.startCol * cellW + cellW / 2;
+                        const y1 = p.startRow * cellH + cellH / 2;
+                        // Center of end cell
+                        const x2 = p.endCol * cellW + cellW / 2;
+                        const y2 = p.endRow * cellH + cellH / 2;
+
+                        // Draw a rounded stroke behind the letters
+                        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                        line.setAttribute('x1', x1);
+                        line.setAttribute('y1', y1);
+                        line.setAttribute('x2', x2);
+                        line.setAttribute('y2', y2);
+                        line.setAttribute('stroke', color);
+                        line.setAttribute('stroke-width', cellW * 0.7);
+                        line.setAttribute('stroke-linecap', 'round');
+                        line.setAttribute('stroke-opacity', '0.35');
+                        svg.appendChild(line);
+                    });
+
+                    document.querySelector('.grid-wrapper').appendChild(svg);
+                });
+            }
+
+            listElement.innerHTML = '';
+            puzzle.words.forEach(word => {
+                const li = document.createElement('li');
+                li.classList.add('word-item');
+                li.textContent = `▢ ${word}`;
+                listElement.appendChild(li);
+            });
+        }
+
+        function isInAppBrowser() {
+            const ua = navigator.userAgent || navigator.vendor || window.opera;
+            return (ua.indexOf("FBAN") > -1) || (ua.indexOf("FBAV") > -1) || (ua.indexOf("Instagram") > -1) || (ua.indexOf("Messenger") > -1);
+        }
+
+        async function exportPipeline(mode) {
+            if (isInAppBrowser()) {
+                alert("⚠️ PDF Generation Blocked by Messenger!\n\nPlease open this page in Chrome or Safari to download your files smoothly!");
+                return;
+            }
+
+            if (loadedPuzzles.length === 0) return;
+            hiddenRenderingDeck.innerHTML = '';
+            
+            const selectedSizeKey = bookDimensionsInput.value;
+            const cfg = sizeConfig[selectedSizeKey] || sizeConfig["6x9"];
+
+            const { jsPDF } = window.jspdf;
+            const pdfDoc = new jsPDF({ 
+                orientation: cfg.widthIn > cfg.heightIn ? 'landscape' : 'portrait', 
+                unit: 'in', 
+                format: [cfg.widthIn, cfg.heightIn] 
+            });
+
+            let pagesToBuild = [];
+            
+            if (mode === 'combined') {
+                pagesToBuild.push({ type: 'cover' });
+                pagesToBuild.push({ type: 'blank' }); 
+
+                loadedPuzzles.forEach(p => {
+                    pagesToBuild.push({ puzzle: p, showAnswers: false, type: 'puzzle' });
+                    pagesToBuild.push({ type: 'blank' }); 
+                });
+
+                pagesToBuild.push({ type: 'divider' });
+                pagesToBuild.push({ type: 'blank' }); 
+
+                loadedPuzzles.forEach(p => {
+                    pagesToBuild.push({ puzzle: p, showAnswers: true, type: 'answer' });
+                    pagesToBuild.push({ type: 'blank' }); 
+                });
+
+            } else if (mode === 'clean') {
+                loadedPuzzles.forEach(p => {
+                    pagesToBuild.push({ puzzle: p, showAnswers: false, type: 'puzzle' });
+                });
+
+            } else if (mode === 'keys') {
+                loadedPuzzles.forEach(p => {
+                    pagesToBuild.push({ puzzle: p, showAnswers: true, type: 'answer' });
+                });
+            }
+
+            for (let i = 0; i < pagesToBuild.length; i++) {
+                const currentItem = pagesToBuild[i];
+                let pageEl;
+
+                if (currentItem.type === 'blank') {
+                    pageEl = document.createElement('div');
+                    pageEl.style.boxSizing = 'border-box';
+                    pageEl.style.backgroundColor = '#ffffff';
+                    pageEl.style.width = `${cfg.widthPx}px`;
+                    pageEl.style.height = `${cfg.heightPx}px`;
+                } else if (currentItem.type === 'cover') {
+                    pageEl = createBookCoverPageElement(cfg);
+                } else if (currentItem.type === 'divider') {
+                    pageEl = createDividerPageElement(cfg);
+                } else {
+                    pageEl = createPageElement(currentItem.puzzle, currentItem.showAnswers, selectedSizeKey, cfg);
+                }
+
+                hiddenRenderingDeck.appendChild(pageEl);
+
+                await new Promise(resolve => setTimeout(resolve, 50));
+
+                const canvas = await html2canvas(pageEl, {
+                    scale: 3, 
+                    useCORS: true,
+                    logging: false,
+                    width: cfg.widthPx,  
+                    height: cfg.heightPx  
+                });
+
+                const imgData = canvas.toDataURL('image/jpeg', 1.0);
+                if (i > 0) {
+                    pdfDoc.addPage([cfg.widthIn, cfg.heightIn], cfg.widthIn > cfg.heightIn ? 'landscape' : 'portrait');
+                }
+
+                pdfDoc.addImage(imgData, 'JPEG', 0, 0, cfg.widthIn, cfg.heightIn);
+                hiddenRenderingDeck.removeChild(pageEl);
+            }
+
+            let finalName = `workshop_book_${selectedSizeKey}.pdf`;
+            if (mode === 'clean') finalName = `clean_puzzles_${selectedSizeKey}.pdf`;
+            if (mode === 'keys') finalName = `answer_keys_${selectedSizeKey}.pdf`;
+
+            pdfDoc.save(finalName);
+            hasExportedSinceEdit = true;
+        }
+
+        function createBookCoverPageElement(cfg) {
+            const container = document.createElement('div');
+            container.style.boxSizing = 'border-box';
+            container.style.backgroundColor = '#ffffff';
+            container.style.width = `${cfg.widthPx}px`;   
+            container.style.height = `${cfg.heightPx}px`;  
+            container.style.display = 'flex';
+            container.style.flexDirection = 'column';
+            container.style.justifyContent = 'center'; 
+            container.style.alignItems = 'center';     
+            container.style.fontFamily = "'Montserrat', 'Segoe UI', Arial, sans-serif";
+            container.style.color = '#000000';
+            container.style.padding = '40px';
+
+            const bookTitle = document.createElement('h1');
+            bookTitle.textContent = baseTitleInput.value.trim().toUpperCase() || "WORD SEARCH BOOK";
+            bookTitle.style.fontSize = '40px';
+            bookTitle.style.margin = '0 0 20px 0';
+            bookTitle.style.textTransform = 'uppercase';
+            bookTitle.style.letterSpacing = '2px';
+            bookTitle.style.fontWeight = '800';
+            bookTitle.style.textAlign = 'center';
+            container.appendChild(bookTitle);
+
+            const rule = document.createElement('div');
+            rule.style.width = '200px';
+            rule.style.height = '4px';
+            rule.style.backgroundColor = '#000000';
+            rule.style.marginBottom = '140px';
+            container.appendChild(rule);
+
+            const footerContainer = document.createElement('div');
+            footerContainer.style.textAlign = 'center';
+            footerContainer.style.display = 'flex';
+            footerContainer.style.flexDirection = 'column';
+            footerContainer.style.gap = '8px';
+            footerContainer.style.fontFamily = "'Nunito', sans-serif";
+
+            const line1 = document.createElement('p');
+            line1.textContent = footerLine1Input.value.trim();
+            line1.style.margin = '0';
+            line1.style.fontSize = '14px';
+            line1.style.color = '#475569';
+            line1.style.fontStyle = 'italic';
+            footerContainer.appendChild(line1);
+
+            const line2 = document.createElement('p');
+            line2.textContent = footerLine2Input.value.trim();
+            line2.style.margin = '0';
+            line2.style.fontSize = '14px';
+            line2.style.color = '#1e293b';
+            line2.style.fontWeight = '700';
+            footerContainer.appendChild(line2);
+
+            const line3 = document.createElement('p');
+            line3.textContent = footerLine3Input.value.trim();
+            line3.style.margin = '0';
+            line3.style.fontSize = '13px';
+            line3.style.color = '#64748b';
+            line3.style.fontWeight = '600';
+            footerContainer.appendChild(line3);
+
+            container.appendChild(footerContainer);
+            return container;
+        }
+
+        function createDividerPageElement(cfg) {
+            const container = document.createElement('div');
+            container.style.boxSizing = 'border-box';
+            container.style.backgroundColor = '#ffffff';
+            container.style.width = `${cfg.widthPx}px`;   
+            container.style.height = `${cfg.heightPx}px`;  
+            container.style.display = 'flex';
+            container.style.flexDirection = 'column';
+            container.style.justifyContent = 'center'; 
+            container.style.alignItems = 'center';     
+            container.style.fontFamily = "'Montserrat', Arial, sans-serif";
+            container.style.color = '#000000';
+
+            const majorTitle = document.createElement('h1');
+            majorTitle.textContent = "ANSWER KEYS";
+            majorTitle.style.fontSize = '40px';
+            majorTitle.style.margin = '0 0 15px 0';
+            majorTitle.style.textTransform = 'uppercase';
+            majorTitle.style.letterSpacing = '2px';
+            majorTitle.style.fontWeight = '800';
+            container.appendChild(majorTitle);
+
+            const rule = document.createElement('div');
+            rule.style.width = '160px';
+            rule.style.height = '4px';
+            rule.style.backgroundColor = '#000000';
+            container.appendChild(rule);
+            return container;
+        }
+
+        function createPageElement(puzzle, showAnswersInPDF, sizeKey, cfg) {
+            const pageContainer = document.createElement('div');
+            pageContainer.style.boxSizing = 'border-box';
+            pageContainer.style.backgroundColor = '#ffffff';
+            pageContainer.style.color = '#000000';
+            pageContainer.style.width = `${cfg.widthPx}px`;   
+            pageContainer.style.height = `${cfg.heightPx}px`;  
+            pageContainer.style.padding = '55px 50px 35px 50px'; 
+            pageContainer.style.display = 'flex';
+            pageContainer.style.flexDirection = 'column';
+            pageContainer.style.justifyContent = 'space-around'; 
+            pageContainer.style.alignItems = 'center';     
+            pageContainer.style.fontFamily = "'Nunito', sans-serif";
+
+            const titleEl = document.createElement('h2');
+            titleEl.textContent = showAnswersInPDF ? `${puzzle.title} (ANSWERS)` : puzzle.title;
+            titleEl.style.fontFamily = "'Montserrat', Arial, sans-serif";
+            titleEl.style.fontSize = (sizeKey === '8.5x11') ? '32px' : '24px';
+            titleEl.style.fontWeight = '800';
+            titleEl.style.margin = '0 0 15px 0';
+            titleEl.style.textTransform = 'uppercase';
+            titleEl.style.letterSpacing = '1px';
+            pageContainer.appendChild(titleEl);
+
+            const relativeWrapper = document.createElement('div');
+            relativeWrapper.style.position = 'relative';
+            const isLandscape = cfg.widthIn > cfg.heightIn;
+            
+            let boxDimension = isLandscape ? 310 : 360;
+            if (sizeKey === '8.5x11') {
+                boxDimension = 500; 
+            }
+            
+            relativeWrapper.style.width = `${boxDimension}px`;
+            relativeWrapper.style.height = `${boxDimension}px`;
+            relativeWrapper.style.overflow = 'visible';
+
+            const gridEl = document.createElement('div');
+            gridEl.style.display = 'grid';
+            gridEl.style.gap = '1px';
+            gridEl.style.backgroundColor = '#94a3b8'; 
+            gridEl.style.padding = '1px';
+            gridEl.style.width = '100%';  
+            gridEl.style.height = '100%';
+            gridEl.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+            gridEl.style.boxSizing = 'border-box';
+            gridEl.style.border = '1px solid #475569'; 
+
+            const pdfHighlightSet = new Set();
+            if (showAnswersInPDF) {
+                puzzle.placements.forEach(p => {
+                    let r = p.startRow;
+                    let c = p.startCol;
+                    for (let i = 0; i < p.word.length; i++) {
+                        pdfHighlightSet.add(`${r}-${c}`);
+                        r += p.dir.r;
+                        c += p.dir.c;
+                    }
+                });
+            }
+            
+            let cellFontSize = isLandscape ? '14px' : '16px';
+            if (sizeKey === '8.5x11') {
+                cellFontSize = '22px'; 
+            }
+
+            for (let r = 0; r < gridSize; r++) {
+                for (let c = 0; c < gridSize; c++) {
+                    const cell = document.createElement('div');
+                    cell.style.backgroundColor = '#ffffff';
+                    cell.style.display = 'flex';
+                    cell.style.alignItems = 'center';
+                    cell.style.justifyContent = 'center';
+                    cell.style.fontWeight = '700';
+                    cell.style.fontFamily = "'Montserrat', sans-serif";
+                    cell.style.fontSize = cellFontSize;
+                    cell.style.textTransform = 'uppercase';
+                    cell.style.boxSizing = 'border-box';
+                    cell.style.border = '2px solid transparent';
+                    cell.textContent = puzzle.matrix[r][c];
+                    
+                    if (pdfHighlightSet.has(`${r}-${c}`)) {
+                        cell.style.border = '2px solid #000000';
+                        cell.style.backgroundColor = '#f1f5f9';
+                    }
+                    gridEl.appendChild(cell);
+                }
+            }
+            relativeWrapper.appendChild(gridEl);
+            pageContainer.appendChild(relativeWrapper);
+
+            const listEl = document.createElement('ul');
+            listEl.style.display = 'grid';
+            listEl.style.listStyle = 'none';
+            listEl.style.padding = '0';
+            listEl.style.margin = '15px auto 0 auto';
+            listEl.style.width = '100%';
+            listEl.style.maxWidth = (sizeKey === '8.5x11') ? '600px' : '460px';
+            listEl.style.textAlign = 'left';
+
+            let columns = isLandscape ? 5 : 3;
+            let fontSize = (sizeKey === '8.5x11') ? '16px' : '13px';
+            let rowGap = '10px';
+
+            if (puzzle.words.length > 24) {
+                columns = isLandscape ? 6 : 5;
+                fontSize = (sizeKey === '8.5x11') ? '13px' : '11px';
+                rowGap = '6px';
+            } else if (puzzle.words.length > 12) {
+                columns = isLandscape ? 5 : 4;
+                fontSize = (sizeKey === '8.5x11') ? '14px' : '12px';
+                rowGap = '8px';
+            }
+
+            listEl.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+            listEl.style.gap = `${rowGap} 12px`;
+            
+            puzzle.words.forEach(word => {
+                const item = document.createElement('li');
+                item.style.fontSize = fontSize;
+                item.style.fontWeight = '600';
+                item.style.textTransform = 'uppercase';
+                item.style.whiteSpace = 'nowrap';
+                item.style.overflow = 'hidden';
+                item.style.textOverflow = 'ellipsis';
+                item.style.color = '#1e293b';
+                item.textContent = `▢  ${word}`;
+                listEl.appendChild(item);
+            });
+            pageContainer.appendChild(listEl);
+            return pageContainer;
+        }
+
+        // Run the main engine immediately on page startup — this is the
+        // built-in sample data, not something the visitor typed, so it
+        // should NOT count as an "unsaved change" that triggers the
+        // leave-page warning below.
+        processBulkInput(false);
+
+        // =========================================================================
+        // Active Data Listener to automatically refresh the data stream safely
+        // =========================================================================
+        function checkAndLoadIncomingData() {
+            const incomingTitle = localStorage.getItem('sharedPuzzleTitle');
+            if (incomingTitle && incomingTitle.trim() !== "") {
+                baseTitleInput.value = incomingTitle.toUpperCase();
+                localStorage.removeItem('sharedPuzzleTitle');
+            }
+
+            const incomingData = localStorage.getItem('sharedPuzzleDataBlocks');
+            if (incomingData && incomingData.trim() !== "") {
+                document.getElementById('bulk-input').value = incomingData;
+                localStorage.removeItem('sharedPuzzleDataBlocks'); // Clear the tank
+                processBulkInput(); // Process and update the preview grid instantly
+            }
+        }
+
+        // Run immediately when the page finishes loading
+        checkAndLoadIncomingData();
+
+        // Actively listen for data updates sent over from the Creator window
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'sharedPuzzleDataBlocks') {
+                checkAndLoadIncomingData();
+            }
+        });
+
+        // Also catch focus if the user clicks back onto the tab manually
+        window.addEventListener('focus', checkAndLoadIncomingData);
+
+        // Warn before leaving the page if there are generated puzzles that
+        // haven't been exported to PDF yet. The browser shows its own
+        // built-in message here — sites can no longer set custom text in
+        // this dialog (a security restriction added a few years back).
+        window.addEventListener('beforeunload', function(e) {
+            if (loadedPuzzles.length > 0 && !hasExportedSinceEdit) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        });
+
+        // =========================================================================
+        // DEFENSIVE REPAINT: when this tab regains focus (e.g. right as the
+        // Creator tab closes itself via window.close()), some browsers can leave
+        // the page in a stale/partially-painted state until something forces a
+        // reflow. This explicitly forces the browser to recompute layout for
+        // .container immediately on focus, as a safety net on top of the normal
+        // data refresh above.
+        // =========================================================================
+        window.addEventListener('focus', () => {
+            requestAnimationFrame(() => {
+                const containerEl = document.querySelector('.container');
+                if (containerEl) {
+                    // Reading offsetHeight forces a synchronous layout recalculation
+                    void containerEl.offsetHeight;
+                    containerEl.style.display = 'none';
+                    void containerEl.offsetHeight;
+                    containerEl.style.display = 'grid';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

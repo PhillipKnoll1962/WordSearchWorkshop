@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EBCJ4T3KKY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-EBCJ4T3KKY');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7795617443302913" crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Word List Generator | The Wordsearch Workshop</title>
+<meta name="description" content="Generate a ready-to-paste AI prompt that creates themed word search word lists in the exact format the Word Search Workshop needs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3EEDD; --gridline:#D9D2BC; --ink:#2B2A28;
+    --blueprint:#2F5D8A; --amber:#E8A33D; --brick:#C4443D; --paper-raised:#FFFDF6;
+  }
+  *{box-sizing:border-box;}
+  img{max-width:100%;height:auto;}
+  body{margin:0;background:var(--paper);
+    background-image:linear-gradient(var(--gridline) 1px, transparent 1px),linear-gradient(90deg, var(--gridline) 1px, transparent 1px);
+    background-size:28px 28px;color:var(--ink);font-family:'Inter',sans-serif;line-height:1.7;}
+  a{color:var(--blueprint);}
+  header.site{background:var(--paper-raised);border-bottom:3px solid var(--ink);padding:14px 24px;
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;position:sticky;top:0;z-index:10;}
+  .brand-wrap{display:flex;align-items:center;gap:10px;}
+  .brand-logo-link{display:flex;}
+  .brand-logo-link img{width:38px;height:38px;border-radius:50%;border:2px solid var(--ink);object-fit:cover;}
+  .brand{font-family:'Fraunces',serif;font-weight:700;font-size:20px;letter-spacing:-0.01em;color:var(--ink);text-decoration:none;}
+  .brand span{color:var(--brick);}
+  nav.site{display:flex;flex-wrap:wrap;gap:2px;}
+  nav.site a{font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-transform:uppercase;letter-spacing:0.04em;
+    color:var(--ink);text-decoration:none;margin-left:14px;border-bottom:2px solid transparent;padding-bottom:2px;white-space:nowrap;}
+  nav.site a:hover{border-bottom-color:var(--amber);}
+  main{max-width:720px;margin:0 auto;padding:56px 24px 80px;}
+  .breadcrumb{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#77746B;margin-bottom:18px;}
+  .breadcrumb a{color:#77746B;}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--blueprint);
+    text-transform:uppercase;letter-spacing:0.08em;margin:0 0 10px;}
+  h1{font-family:'Fraunces',serif;font-size:clamp(30px,4.5vw,42px);font-weight:700;margin:0 0 14px;line-height:1.15;}
+  .lede{font-size:16px;color:#514F49;max-width:60ch;margin:0 0 34px;}
+  h2{font-family:'Fraunces',serif;font-size:20px;font-weight:600;margin:36px 0 14px;border-left:4px solid var(--amber);padding-left:14px;}
+  .step-num{font-family:'IBM Plex Mono',monospace;color:var(--blueprint);}
+  .card{background:var(--paper-raised);border:2px solid var(--ink);padding:24px 26px;margin-bottom:10px;}
+  label{display:block;font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;
+    letter-spacing:0.04em;font-weight:700;margin:0 0 6px;color:#3A3833;}
+  input[type=text], input[type=number], textarea, select{
+    width:100%;padding:10px 12px;border:1px solid var(--gridline);border-radius:4px;
+    font-family:'Inter',sans-serif;font-size:14px;background:#fff;color:var(--ink);margin-bottom:16px;
+  }
+  textarea{font-family:'IBM Plex Mono',monospace;font-size:13px;resize:vertical;}
+  .form-row{display:flex;gap:16px;}
+  .form-row > div{flex:1;}
+  .btn{display:inline-block;padding:11px 22px;background:var(--ink);color:#fff;text-decoration:none;
+    font-family:'IBM Plex Mono',monospace;font-size:13px;text-transform:uppercase;letter-spacing:0.04em;
+    border:none;cursor:pointer;border-radius:4px;}
+  .btn:hover{background:var(--blueprint);}
+  .btn-amber{background:var(--brick);}
+  .btn-amber:hover{background:#a8362f;}
+  .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;}
+  .prompt-output{
+    background:var(--ink);color:#F3EEDD;font-family:'IBM Plex Mono',monospace;font-size:13px;
+    padding:20px;border-radius:4px;white-space:pre-wrap;line-height:1.6;margin:16px 0;
+    max-height:340px;overflow-y:auto;
+  }
+  .copy-note{font-size:13px;color:#77746B;margin:6px 0 0;}
+  .copy-note.confirmed{color:var(--blueprint);font-weight:600;}
+  .divider-row{
+    display:flex;align-items:center;gap:14px;margin:44px 0 30px;
+  }
+  .divider-row hr{
+    flex:1;border:none;border-top:2px dashed var(--gridline);
+  }
+  .divider-row span{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;
+    letter-spacing:0.06em;color:#77746B;white-space:nowrap;
+  }
+  .manual-instructions{
+    background:#e8f4fd;border-left:4px solid var(--blueprint);padding:10px 14px;
+    margin-bottom:16px;border-radius:0 4px 4px 0;font-size:13px;color:#3A3833;
+  }
+  .manual-instructions code{
+    background:#fff;border:1px solid var(--gridline);padding:1px 5px;border-radius:3px;
+  }
+  footer{text-align:center;padding:30px 24px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#77746B;border-top:1px solid var(--gridline);margin-top:20px;}
+  footer a{color:#77746B;margin:0 8px;text-decoration:none;}
+  footer a:hover{color:var(--blueprint);}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="brand-wrap">
+    <a href="https://riversiderat.com" target="_blank" rel="noopener" class="brand-logo-link" title="Visit Riverside Rat"><img src="images/riverrat.png" alt="Riverside Rat logo"></a>
+    <a href="index.html" class="brand">The Wordsearch <span>Workshop</span></a>
+  </div>
+  <nav class="site">
+    <a href="index.html">Home</a>
+    <a href="wordsearch.html">Word Search</a>
+    <a href="unscrambleword.html">Unscrambler</a>
+    <a href="crossword_builder.html">Crossword</a>
+    <a href="blog-index.html">Blog</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <p class="breadcrumb"><a href="wordsearch.html">Word Search Workshop</a> / AI Word List Generator</p>
+  <h1>Build a Word List With the AI of Your Choice</h1>
+  <p class="lede">Answer a few quick questions below, copy the prompt it builds, and paste that into ChatGPT, Claude, Gemini, or whatever AI you use. Paste the answer back in here, and it drops straight into the Word Search Workshop, ready to generate.</p>
+
+  <h2><span class="step-num">Step 1 —</span> Describe your puzzles</h2>
+  <div class="card">
+    <label for="topic">Theme / Topic</label>
+    <input type="text" id="topic" placeholder="e.g. Ocean Fish, U.S. Presidents, Camping Gear">
+
+    <div class="form-row">
+      <div>
+        <label for="num-puzzles">Number of Puzzles</label>
+        <input type="number" id="num-puzzles" value="5" min="1" max="50">
+      </div>
+      <div>
+        <label for="words-per">Words per Puzzle</label>
+        <input type="number" id="words-per" value="12" min="4" max="30">
+      </div>
+      <div>
+        <label for="max-len">Max Word Length</label>
+        <input type="number" id="max-len" value="12" min="4" max="15">
+      </div>
+    </div>
+
+    <label for="notes">Anything else the AI should know? (optional)</label>
+    <textarea id="notes" rows="2" placeholder="e.g. keep it appropriate for 3rd graders, focus on freshwater species, avoid proper nouns..."></textarea>
+
+    <button class="btn" id="build-prompt-btn">Build My Prompt</button>
+  </div>
+
+  <div id="step2-wrap" style="display:none;">
+    <h2><span class="step-num">Step 2 —</span> Copy this into your AI</h2>
+    <div class="card">
+      <div class="prompt-output" id="prompt-output"></div>
+      <div class="btn-row">
+        <button class="btn" id="copy-prompt-btn">Copy Prompt</button>
+      </div>
+      <p class="copy-note" id="copy-note">Paste this into ChatGPT, Claude, Gemini, or any AI chat, then bring its full reply back here.</p>
+    </div>
+
+    <h2><span class="step-num">Step 3 —</span> Paste the AI's answer</h2>
+    <div class="card">
+      <label for="ai-response">AI's reply, pasted in full</label>
+      <textarea id="ai-response" rows="10" placeholder="Paste the AI's response here, exactly as it gave it to you..."></textarea>
+      <div id="diagnostic-box" style="display:none; background:#FBF1DC; border-left:4px solid var(--amber); padding:12px 14px; margin-bottom:16px; font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:#3A3833;"></div>
+      <div class="btn-row">
+        <button class="btn btn-amber" id="send-btn">Send to Word Search Workshop &rarr;</button>
+      </div>
+      <p class="copy-note" id="send-note"></p>
+    </div>
+  </div>
+
+  <div class="divider-row">
+    <hr><span>or</span><hr>
+  </div>
+
+  <h2>Already have your own word list?</h2>
+  <div class="card">
+    <p style="margin-top:0; color:#514F49; font-size:14px;">Skip the AI entirely and type or paste your list straight in. Works exactly the same as pasting an AI reply above.</p>
+    <div class="manual-instructions">
+      <strong>Formatting:</strong> Put a puzzle title on its own line, then its words below (one per line, or separated by commas). Separate puzzles with a line containing just <code>---</code>.
+    </div>
+    <label for="manual-input">Your word list</label>
+    <textarea id="manual-input" rows="8" placeholder="OCEAN FISH&#10;TUNA, SALMON, HALIBUT, MARLIN, GROUPER&#10;---&#10;FRESHWATER FISH&#10;BASS, TROUT, CATFISH, PERCH, CRAPPIE"></textarea>
+    <div class="btn-row">
+      <button class="btn btn-amber" id="manual-send-btn">Send to Word Search Workshop &rarr;</button>
+    </div>
+    <p class="copy-note" id="manual-send-note"></p>
+  </div>
+</main>
+
+<footer>
+  <p>&copy; 2026 The Wordsearch Workshop. All rights reserved.</p>
+  <p>
+    <a href="about.html">About Us</a> |
+    <a href="privacy.html">Privacy Policy</a> |
+    <a href="terms.html">Terms of Service</a> |
+    <a href="contact.html">Contact</a>
+  </p>
+</footer>
+
+<script>
+  const buildBtn = document.getElementById('build-prompt-btn');
+  const step2Wrap = document.getElementById('step2-wrap');
+  const promptOutput = document.getElementById('prompt-output');
+  const copyBtn = document.getElementById('copy-prompt-btn');
+  const copyNote = document.getElementById('copy-note');
+  const sendBtn = document.getElementById('send-btn');
+  const sendNote = document.getElementById('send-note');
+
+  function buildPrompt() {
+    const topic = document.getElementById('topic').value.trim() || 'a general theme of your choice';
+    const numPuzzles = parseInt(document.getElementById('num-puzzles').value, 10) || 5;
+    const wordsPer = parseInt(document.getElementById('words-per').value, 10) || 12;
+    const maxLen = parseInt(document.getElementById('max-len').value, 10) || 12;
+    const notes = document.getElementById('notes').value.trim();
+
+    let prompt = `I'm building word search puzzles and need ${numPuzzles} themed word list${numPuzzles > 1 ? 's' : ''} about: ${topic}.\n\n`;
+    prompt += `For each puzzle, give me ${wordsPer} single words or short compound words (no spaces, no punctuation), each no more than ${maxLen} letters long.\n\n`;
+    if (notes) {
+      prompt += `Additional notes: ${notes}\n\n`;
+    }
+    prompt += `Format your ENTIRE reply as one continuous block of text using EXACTLY this structure, with nothing else before, after, or in between:\n\n`;
+    prompt += `PUZZLE TITLE ONE :: WORD1, WORD2, WORD3, WORD4, WORD5 @@@ PUZZLE TITLE TWO :: WORD1, WORD2, WORD3, WORD4, WORD5 @@@\n\n`;
+    prompt += `Repeat that exact pattern for all ${numPuzzles} puzzle${numPuzzles > 1 ? 's' : ''}. Use exactly "::" (two colons, no spaces around them needed) between each puzzle's title and its word list, and exactly "@@@" (three at-symbols) between one puzzle and the next — no "@@@" needed after the very last puzzle. Do not rely on line breaks to separate anything; use the "::" and "@@@" markers instead, even if your whole answer ends up as one paragraph.\n\n`;
+    prompt += `IMPORTANT — plain text only, no Markdown formatting of any kind: no #, ##, or heading symbols; no ** or bold/italic markers; no bullet points, numbered lists, or code blocks. Do not add any explanation, headers, or summary — only the titles, word lists, and the "::" and "@@@" separators exactly as shown.`;
+
+    promptOutput.textContent = prompt;
+    step2Wrap.style.display = 'block';
+    step2Wrap.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  buildBtn.addEventListener('click', buildPrompt);
+
+  copyBtn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(promptOutput.textContent);
+      copyNote.textContent = '✓ Copied! Now paste it into your AI of choice.';
+      copyNote.classList.add('confirmed');
+    } catch (e) {
+      copyNote.textContent = 'Could not auto-copy — please select the text above manually.';
+    }
+  });
+
+  function stripMarkdown(text) {
+    let cleaned = text;
+    // 0. Normalize line endings, and strip invisible/zero-width characters
+    //    (zero-width space, joiners, byte-order mark, soft hyphen). These are
+    //    invisible on screen but can silently break an exact match — kept as
+    //    a safety net even though the new format below no longer depends on
+    //    line breaks surviving at all.
+    cleaned = cleaned.replace(/\r\n?/g, '\n');
+    cleaned = cleaned.replace(/[\u200B\u200C\u200D\uFEFF\u00AD]/g, '');
+    // 1. Any line made up entirely of separator-ish characters (#, -, *, _),
+    //    3 or more of them, becomes a plain "---".
+    cleaned = cleaned.replace(/^[ \t]*[#\-*_][ \t#\-*_]{2,}[ \t]*$/gm, '---');
+    // 2. Strip leading heading markers on lines that still have real text after
+    //    them (e.g. "## SPACE" -> "SPACE")
+    cleaned = cleaned.replace(/^#+\s*/gm, '');
+    // 3. Strip bold/italic emphasis markers
+    cleaned = cleaned.replace(/\*\*/g, '').replace(/(^|\s)\*(\S)/g, '$1$2').replace(/(\S)\*(\s|$)/g, '$1$2');
+    return cleaned;
+  }
+
+  // Converts the AI's response into the plain "TITLE\nWORDS\n---\n" format
+  // that wordsearch.html's own parser expects. Handles two cases:
+  //  - The new inline format this page now asks for (TITLE :: WORDS @@@ ...),
+  //    which doesn't depend on line breaks surviving at all — this is the
+  //    primary, most reliable path.
+  //  - The older line-based format (title line, word line, "---" line) as a
+  //    fallback, for responses that happen to already come back that way.
+  function parseAIResponse(text) {
+    const cleaned = stripMarkdown(text);
+
+    if (cleaned.includes('@@@')) {
+      const rawBlocks = cleaned.split('@@@').map(b => b.trim()).filter(b => b.length > 0);
+      const converted = rawBlocks.map(block => {
+        const sepIndex = block.indexOf('::');
+        if (sepIndex === -1) {
+          // No "::" marker found in this block — pass it through as-is,
+          // the diagnostic panel will flag it as a problem block.
+          return block.replace(/\s+/g, ' ').trim();
+        }
+        const title = block.slice(0, sepIndex).replace(/\s+/g, ' ').trim();
+        const words = block.slice(sepIndex + 2).replace(/\s+/g, ' ').trim();
+        return `${title}\n${words}`;
+      });
+      return converted.join('\n---\n');
+    }
+
+    // Fallback: no "@@@" found, assume the older line-based format was used
+    return cleaned;
+  }
+
+  const aiResponseInput = document.getElementById('ai-response');
+  const diagnosticBox = document.getElementById('diagnostic-box');
+
+  function runDiagnostic() {
+    const raw = aiResponseInput.value;
+    if (!raw.trim()) {
+      diagnosticBox.style.display = 'none';
+      return;
+    }
+
+    // Check the RAW text (before cleanup) for invisible/zero-width characters,
+    // so we can tell the user plainly if that's actually what's going on.
+    const invisibleMatches = raw.match(/[\u200B\u200C\u200D\uFEFF\u00AD]/g);
+    const invisibleCount = invisibleMatches ? invisibleMatches.length : 0;
+
+    const parsed = parseAIResponse(raw);
+    const blocks = parsed.split(/\n\s*---\s*\n/)
+      .map(b => b.split('\n').map(l => l.trim()).filter(l => l.length > 0))
+      .filter(lines => lines.length > 0);
+
+    let html = `<strong>${blocks.length} puzzle block${blocks.length === 1 ? '' : 's'} detected:</strong><br>`;
+    blocks.forEach((lines, i) => {
+      const title = lines.length > 1 ? lines[0] : '(no separate title line — first word list only)';
+      html += `${i + 1}. ${title}<br>`;
+    });
+    if (invisibleCount > 0) {
+      html += `<br><strong style="color:#C4443D;">⚠ Found ${invisibleCount} invisible/hidden character${invisibleCount === 1 ? '' : 's'} in the pasted text.</strong> These get automatically cleaned up before sending, so they shouldn't cause a problem — but if the block count above doesn't match what you expect, that's the most likely reason.`;
+    }
+    if (blocks.length === 1 && (raw.match(/\n/g) || []).length > 3) {
+      html += `<br><br><strong style="color:#C4443D;">⚠ Only 1 block found</strong> even though the pasted text has several lines — the AI's reply probably isn't using a separator this page recognizes. Check that a line with just <code>---</code> (or <code>###</code>/<code>***</code>) sits between each puzzle.`;
+    }
+
+    diagnosticBox.innerHTML = html;
+    diagnosticBox.style.display = 'block';
+  }
+
+  aiResponseInput.addEventListener('input', runDiagnostic);
+
+  sendBtn.addEventListener('click', () => {
+    const rawResponse = document.getElementById('ai-response').value;
+    if (!rawResponse.trim()) {
+      sendNote.textContent = 'Paste the AI\'s reply above first.';
+      sendNote.classList.remove('confirmed');
+      return;
+    }
+    const cleanedResponse = parseAIResponse(rawResponse);
+    localStorage.setItem('sharedPuzzleDataBlocks', cleanedResponse);
+    const topic = document.getElementById('topic').value.trim();
+    if (topic) {
+      localStorage.setItem('sharedPuzzleTitle', topic);
+    }
+    sendNote.textContent = 'Sending you to the Word Search Workshop...';
+    sendNote.classList.add('confirmed');
+    setTimeout(() => {
+      window.location.href = 'wordsearch.html';
+    }, 400);
+  });
+
+  // ===========================================================
+  // Manual entry path — same destination as the AI path above,
+  // just skips the prompt-building and AI round-trip entirely.
+  // ===========================================================
+  const manualInput = document.getElementById('manual-input');
+  const manualSendBtn = document.getElementById('manual-send-btn');
+  const manualSendNote = document.getElementById('manual-send-note');
+
+  manualSendBtn.addEventListener('click', () => {
+    const rawManual = manualInput.value;
+    if (!rawManual.trim()) {
+      manualSendNote.textContent = 'Type or paste your word list above first.';
+      manualSendNote.classList.remove('confirmed');
+      return;
+    }
+    // Manual entry is already in the plain TITLE / words / --- format,
+    // so it just needs the same invisible-character cleanup, not the
+    // "::" / "@@@" parsing the AI path needs.
+    const cleanedManual = stripMarkdown(rawManual).trim();
+    localStorage.setItem('sharedPuzzleDataBlocks', cleanedManual);
+    manualSendNote.textContent = 'Sending you to the Word Search Workshop...';
+    manualSendNote.classList.add('confirmed');
+    setTimeout(() => {
+      window.location.href = 'wordsearch.html';
+    }, 400);
+  });
+</script>
+
+</body>
+</html>
