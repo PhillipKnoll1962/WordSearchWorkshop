@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riverside Rat | RV Camping Logbooks</title>
+    <style>
+        /* Reset & Base Styles */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f7f9f6; color: #333; line-height: 1.6; }
+        
+        /* Smooth Scrolling Configuration */
+        html { scroll-behavior: smooth; }
+        
+        /* Navigation / Header */
+        header { background-color: #1b3b2b; color: white; padding: 25px 20px; text-align: center; position: relative; }
+        header h1 { font-size: 2.5rem; letter-spacing: 2px; color: #f4b251; font-weight: 800; }
+        header p { font-size: 1.1rem; opacity: 0.9; margin-top: 5px; font-style: italic; }
+
+        /* Hero Section */
+        .hero { background: linear-gradient(rgba(27, 59, 43, 0.8), rgba(27, 59, 43, 0.8)), url('campground-bg.png') no-repeat center center/cover; color: white; padding: 60px 20px; text-align: center; }
+        .hero h2 { font-size: 2rem; margin-bottom: 10px; color: #fff; }
+        .hero p { max-width: 650px; margin: 0 auto 20px auto; font-size: 1.1rem; color: #e2e8f0; }
+
+        /* Main Container */
+        .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
+        
+        .section-title { text-align: center; margin-bottom: 30px; font-size: 1.8rem; color: #1b3b2b; border-bottom: 3px solid #f4b251; display: inline-block; padding-bottom: 5px; font-weight: 700; }
+        .center-wrapper { text-align: center; }
+
+        /* Rig Grid System */
+        .rig-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 20px; }
+        .rig-card { background: white; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow: hidden; text-align: center; border: 1px solid #e2e8f0; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; justify-content: space-between; }
+        .rig-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+        .rig-card img { width: 100%; height: 380px; object-fit: cover; background-color: #eaeaea; border-bottom: 1px solid #e2e8f0; }
+        .rig-card h3 { margin: 15px 0 5px 0; color: #1b3b2b; font-size: 1.25rem; padding: 0 10px; }
+        .rig-card p { padding: 0 15px; font-size: 0.9rem; color: #666; flex-grow: 1; }
+        
+        /* Amazon Button */
+        .btn-amazon { display: inline-block; background-color: #ff9900; color: #111; font-weight: bold; padding: 12px 25px; margin: 15px 0 25px 0; border-radius: 25px; text-decoration: none; font-size: 0.95rem; transition: background 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.1); align-self: center; }
+        .btn-amazon:hover { background-color: #e68a00; }
+
+        /* Interior Showcase Block */
+        .interior-showcase { background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 5px; display: flex; flex-wrap: wrap; gap: 30px; align-items: center; border: 1px solid #e2e8f0; }
+        .interior-img { flex: 1; min-width: 300px; text-align: center; }
+        .interior-img img { max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .interior-text { flex: 1; min-width: 300px; }
+        .interior-text h3 { color: #1b3b2b; font-size: 1.4rem; margin-bottom: 10px; }
+        .interior-text ul { list-style-position: inside; margin-top: 15px; }
+        .interior-text li { margin-bottom: 10px; color: #4a5568; }
+
+        /* Social Media Section */
+        .social-section { text-align: center; margin-top: 50px; padding: 30px; background-color: #edf2f7; border-radius: 8px; }
+        .btn-facebook { display: inline-block; background-color: #1877f2; color: white; font-weight: bold; padding: 12px 30px; border-radius: 25px; text-decoration: none; margin-top: 10px; transition: background 0.2s; }
+        .btn-facebook:hover { background-color: #145dbf; }
+
+        /* Footer */
+        footer { background-color: #111; color: #aaa; text-align: center; padding: 25px; font-size: 0.85rem; margin-top: 60px; }
+
+        /* Prompt Tool Promo Banner */
+        .promo-banner { background-color: #1b3b2b; color: white; text-align: center; padding: 35px 20px; }
+        .promo-banner h3 { font-size: 1.5rem; margin-bottom: 8px; color: white; }
+        .promo-banner p { max-width: 550px; margin: 0 auto 18px auto; font-size: 1rem; color: white; }
+        .btn-promo { display: inline-block; background-color: transparent; color: white; font-weight: bold; padding: 12px 28px; border-radius: 25px; text-decoration: none; font-size: 0.95rem; border: 2px solid white; transition: background 0.2s, color 0.2s; }
+        .btn-promo:hover { background-color: white; color: #1b3b2b; }
+    </style>
+</head>
+<body>
+
+   <!-- Header Banner -->
+    <header>
+        <!-- Your brand logo mascot sitting proudly at the top -->
+        <img src="img/riverside-rat-logo.png" alt="Riverside Rat Logo" style="height: 120px; width: auto; margin-bottom: 15px; border-radius: 50%;">
+        
+        <h1>RIVERSIDE RAT</h1>
+        <p>Premium RV Camping Logbooks</p>
+    </header>
+
+    <!-- Welcome Hero Section -->
+    <section class="hero">
+        <h2>Welcome RVers, Campers & Road Warriors!</h2>
+        <p>You've found the official site for 
+            <a href="#book-market" onclick="cleanUpUrl()" style="color: #f4b251; font-weight: 800; text-decoration: underline; cursor: pointer;">
+                Riverside Rat Tracking Journals
+            </a>. Whether you travel in a vintage trailer or a custom rig, we have a cover built just for your camping lifestyle.
+        </p>
+    </section>
+
+    <!-- Free Tools Promo Banner -->
+    <section class="promo-banner">
+        <h3>🎒 Free Tools for Your Adventures</h3>
+        <p>An AI prompt tool, a printable bookmark, and a digital log book — all free, right from your phone or PC. No email, no account, no sign-up.</p>
+        <a href="rv-prompts-landing.html" class="btn-promo">Check Out the Free Tools</a>
+    </section>
+
+    <div class="container">
+        
+        <!-- Section: Inside the Book -->
+        <div class="center-wrapper">
+            <h2 class="section-title">What's Inside Every Logbook</h2>
+        </div>
+        <section class="interior-showcase">
+            <div class="interior-img">
+                <img src="img/interior-preview.png" alt="RV Logbook Interior Page Layout Template">
+            </div>
+            <div class="interior-text">
+                <h3>Designed for Thorough Road Tracking</h3>
+                <p>Every single one of our logbooks features an identical, masterfully organized interior layout template so you can seamlessly catalog your memories, routes, and site utilities:</p>
+                <ul>
+                    <li><strong>Campground Information:</strong> Location, site #, costs, and cell signal strength.</li>
+                    <li><strong>Amenities Checklist:</strong> Hookups, pull-through status, and site shade details.</li>
+                    <li><strong>Travel & Mileage Log:</strong> Record departure/arrival times, weather, and total trip miles.</li>
+                    <li><strong>Memories & Notes:</strong> Dedicated space for tracking favorite places, friends met, and upcoming teardown checklists.</li>
+                </ul>
+            </div>
+        </section>
+
+       <!-- Section: Choose Your Rig Cover -->
+        <div id="book-market" class="center-wrapper" style="margin-top: 60px;">
+            <h2 class="section-title">Find Your Perfect Cover</h2>
+        </div>
+        
+        <section class="rig-grid">
+            
+            <!-- Card 1: Airstream -->
+            <div class="rig-card">
+                <img src="img/cover-airstream.png" alt="Airstream Style RV Logbook Cover">
+                <h3>The Silver Stream Edition</h3>
+                <p>Tailored for modern and vintage polished aluminum travel trailer enthusiasts.</p>
+                <a href="https://www.amazon.com/dp/B0H3PDHGKC/?tag=246603b-20" class="btn-amazon" target="_blank">View on Amazon</a>
+            </div>
+
+            <!-- Card 2: Teardrop -->
+            <div class="rig-card">
+                <img src="img/cover-teardrop.png" alt="Teardrop Style RV Logbook Cover">
+                <h3>The Teardrop Edition</h3>
+                <p>Perfect for tiny campers, micro-mini pull-behinds, and minimalist adventurers.</p>
+                <a href="https://www.amazon.com/dp/B0H3PYNWQ1/?tag=246603b-20" class="btn-amazon" target="_blank">View on Amazon</a>
+            </div>
+
+            <!-- Card 3: Class C -->
+            <div class="rig-card">
+                <img src="img/cover-class-c.png" alt="Class C Motorhome RV Logbook Cover">
+                <h3>The Class C Edition</h3>
+                <p>Built for classic cab-over motorhome travelers and family road trips.</p>
+                <a href="https://www.amazon.com/dp/B0H2R623J5/?tag=246603b-20" class="btn-amazon" target="_blank">View on Amazon</a>
+            </div>
+
+            <!-- Card 4: Class A -->
+            <div class="rig-card">
+                <img src="img/cover-class-a.png" alt="Class A Motorhome RV Logbook Cover">
+                <h3>The Class A Luxury Edition</h3>
+                <p>Designed for full-sized motorhomes, luxury coaches, and long-haul highway cruisers.</p>
+                <a href="https://www.amazon.com/dp/B0H681PPD3/?tag=246603b-20" class="btn-amazon" target="_blank">View on Amazon</a>
+            </div>
+
+            <!-- Card 5: 5th Wheel -->
+            <div class="rig-card">
+                <img src="img/cover-5thwheel.png" alt="5th Wheel RV Logbook Cover">
+                <h3>The 5th Wheel Edition</h3>
+                <p>Tailored for spacious half-ton and heavy-duty fifth-wheel pull setups.</p>
+                <a href="https://www.amazon.com/dp/B0H5T4D2BN/?tag=246603b-20" class="btn-amazon" target="_blank">View on Amazon</a>
+            </div>
+
+            <!-- Card 6: Scamp -->
+            <div class="rig-card">
+                <img src="img/cover-scamp.png" alt="Scamp Style RV Logbook Cover">
+                <h3>The Scamp Fan Edition</h3>
+                <p>Dedicated to the proud community of small-but-mighty fiberglass egg trailers.</p>
+                <a href="https://www.amazon.com/dp/B0H57GCM8F/?tag=246603b-20" class="btn-amazon" target="_blank">View on Amazon</a>
+            </div>
+
+            <!-- Card 7: Casita -->
+            <div class="rig-card">
+                <img src="img/cover-casita.png" alt="Casita Style RV Logbook Cover">
+                <h3>The Casita Edition</h3>
+                <p>Honoring the lightweight fiberglass trailer lifestyle and cozy campouts.</p>
+                <a href="https://www.amazon.com/dp/B0H3P4LSZ9/?tag=246603b-20" class="btn-amazon" target="_blank">View on Amazon</a>
+            </div>
+
+            <!-- Card 8: Truck Camper -->
+            <div class="rig-card">
+                <img src="img/cover-pickupbox.png" alt="Truck Camper RV Logbook Cover">
+                <h3>The Truck Camper Edition</h3>
+                <p>For overland pickup box setups, slide-in campers, and off-grid exploration.</p>
+                <a href="https://www.amazon.com/dp/B0H3PZ1F7L/?tag=246603b-20" class="btn-amazon" target="_blank">View on Amazon</a>
+            </div>
+
+ <!-- Card 9:  -->
+            <div class="rig-card">
+                <img src="img/cover-compass.png" alt="compass Style Logbook Cover">
+                <h3>The CAMPING LOG BOOK Edition</h3>
+                <p>Never Forget a Single Campsite. </p>
+                <a href="https://www.amazon.com/Travel-Diary-Phillip-Knoll/dp/B0H2MR2VVT/?_encoding=UTF8&pd_rd_w=Xdztq&content-id=amzn1.sym.f8e88413-4697-42ea-9bf7-b28eb886330d&pf_rd_p=f8e88413-4697-42ea-9bf7-b28eb886330d&pf_rd_r=132-0867390-8874211&pd_rd_wg=sBoko&pd_rd_r=64e95c13-5fe3-4d02-91ad-f02e40a98c82&tag=246603b-20" class="btn-amazon" target="_blank">View on Amazon</a>
+            </div>
+
+        </section>
+
+        <!-- Facebook Connection Area -->
+        <section class="social-section">
+            <h3>Join the Community!</h3>
+            <p>Follow our journey, share your road trip photos, and connect with fellow campers over on Facebook.</p>
+            <a href="https://www.facebook.com/profile.php?id=61591367460314" class="btn-facebook" target="_blank">Follow Riverside Rat on Facebook</a>
+        </section>
+
+    </div>
+
+    <!-- Footer Area -->
+    <footer>
+        <p>&copy; 2026 Riverside Rat. All Rights Reserved. As an Amazon Associate, we earn from qualifying purchases.</p>
+        <p style="margin-top:6px; opacity:0.8;">We store nothing on our servers and keep no backups of your data. Any tools on this site that save information do so only on your own device — you are responsible for keeping your own backups.</p>
+    </footer>
+
+    <!-- Browser URL Cleanup Script -->
+    <script>
+        function cleanUpUrl() {
+            setTimeout(function() {
+                history.replaceState("", document.title, window.location.pathname + window.location.search);
+            }, 800);
+        }
+    </script>
+
+</body>
+</html>
